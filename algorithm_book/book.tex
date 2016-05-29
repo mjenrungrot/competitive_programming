@@ -8,6 +8,19 @@
 % Table of contents
 \usepackage{minitoc}
 
+% Command for putting texts in blank page
+\newcommand*{\blankpage}{%
+\vspace*{\fill}
+{\centering This page would be intentionally left blank if we would not wish to inform about that.\par}
+\vspace{\fill}}
+\makeatletter
+\renewcommand*{\cleardoublepage}{\clearpage\if@twoside \ifodd\c@page\else
+\blankpage
+\thispagestyle{empty}
+\newpage
+\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother
+
 % Page style + margin
 \pagestyle{fancy}
 \geometry{top=20mm}
@@ -18,10 +31,12 @@
 
 % header
 \fancyhead[RO,LE]{\bfseries Algorithms in Practice}
+\fancyfoot[RO,LE]{Teerapat Jenrungrot}
 
 % Short-command
 \renewcommand{\it}[1]{\textit{#1}}
 \renewcommand{\bf}[1]{\textbf{#1}}
+\newcommand{\bb}[1]{\mathbb{#1}}
 
 \begin{document}
 
@@ -40,8 +55,7 @@
 \include{part1/ch4}
 
 % Part2: Algorithms
-\chapter*{Mathematics}
-
+\chapter*{Algorithms}
 
 \appendix
 

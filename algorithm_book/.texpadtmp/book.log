@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  29 MAY 2016 10:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  29 MAY 2016 10:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -194,18 +194,18 @@ File: english.mld 2006/01/13
 (/Users/teerapatjenrungrot/competitive_programming/algorithm_book/.texpadtmp/part1/ch3.aux) (/Users/teerapatjenrungrot/competitive_programming/algorithm_book/.texpadtmp/part1/ch4.aux))
 \openout1 = `book.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
  (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count108
@@ -290,7 +290,7 @@ Package minitoc(hints) Info: I0049
 (minitoc(hints))             ==> You requested the hints option. 
 (minitoc(hints))             Some hints are eventually given below.
 Package minitoc Info: I0024
-(minitoc)             PREPARING MINITOCS FROM book.toc on input line 29.
+(minitoc)             PREPARING MINITOCS FROM book.toc on input line 44.
 Package minitoc Info: I0033
 (minitoc)             Writing book.mtc1.
 \openout3 = `book.mtc1'.
@@ -329,14 +329,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 \openout2 = `intro/intro.aux'.
 
- (./intro/intro.tex
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 13.59999pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[2
+ (./intro/intro.tex [2
 
 
 ]
@@ -351,17 +344,11 @@ Overfull \hbox (66.2674pt too wide) in paragraph at lines 25--26
  []
 
 )
-Runaway argument?
-{Who am I? 
-./book.tex:33: File ended while scanning use of \@xdblarg.
-<inserted text> 
-                \par 
-l.33 \include{intro/intro}
-                          
-I suspect you have forgotten a `}', causing me
-to read past where you wanted me to stop.
-I'll try to recover; but if the error is serious,
-you'd better type `E' or `X' now and fix your file.
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 13.59999pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
 
 [4] [5
 
@@ -378,16 +365,23 @@ Chapter 2.
 
 \openout3 = `book.mtc'.
 
-(/Users/teerapatjenrungrot/competitive_programming/algorithm_book/.texpadtmp/book.mtc2)) [7]
+(/Users/teerapatjenrungrot/competitive_programming/algorithm_book/.texpadtmp/book.mtc2)
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 11.
+ (/usr/local/texlive/2015/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 11.
+ [7]) [8]
 \openout2 = `part1/ch2.aux'.
 
- (./part1/ch2.tex [8
+ (./part1/ch2.tex
+Chapter 3.
+) [9
 
 
 
 ]
-Chapter 3.
-) [9]
 \openout2 = `part1/ch3.aux'.
 
  (./part1/ch3.tex [10
@@ -419,18 +413,18 @@ Package minitoc(hints) Info: I0019
 (minitoc(hints))             in the book.log file..
  [15] (/Users/teerapatjenrungrot/competitive_programming/algorithm_book/.texpadtmp/book.aux (/Users/teerapatjenrungrot/competitive_programming/algorithm_book/.texpadtmp/intro/intro.aux) (/Users/teerapatjenrungrot/competitive_programming/algorithm_book/.texpadtmp/part1/ch1.aux) (/Users/teerapatjenrungrot/competitive_programming/algorithm_book/.texpadtmp/part1/ch2.aux) (/Users/teerapatjenrungrot/competitive_programming/algorithm_book/.texpadtmp/part1/ch3.aux) (/Users/teerapatjenrungrot/competitive_programming/algorithm_book/.texpadtmp/part1/ch4.aux)) ) 
 Here is how much of TeX's memory you used:
- 4614 strings out of 493089
- 64656 string characters out of 6134842
- 148774 words of memory out of 5000000
- 7788 multiletter control sequences out of 15000+600000
+ 4633 strings out of 493089
+ 64972 string characters out of 6134842
+ 149941 words of memory out of 5000000
+ 7804 multiletter control sequences out of 15000+600000
  14442 words of font info for 54 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,10n,43p,938b,301s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on /Users/teerapatjenrungrot/competitive_programming/algorithm_book/.texpadtmp/book.pdf (15 pages, 135654 bytes).
+ 38i,12n,43p,938b,301s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on /Users/teerapatjenrungrot/competitive_programming/algorithm_book/.texpadtmp/book.pdf (15 pages, 154580 bytes).
 PDF statistics:
- 93 PDF objects out of 1000 (max. 8388607)
- 65 compressed objects within 1 object stream
+ 105 PDF objects out of 1000 (max. 8388607)
+ 74 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

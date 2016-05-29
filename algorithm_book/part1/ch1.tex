@@ -1,7 +1,30 @@
 \chapter{Counting}
 \minitoc
 
+This chapter is based on the materials in \it{Concrete Mathematics} written by Graham, Knuth, and Patashnik.
+
 \section{Recurrence relations}
+\subsection{The Tower of Hanoi}
+This is a very basic problem in Mathematics. Suppose you are given a tower of $n$ disks, stacked in decreasing size on one of three pegs. You want to move all of the disks to another pegs with the minimum number of moves. 
+It's not that hard to see that the best strategy for moving disks is
+\begin{itemize}
+	\item Move the first $n-1$ disks from the initial peg to a temporary peg. 
+	\item Move the last disk from the initial peg to a target peg.
+	\item Move $n-1$ disks from the temporary peg to the target peg.
+\end{itemize}
+Let $T_n$ denote the smallest number of moves you need to move $n$ disks from any peg to any other peg. It would not hard to see that the answer to this according to our paradigm is
+\[
+	\begin{cases}
+		T_0 = 0; \\
+		T_n = 2T_{n-1} + 1, &\text{for $n > 0$}.
+	\end{cases}
+\]
+\subsection{Lines in the Plane}
+Let's move to another example. Suppose you have $n$ lines, with infinite length, on the $\bb{R}^2$. You want to find the maximum number of distinct regions created by the set of $n$ lines you have. Let $L_n$ denote the maximum number of regions made by $n$ lines. It's not hard to see that $L_0 = 1$, $L_1 = 2$, and $L_2 = 4$. But, how do we generalize this?
+
+
+\subsection{The Josephus Problem}
+\subsection{Exercises}
 
 \section{Matrix exponentiation}
 
