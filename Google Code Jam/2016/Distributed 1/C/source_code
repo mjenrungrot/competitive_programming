@@ -1,0 +1,56 @@
+#include <message.h>
+#include <stdio.h>
+#include "rps.h"
+#include <algorithm>
+#include <queue>
+using namespace std;
+
+#define MASTER_NODE 0
+#define DONE -1
+
+typedef pair<char,long long> ii;
+const long long INF = 1e18 + 20;
+
+int win(ii ch1, ii ch2){
+  if(ch1.first == ch2.first){
+    return ch1.second < ch2.second;
+  }
+
+  if(ch1.first == 'R' and ch2.first == 'S') return true;
+  if(ch1.first == 'P' and ch2.first == 'R') return true;
+  if(ch1.first == 'S' and ch2.first == 'P') return true;
+  return false;
+}
+
+int main() {
+  long long N = GetN();
+  long long nodes = NumberOfNodes();
+  long long my_id = MyNodeId();
+
+  long long allN = (1<<N)-1;
+
+  // printf("allN = %lld\n",allN);
+
+  queue <ii> Q;
+  for(long long i=0;i<=allN;i++){
+    char ch = GetFavoriteMove(i);
+    Q.push(ii(ch,i));
+  }
+
+  while(Q.size() > 1){
+    ii v1 = Q.front(); Q.pop();
+    ii v2 = Q.front(); Q.pop();
+
+    if(win(v1, v2)) Q.push(v1);
+    else Q.push(v2);
+  }
+  long long winner = Q.front().second;
+
+  PutLL(MASTER_NODE, 0LL);
+  Send(MASTER_NODE);
+
+  if (my_id == MASTER_NODE) {
+    printf("%lld\n", winner);
+  }
+  return 0;
+}

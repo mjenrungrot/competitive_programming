@@ -1,0 +1,48 @@
+\documentclass[11pt]{book}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+
+% Table of contents
+\usepackage{minitoc}
+
+% Page style + margin
+\pagestyle{fancy}
+\geometry{top=20mm}
+\geometry{bottom=20mm}
+\geometry{left=30mm}
+\geometry{right=30mm}
+
+
+% header
+\fancyhead[RO,LE]{\bfseries Algorithms in Practice}
+
+% Short-command
+\renewcommand{\it}[1]{\textit{#1}}
+\renewcommand{\bf}[1]{\textbf{#1}}
+
+\begin{document}
+
+\dominitoc	% Intialization
+\tableofcontents
+
+
+% Introduction
+\include{intro/intro}
+
+% Part1: Mathematics
+\chapter*{Mathematics}
+\include{part1/ch1}
+\include{part1/ch2}
+\include{part1/ch3}
+\include{part1/ch4}
+
+% Part2: Algorithms
+\chapter*{Mathematics}
+
+
+\appendix
+
+\end{document}

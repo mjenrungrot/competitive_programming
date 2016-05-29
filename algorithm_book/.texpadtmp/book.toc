@@ -1,0 +1,19 @@
+\contentsline {chapter}{\numberline {1}Introduction}{3}
+\contentsline {section}{\numberline {1.1}What is \textit {competitive programming}?}{3}
+\contentsline {section}{\numberline {1.2}What is the prerequisite for \textit {competitive programming}?}{4}
+\contentsline {section}{\numberline {1.3}Where can I practice it?}{4}
+\contentsline {section}{\numberline {1.4}How I design this book?}{4}
+\contentsline {chapter}{\numberline {2}Counting}{7}
+\contentsline {section}{\numberline {2.1}Recurrence relations}{7}
+\contentsline {section}{\numberline {2.2}Matrix exponentiation}{7}
+\contentsline {section}{\numberline {2.3}Binomial coefficient}{7}
+\contentsline {section}{\numberline {2.4}Pigeonhole principle}{7}
+\contentsline {section}{\numberline {2.5}Inclusion-exclusion principle}{7}
+\contentsline {section}{\numberline {2.6}Subsets and Permutations}{7}
+\contentsline {section}{\numberline {2.7}Indistinguishable and distinguishable objects}{7}
+\contentsline {section}{\numberline {2.8}Lattice problems}{7}
+\contentsline {section}{\numberline {2.9}Counting on graphs}{7}
+\contentsline {section}{\numberline {2.10}Polya enumeration theorem}{7}
+\contentsline {chapter}{\numberline {3}Moduli Arithmetic}{9}
+\contentsline {chapter}{\numberline {4}Probability and Expectation value}{11}
+\contentsline {chapter}{\numberline {5}Number Theory}{13}
