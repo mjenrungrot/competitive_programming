@@ -3,6 +3,7 @@
 *.in
 *.out
 *.swp
+*.sol
 
 .DS_Store
 
