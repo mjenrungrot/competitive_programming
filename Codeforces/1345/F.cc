@@ -3,55 +3,68 @@
 #include <tuple>
 #include <queue>
 #include <cstring>
+#include <algorithm>
+#include <cmath>
 using namespace std;
 
-int A[100005];
-int ans[100005];
+long long INF = 4e18+100;
 
-struct D{
-    D(long long a, int c, int d) : a(a), c(c), d(d){}
-    long long a;
-    int c,d;
-    bool operator < (const struct D &other) const {
-        return a < other.a;
+long long N, K;
+int A[100005];
+long long sum, tmp[100005];
+
+bool test(long long d){
+    long long l, r, m;
+    sum = 0;
+    for(int i=1;i<=N;i++){
+        l = 0;
+        r = A[i]+1;
+        while(l < r){
+            m = (l + r) / 2;
+            // printf("test [%lld, %lld] %lld\n", l, r, m);
+            if((long long)A[i] - (3LL*m*m - 3*m + 1) >= d) l = m+1;
+            else r = m;
+        }
+        tmp[i] = l-1;
+        sum += tmp[i];
     }
-};
+    return sum >= K;
+}
+
+long long searchHighestIncrement(){
+    long long l = -INF, r = INF, m;
+    // for(int tt = 0 ;tt < 63; tt++){
+    while(l<r){
+        m = (l+r)/2;
+        if(m < 0 and m * 2 != (l+r)) m -= 1;
+        // printf("test [%lld, %lld] %lld\n", l, r, m);
+        if(test(m)){
+            l = m+1;
+        }else{
+            r = m;
+        }
+    }
+    return l - 1;
+}
 
 int main(){
-    int N, K;
-    scanf("%d %d", &N, &K);
+    scanf("%lld %lld", &N, &K);
 
-    priority_queue <struct D> heap;
     for(int i=1;i<=N;i++) scanf("%d", &A[i]);
-
+    long long l = searchHighestIncrement();
+    test(l);
+    // printf("l = %lld\n", l);
     for(int i=1;i<=N;i++){
-        long long improvement = A[i] - 1;
-        heap.push(D(improvement, 1, i));
-    }
+        // printf("[%d] [%d] %lld\n",i, tmp[i], (long long)A[i] - (3LL*tmp[i]*tmp[i] - 3*tmp[i] + 1));
 
-    int cnt = 0;
-    memset(ans, 0, sizeof(ans));
-    while(cnt < K){
-        D best = heap.top();
-        heap.pop();
-        int b = best.c;
-        int idx = best.d;
-        ans[idx] += 1;
-
-        int new_b = b+1;
-        long long improvement = (long long)A[idx] - 3LL*new_b*new_b - 3LL*new_b - 1;
-        if(new_b <= A[idx]){
-            heap.push(D(improvement, new_b, idx));
+        if((long long)A[i] - (3LL*tmp[i]*tmp[i] - 3*tmp[i] + 1) == l && sum > K){
+            sum--;
+            tmp[i]--;
         }
-
-        cnt += 1;
-    };
-
-    for(int i=1;i<=N;i++){
         if(i > 1) printf(" ");
-        printf("%d", ans[i]);
+        printf("%lld", tmp[i]);
     }
     printf("\n");
-
+    // printf("sum = %lld\n", sum);
     return 0;
 }
