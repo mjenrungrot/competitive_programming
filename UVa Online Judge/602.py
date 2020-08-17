@@ -1,17 +1,25 @@
 import datetime
 
-day_name = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Sunday', 'Saturday']
-month_name = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-
 while True:
     M, D, Y = list(map(int, input().split()))
-    if M == D == Y == 0:
-        break
+    if (Y, M, D) < (1752, 9, 14):
+        if D == 29 and M == 2 and Y % 4 == 0 and Y % 100 != 0:
+            pass
+        else:
+            isodate = (365 * (Y-1)) + () + D 
 
-    try:
+    else:
         date = datetime.datetime(Y, M, D)
+        print("{} {}, {} is a {}".format(date.strftime('%B'),
+                                         date.strftime('%-d'), 
+                                         date.strftime('%Y'), 
+                                         date.strftime('%A')))
     except ValueError:
         print("{}/{}/{} is an invalid date.".format(M, D, Y))
         continue
 
-    print("{} {}, {} is a {}".format(month_name[M-1], D, Y, day_name[date.isoweekday()]))
+    if date < datetime.datetime(1752, 9, 14):
+        new_date = date + datetime.timedelta(days=11)
+    else:
+        new_date = date
+
