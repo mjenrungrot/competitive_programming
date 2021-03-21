@@ -1,9 +1,20 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
-long long n, best_n, candidate;
-int k;
-int digits[30];
+int digits[30], count1;
+long long n, k, answer;
+
+void f(int idx, long long curr, int curr_count1){
+    if(curr_count1 > count1) return;
+    if(idx == k){
+        if(curr_count1 != count1) return;
+        if(curr % 7LL == 0 and curr > answer) answer = curr;
+        return ;
+    }
+
+    f(idx+1, curr, curr_count1);
+    f(idx+1, curr | (1LL<<digits[idx]), curr_count1+1);
+}
 
 int main(){
     ios::sync_with_stdio(false);
@@ -13,31 +24,14 @@ int main(){
         cin >> k;
         for(int i=0;i<k;i++) cin >> digits[i];
 
-        best_n = 0;
-        for(int i=0;i<(1<<k);i++){
-            int n0 = 0, n1 = 0, curr = i;
-            while(curr){
-                int id = digits[__builtin_ctz(curr)];
-                if((1 << id) & n) n1++;
-                else n0++;
-                curr -= (curr & -curr);
-            }
-            candidate = n;
-            curr = i;
-            for(int j=1;j<=n0;j++){
-                int id = digits[__builtin_ctz(curr)];
-                candidate &= ~(1 << id);
-                curr -= (curr & -curr);
-            }
-            for(int j=1;j<=n1;j++){
-                int id = digits[__builtin_ctz(curr)];
-                candidate |= (1 << id);
-                curr -= (curr & -curr);
-            }
-            cout << i << " " << candidate << " [" << n0 << "/" << n1 << "]" << endl;
-            if(candidate % 7 == 0)   best_n = max(best_n, candidate);
+        answer = 0;
+        count1 = 0;
+        for(int i=0;i<k;i++){
+            if(n & (1LL<<digits[i])) count1++;
+            n &= ~(1LL<<digits[i]);
         }
-        cout << best_n << endl;
+        f(0, n, 0);
+        cout << answer << endl;
     }
 
     return 0;
