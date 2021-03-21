@@ -8,15 +8,21 @@ def get_rank(card):
     if card[0] == 'K': return 12
     return ord(card[0]) - ord('1')
 
+memory = {}
+
 def evaluate(cards):
     ranks = list(map(get_rank, cards))
+    sorted_ranks = tuple(sorted(ranks))
+
+    if sorted_ranks in memory:
+        return memory[sorted_ranks]
 
     bins = [0 for i in range(13)]
     for rank in ranks:
         bins[rank] += 1
 
     start = 0
-    while bins[start] == 1:
+    while bins[start] > 0:
         start = (start + 1) % 13
     while bins[start] == 0:
         start = (start + 1) % 13
@@ -35,14 +41,14 @@ def evaluate(cards):
                 n_cards += counter
             counter = 0
         curr = (curr + 1) % 13
-
     consec_bins.sort(reverse=True)
     best_score = 0
-    if consec_bins[0] == 5: best_score = max(best_score, 100)
-    if consec_bins[0] == 4: best_score = max(best_score, 10)
-    if len(consec_bins) >= 2 and consec_bins[0] == 3 and consec_bins[1] == 2: best_score = max(best_score, 5)
-    if consec_bins[0] == 3: best_score = max(best_score, 3)
-    if len(consec_bins) >= 2 and consec_bins[0] == 2 and consec_bins[1] == 2: best_score = max(best_score, 1)
+    if consec_bins[0] == 5: best_score = 100
+    elif consec_bins[0] == 4: best_score = 10
+    elif len(consec_bins) >= 2 and consec_bins[0] == 3 and consec_bins[1] == 2: best_score = 5
+    elif consec_bins[0] == 3: best_score = 3
+    elif len(consec_bins) >= 2 and consec_bins[0] == 2 and consec_bins[1] == 2: best_score = 1
+    memory[sorted_ranks] = best_score
     return best_score
 
 if __name__ == '__main__':
@@ -58,17 +64,15 @@ if __name__ == '__main__':
         best_choice = None
 
         curr_money = evaluate(cards)
-        # print("Curr money = {}".format(curr_money))
 
         for idx in range(len(cards)):
             expectation = -47
             for rem_card in remaining_cards:
                 new_decks = cards[:]
                 new_decks[idx] = rem_card
-                expectation += evaluate(new_decks)
-                # print("\tDecks {} => {}".format(new_decks, evaluate(new_decks)))
+                score = evaluate(new_decks)
+                expectation += score
             expectation /= 47.0
-            # print("Expectation {} = {}".format(cards[idx], expectation))
 
             if expectation > curr_money and expectation > best_expectation:
                 best_expectation = expectation
