@@ -7,7 +7,6 @@ const int MAXN = 10005;
 int N, arr[MAXN], best_length, best_arr[MAXN];
 
 void f(int idx){
-    // if(best_length < 1e9) return;
     if(idx >= best_length) return ;
 
     if(idx <= 1){
@@ -20,16 +19,12 @@ void f(int idx){
             for(int i=0;i<idx;i++) best_arr[i] = arr[i];
             return;
         }
-        int estimate = idx + (int)ceil(log2((double) N / (double) arr[idx-1]));
-        if(estimate >= best_length) return;
 
         for(int i=idx-1;i>=0;i--){
-            for(int j=idx-1;j>=0;j--){
-                arr[idx] = arr[i] + arr[j];
-                if(arr[idx] > N) continue;
-                if(arr[idx] <= arr[idx-1]) break;
-                f(idx+1);
-            }
+            arr[idx] = arr[idx-1] + arr[i];
+            int estimate = idx + (int)ceil(log2((double) N / (double) arr[idx-1]));
+            if(estimate >= best_length) return;
+            f(idx+1);
         }
     }
 }
@@ -39,6 +34,14 @@ int main(){
 
     while(cin >> N){
         if(!N) break;
+        if(N == 1){
+            cout << 1 << endl;
+            continue;
+        }
+        if(N == 2){
+            cout << 1 << " " << 2 << endl;
+            continue;
+        }
         best_length = 1e9;
         f(0);
 
