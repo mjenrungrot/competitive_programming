@@ -1,23 +1,31 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <map>
+#include <cstring>
+#include <cctype>
+#include <algorithm>
 using namespace std;
 
 int N, P, S;
 vector <string> names;
 map <string, int> name_to_idx;
 bool restrictions[20][20];
-vector <string> curr;
+vector <int> curr;
 
 void f(int curr_length){
     if(curr_length == S){
         for(int i=0;i<(int)curr.size();i++){
             if(i) cout << " ";
-            cout << curr[i];
+            cout << names[curr[i]];
         }
         cout << endl;
         return ;
     }
 
-    for(int i=0;i<N;i++){
+    int start = 0;
+    if(not curr.empty()) start = curr[curr.size()-1]+1;
+    for(int i=start;i<N;i++){
         bool pass = true;
         for(int j=0;j<curr.size();j++){
             int idx1, idx2;
@@ -43,6 +51,7 @@ void run(){
     for(int i=0;i<N;i++){
         string tmp;
         cin >> tmp;
+        for(int j=0;j<tmp.length();j++) tmp[j] = toupper(tmp[j]);
         names.push_back(tmp);
     }
     sort(names.begin(), names.end(), [](string a, string b){
@@ -57,6 +66,8 @@ void run(){
         string tmp1, tmp2;
         int idx1, idx2;
         cin >> tmp1 >> tmp2;
+        for(int j=0;j<tmp1.length();j++) tmp1[j] = toupper(tmp1[j]);
+        for(int j=0;j<tmp2.length();j++) tmp2[j] = toupper(tmp2[j]);
         idx1 = name_to_idx[tmp1];
         idx2 = name_to_idx[tmp2];
         restrictions[idx1][idx2] = restrictions[idx2][idx1] = 1;
@@ -64,6 +75,7 @@ void run(){
 
     curr.clear();
     f(0);
+    cout << endl;
 }
 
 int main(){
