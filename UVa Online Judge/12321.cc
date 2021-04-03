@@ -18,7 +18,7 @@ int main(){
         for(int i=0;i<G;i++){
             int tmp_x, tmp_r;
             cin >> tmp_x >> tmp_r;
-            intervals.push_back(ii(tmp_x - tmp_r, tmp_x + tmp_r - 1));
+            intervals.push_back(ii(tmp_x - tmp_r, tmp_x + tmp_r));
         }
 
         sort(intervals.begin(), intervals.end(), [](ii x, ii y){
@@ -51,7 +51,7 @@ int main(){
                 // choose best_idx
                 n_used++;
                 curr_right = best_val;
-                if(curr_right >= L-1) break;
+                if(curr_right >= L) break;
 
                 curr_idx = next_idx;
             }else{
@@ -59,7 +59,7 @@ int main(){
                 break;
             }
         }
-        if(curr_right < L-1) possible = false;
+        if(curr_right < L) possible = false;
 
         if(possible) cout << G - n_used << endl;
         else cout << -1 << endl;
