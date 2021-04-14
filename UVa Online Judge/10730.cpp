@@ -1,5 +1,8 @@
 #include <cstdio>
 #include <cstring>
+#pragma GCC target ("avx2")
+#pragma GCC optimization ("O3")
+#pragma GCC optimization ("unroll-loops")
 
 const int MAXN = 10005;
 int N,A[MAXN],memo[MAXN];
