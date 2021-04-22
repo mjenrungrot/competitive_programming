@@ -1,3 +1,8 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        320.py
+#  Description:     UVa Online Judge - 320
+# =============================================================================
 def run():
     x, y = list(map(int, input().split()))
     moves = input()

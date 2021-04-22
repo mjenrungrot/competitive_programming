@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        490.py
+#  Description:     UVa Online Judge - 490
+# =============================================================================
+
 lines = []
 max_length = 0
 

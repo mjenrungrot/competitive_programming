@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        11744.py
+#  Description:     UVa Online Judge - 11744
+# =============================================================================
+
 def run():
     a, b = input().split()
     a = int(a, base=2)

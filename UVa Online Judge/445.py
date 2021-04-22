@@ -1,3 +1,8 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        445.py
+#  Description:     UVa Online Judge - 445
+# =============================================================================
 while True:
     try:
         line = input()

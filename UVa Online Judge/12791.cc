@@ -1,20 +1,28 @@
+/*=============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12791.cc
+#  Description:     UVa Online Judge - 12791
+=============================================================================*/
 #include <iostream>
 using namespace std;
 
-int main(){
+int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
     long long X, Y;
-    while(cin >> X >> Y){
-        long long left=1LL, right=X*Y+1LL, mid;
-        while(left < right){
-            mid = (left+right)>>1LL;
+    while (cin >> X >> Y) {
+        long long left = 1LL, right = X * Y + 1LL, mid;
+        while (left < right) {
+            mid = (left + right) >> 1LL;
 
             long long dist_X = X * mid;
             long long dist_Y = Y * mid;
-            if(dist_Y - dist_X < Y) left = mid+1LL;
-            else right = mid;;
+            if (dist_Y - dist_X < Y)
+                left = mid + 1LL;
+            else
+                right = mid;
+            ;
         }
         cout << left << endl;
     }

@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        1176.py
+#  Description:     UVa Online Judge - 1176
+# =============================================================================
+
 MAXN = 32770
 dp = [0 for i in range(MAXN)]
 dp[1] = 0

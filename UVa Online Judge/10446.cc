@@ -1,3 +1,8 @@
+/*=============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10446.cc
+#  Description:     UVa Online Judge - 10446
+=============================================================================*/
 #include <bits/stdc++.h>
 using namespace std;
 

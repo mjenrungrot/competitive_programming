@@ -33,7 +33,7 @@ long long f(int n) {
 
     if (dp[n] != -1) return dp[n];
 
-        long long ans = 0;
+    long long ans = 0;
     ans += f(n - 1);  // main branch
     ans += f(n - 2);  // extra branch
 

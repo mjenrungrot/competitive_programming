@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10878.py
+#  Description:     UVa Online Judge - 10878
+# =============================================================================
+
 lines = []
 while True:
     try:

@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12280.py
+#  Description:     UVa Online Judge - 12280
+# =============================================================================
+
 def computeScore(num):
     if num < ord('A') or num > ord('Z'):
         return 0

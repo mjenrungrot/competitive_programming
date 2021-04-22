@@ -1,3 +1,8 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        150.py
+#  Description:     UVa Online Judge - 150
+# =============================================================================
 import datetime
 from itertools import accumulate
 

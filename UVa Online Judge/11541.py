@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        11541.py
+#  Description:     UVa Online Judge - 11541
+# =============================================================================
+
 def run():
     line = input()
     curr = 0

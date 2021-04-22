@@ -1,44 +1,49 @@
+/*=============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12694.cc
+#  Description:     UVa Online Judge - 12694
+=============================================================================*/
 #include <bits/stdc++.h>
 using namespace std;
 
 int N;
 int S[30], F[30];
 
-int main(){
+int main() {
     ios::sync_with_stdio(false);
     cout.tie(NULL);
 
     int T;
     cin >> T;
-    while(T--){
+    while (T--) {
         N = 0;
-        while(true){
+        while (true) {
             cin >> S[N] >> F[N];
-            if(S[N] == 0 and F[N] == 0) break;
+            if (S[N] == 0 and F[N] == 0) break;
             N++;
         }
 
         int ans = 0;
-        for(int i=0;i<(1<<N);i++){
+        for (int i = 0; i < (1 << N); i++) {
             int nbits = 0, curr = i;
             int cap[20];
             memset(cap, 0, sizeof(cap));
 
             bool failed = false;
-            while(curr){
+            while (curr) {
                 int id = __builtin_ctz(curr);
-                for(int j=S[id];j<F[id];j++){
-                    if(cap[j]){
+                for (int j = S[id]; j < F[id]; j++) {
+                    if (cap[j]) {
                         failed = true;
                         break;
                     }
                     cap[j] = true;
                 }
-                if(failed) break;
+                if (failed) break;
                 nbits++;
                 curr -= (curr & -curr);
             }
-            if(not failed) ans = max(ans, nbits);
+            if (not failed) ans = max(ans, nbits);
         }
         cout << ans << endl;
     }

@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        1339.py
+#  Description:     UVa Online Judge - 1339
+# =============================================================================
+
 while True:
     try: 
         line1 = input()

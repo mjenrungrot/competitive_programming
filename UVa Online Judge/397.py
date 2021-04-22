@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        397.py
+#  Description:     UVa Online Judge - 397
+# =============================================================================
+
 def parse_number(x, offset):
     output = ""
 

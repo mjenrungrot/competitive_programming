@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12896.py
+#  Description:     UVa Online Judge - 12896
+# =============================================================================
+
 nums = list(map(int, list('1111222333444555666777788899990')))
 t    = list(map(int, list('1234123123123123123123412312341')))
 num_t_pair = zip(nums, t)

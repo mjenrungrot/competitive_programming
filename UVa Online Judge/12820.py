@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12820.py
+#  Description:     UVa Online Judge - 12820
+# =============================================================================
+
 from collections import Counter
 
 T = 0

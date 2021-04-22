@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        13130.py
+#  Description:     UVa Online Judge - 13130
+# =============================================================================
+
 T = int(input())
 
 for i in range(T):

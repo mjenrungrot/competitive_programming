@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        11547.py
+#  Description:     UVa Online Judge - 11547
+# =============================================================================
+
 def run():
     n = int(input())
     n = n * 567

@@ -1,3 +1,8 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        13026.py
+#  Description:     UVa Online Judge - 13026
+# =============================================================================
 T = int(input())
 for i in range(T):
     print("Case {}:".format(i+1))

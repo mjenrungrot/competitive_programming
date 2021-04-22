@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        1605.py
+#  Description:     UVa Online Judge - 1605
+# =============================================================================
+
 newline = False
 characters = [chr(ord('A') + i) for i in range(26)] + [chr(ord('a') + i) for i in range(26)]
 

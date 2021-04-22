@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        865.py
+#  Description:     UVa Online Judge - 865
+# =============================================================================
+
 def convert(ch, mapping):
     if ch in mapping:
         return mapping[ch]

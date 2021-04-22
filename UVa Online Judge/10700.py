@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10700.py
+#  Description:     UVa Online Judge - 10700
+# =============================================================================
+
 import functools
 import operator
 

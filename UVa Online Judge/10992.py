@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10992.py
+#  Description:     UVa Online Judge - 10992
+# =============================================================================
+
 nt = 0
 while True:
     N = int(input())

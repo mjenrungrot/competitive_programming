@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12626.py
+#  Description:     UVa Online Judge - 12626
+# =============================================================================
+
 from collections import Counter
 
 T = int(input())

@@ -1,3 +1,8 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        13034.py
+#  Description:     UVa Online Judge - 13034
+# =============================================================================
 N = int(input())
 
 for i in range(N):

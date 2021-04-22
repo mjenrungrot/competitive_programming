@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10523.py
+#  Description:     UVa Online Judge - 10523
+# =============================================================================
+
 while True:
     try:
         line = input()

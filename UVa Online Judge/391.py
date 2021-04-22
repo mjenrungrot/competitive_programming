@@ -1,3 +1,8 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        391.py
+#  Description:     UVa Online Judge - 391
+# =============================================================================
 mark_up = True
 while True:
     try:

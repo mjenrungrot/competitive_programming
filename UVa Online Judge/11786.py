@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        11786.py
+#  Description:     UVa Online Judge - 11786
+# =============================================================================
+
 T = int(input())
 for _ in range(T):
     A = input()

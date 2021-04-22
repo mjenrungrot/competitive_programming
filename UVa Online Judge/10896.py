@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10896.py
+#  Description:     UVa Online Judge - 10896
+# =============================================================================
+
 def test(enc_word, dec_word, k):
     source = [chr(i + ord('a')) for i in range(26)]
     target = [chr((i + k) % 26 + ord('a')) for i in range(26)]

@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10146.py
+#  Description:     UVa Online Judge - 10146
+# =============================================================================
+
 def run():
     lv = 0
     prev_word = ""

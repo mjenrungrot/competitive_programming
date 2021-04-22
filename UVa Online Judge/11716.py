@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        11716.py
+#  Description:     UVa Online Judge - 11716
+# =============================================================================
+
 import math
 
 def run():

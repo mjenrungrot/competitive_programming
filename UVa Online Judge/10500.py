@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10500.py
+#  Description:     UVa Online Judge - 10500
+# =============================================================================
+
 def f(boards, x, y, nn):
     boards[y][x] = '*0'
     

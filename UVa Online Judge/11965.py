@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        11965.py
+#  Description:     UVa Online Judge - 11965
+# =============================================================================
+
 def run():
     N = int(input())
     for _ in range(N):

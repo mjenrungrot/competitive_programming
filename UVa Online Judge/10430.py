@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10430.py
+#  Description:     UVa Online Judge - 10430
+# =============================================================================
+
 nt = 0
 print("Dear GOD, Pardon Me")
 while True:

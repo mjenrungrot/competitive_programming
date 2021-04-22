@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10942.py
+#  Description:     UVa Online Judge - 10942
+# =============================================================================
+
 from itertools import permutations
 
 def run():

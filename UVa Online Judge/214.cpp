@@ -1,12 +1,17 @@
+/*=============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        214.cpp
+#  Description:     UVa Online Judge - 214
+=============================================================================*/
+#include <cctype>
 #include <iostream>
 #include <string>
-#include <cctype>
 using namespace std;
 
-#define pow2(i) (1<<i)
-#define bit(i) (1<<i)
-#define isOdd(i) (i&1)
-#define isEven(i) (!(i&1))
+#define pow2(i) (1 << i)
+#define bit(i) (1 << i)
+#define isOdd(i) (i & 1)
+#define isEven(i) (!(i & 1))
 #define sz(i) i.size()
 #define REP(i, b, n) for (int i = b; i < n; i++)
 #define REPI(i, b, n) for (int i = b; i <= n; i++)
@@ -85,9 +90,7 @@ int main(void) {
         previousOperand = 0;
         valueInStack = false;
 
-        rep (i, input.size()) {
-            processInput(input[i]);
-        }
+        rep(i, input.size()) { processInput(input[i]); }
         processInput(0);
     }
 

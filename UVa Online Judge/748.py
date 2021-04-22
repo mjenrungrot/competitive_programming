@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        748.py
+#  Description:     UVa Online Judge - 748
+# =============================================================================
+
 while True:
     try:
         line = input()

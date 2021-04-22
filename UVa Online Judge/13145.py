@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        13145.py
+#  Description:     UVa Online Judge - 13145
+# =============================================================================
+
 while True:
     N = int(input())
     if N == 0: break

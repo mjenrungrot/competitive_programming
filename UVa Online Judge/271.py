@@ -1,3 +1,8 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        271.py
+#  Description:     UVa Online Judge - 271
+# =============================================================================
 from collections import deque
 
 def check(x):

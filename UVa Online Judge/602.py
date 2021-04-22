@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        602.py
+#  Description:     UVa Online Judge - 602
+# =============================================================================
+
 import datetime
 
 def check_julian(Y, M, D):

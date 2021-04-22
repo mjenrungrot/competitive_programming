@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10028.py
+#  Description:     UVa Online Judge - 10028
+# =============================================================================
+
 import math
 
 def read_date(x):

@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        641.py
+#  Description:     UVa Online Judge - 641
+# =============================================================================
+
 def textToCode(ch):
     if ch == '_': return 0
     if ch == '.': return 27

@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12157.py
+#  Description:     UVa Online Judge - 12157
+# =============================================================================
+
 def run():
     N = int(input())
     A = list(map(int, input().split()))

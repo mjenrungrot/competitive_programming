@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        740.py
+#  Description:     UVa Online Judge - 740
+# =============================================================================
+
 down_shift = input()
 up_shift = input()
 

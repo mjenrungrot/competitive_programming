@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10252.py
+#  Description:     UVa Online Judge - 10252
+# =============================================================================
+
 from collections import Counter
 
 while True:

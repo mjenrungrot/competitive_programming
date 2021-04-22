@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        1200.py
+#  Description:     UVa Online Judge - 1200
+# =============================================================================
+
 import re
 
 def process(x, A=0, B=0):

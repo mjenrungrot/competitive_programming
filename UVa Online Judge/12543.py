@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12543.py
+#  Description:     UVa Online Judge - 12543
+# =============================================================================
+
 import re
 
 best_word = ""

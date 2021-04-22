@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12366.py
+#  Description:     UVa Online Judge - 12366
+# =============================================================================
+
 def check_set(tuple_x):
     if tuple_x[0] == tuple_x[1] and tuple_x[1] == tuple_x[2]: return (True, tuple_x[0])
     return (False, None)

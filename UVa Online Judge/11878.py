@@ -1,3 +1,8 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        11878.py
+#  Description:     UVa Online Judge - 11878
+# =============================================================================
 ans = 0
 
 while True:

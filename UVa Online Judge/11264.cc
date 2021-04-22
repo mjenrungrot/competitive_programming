@@ -1,19 +1,24 @@
+/*=============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        11264.cc
+#  Description:     UVa Online Judge - 11264
+=============================================================================*/
 #include <iostream>
 #include <vector>
 using namespace std;
 
-int main(){
+int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    int T; 
+    int T;
     cin >> T;
-    while(T--){
+    while (T--) {
         int N;
         cin >> N;
 
-        vector <int> V;
-        for(int i=1;i<=N;i++){
+        vector<int> V;
+        for (int i = 1; i <= N; i++) {
             int tmp;
             cin >> tmp;
             V.push_back(tmp);
@@ -21,8 +26,8 @@ int main(){
 
         int sum = 1;
         int ans = N > 1 ? 2 : 1;
-        for(int i=1;i<N;i++){
-            if(sum + V[i] < V[i+1]){
+        for (int i = 1; i < N; i++) {
+            if (sum + V[i] < V[i + 1]) {
                 sum += V[i];
                 ++ans;
             }

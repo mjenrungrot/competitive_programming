@@ -1,3 +1,8 @@
+/*=============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        433.cc
+#  Description:     UVa Online Judge - 433
+=============================================================================*/
 #include <iostream>
 #include <string>
 using namespace std;
@@ -6,15 +11,15 @@ int n_sols, n_digits, already_correct;
 string rows[5], curr, ans;
 string pattern[10];
 
-char at(int r, int c){
-    if(c >= rows[r].length()) return ' ';
+char at(int r, int c) {
+    if (c >= rows[r].length()) return ' ';
     return rows[r][c];
 }
 
-string encode(int digit_i){
+string encode(int digit_i) {
     string out = "";
-    for(int i=1;i<=3;i++){
-        for(int j=3*digit_i;j<=3*digit_i+2;j++){
+    for (int i = 1; i <= 3; i++) {
+        for (int j = 3 * digit_i; j <= 3 * digit_i + 2; j++) {
             out.push_back(at(i, j));
         }
         out.push_back('\n');
@@ -22,54 +27,54 @@ string encode(int digit_i){
     return out;
 }
 
-
-void f(int digit_i, int fixed){
-    if(already_correct) return;
-    if(digit_i == n_digits){
-        // check 
+void f(int digit_i, int fixed) {
+    if (already_correct) return;
+    if (digit_i == n_digits) {
+        // check
         int val = 0;
-        for(int i=1,pos=curr.length()-1;pos>=0;pos--,i++){
+        for (int i = 1, pos = curr.length() - 1; pos >= 0; pos--, i++) {
             val += i * (curr[pos] - '0');
         }
-        if(val % 11 == 0){
+        if (val % 11 == 0) {
             // cout << curr << " " << fixed << " " << val << endl;
-            if(not fixed) already_correct = true;
+            if (not fixed) already_correct = true;
             ans = curr;
             n_sols++;
         }
 
-        return ;
+        return;
     }
 
     string encoded = encode(digit_i);
-    
-    for(int i=0;i<10;i++){
+
+    for (int i = 0; i < 10; i++) {
         bool pass = true;
         bool fixing = false;
-        for(int j=0;j<encoded.length();j++){
-            if(encoded[j] == pattern[i][j]) continue;
-            else if(encoded[j] == ' '){
-                if(fixed){
+        for (int j = 0; j < encoded.length(); j++) {
+            if (encoded[j] == pattern[i][j])
+                continue;
+            else if (encoded[j] == ' ') {
+                if (fixed) {
                     pass = false;
                     break;
                 }
                 fixing = true;
                 continue;
-            }else{
+            } else {
                 pass = false;
                 break;
             }
         }
 
-        if(pass){
+        if (pass) {
             curr.push_back('0' + i);
-            f(digit_i+1, fixing | fixed);
+            f(digit_i + 1, fixing | fixed);
             curr.pop_back();
         }
     }
 }
 
-int main(){
+int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
@@ -89,8 +94,8 @@ int main(){
     cin >> T;
     getline(cin, tmp);
 
-    while(T--){
-        for(int i=1;i<=3;i++) getline(cin, rows[i]);
+    while (T--) {
+        for (int i = 1; i <= 3; i++) getline(cin, rows[i]);
 
         n_digits = 9;
         n_sols = 0;
@@ -98,9 +103,12 @@ int main(){
         curr = "";
         f(0, 0);
 
-        if(n_sols > 1) cout << "ambiguous" << endl;
-        else if(n_sols == 0) cout << "failure" << endl;
-        else cout << ans << endl;
+        if (n_sols > 1)
+            cout << "ambiguous" << endl;
+        else if (n_sols == 0)
+            cout << "failure" << endl;
+        else
+            cout << ans << endl;
     }
     return 0;
 }

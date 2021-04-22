@@ -1,3 +1,8 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        344.py
+#  Description:     UVa Online Judge - 344
+# =============================================================================
 
 def toRoman(num):
     output = ""

@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10433.py
+#  Description:     UVa Online Judge - 10433
+# =============================================================================
+
 while True:
     try:
         str_N = input()

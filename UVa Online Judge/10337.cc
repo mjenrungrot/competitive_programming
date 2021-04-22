@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
 #  FileName:        10337.cc
-#  Description:     UVa 10337
+#  Description:     UVa Online Judge - 10337
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")

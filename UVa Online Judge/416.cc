@@ -1,32 +1,37 @@
+/*=============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        416.cc
+#  Description:     UVa Online Judge - 416
+=============================================================================*/
 #include <iostream>
-#include <vector>
 #include <string>
+#include <vector>
 using namespace std;
 
 int N;
 string patterns[10];
-vector <string> nums;
+vector<string> nums;
 bool isValid;
 
-void f(int curr_num, int idx, int mask){
-    if(idx == N){
+void f(int curr_num, int idx, int mask) {
+    if (idx == N) {
         isValid = true;
-        return ;
+        return;
     }
-    if(curr_num < 0) return; 
-    for(int i=0;i<nums[idx].length();i++){
-        if((mask & (1<<i)) and (nums[idx][i] == 'Y')) return ;
-        if(nums[idx][i] == patterns[curr_num][i]) continue;
-        if(nums[idx][i] == 'N' and patterns[curr_num][i] == 'Y'){
-            mask |= (1<<i);
+    if (curr_num < 0) return;
+    for (int i = 0; i < nums[idx].length(); i++) {
+        if ((mask & (1 << i)) and (nums[idx][i] == 'Y')) return;
+        if (nums[idx][i] == patterns[curr_num][i]) continue;
+        if (nums[idx][i] == 'N' and patterns[curr_num][i] == 'Y') {
+            mask |= (1 << i);
             continue;
         }
-        return ;
+        return;
     }
-    f(curr_num-1, idx+1, mask);
+    f(curr_num - 1, idx + 1, mask);
 }
 
-int main(){
+int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
@@ -41,26 +46,27 @@ int main(){
     patterns[8] = "YYYYYYY";
     patterns[9] = "YYYYNYY";
 
-
     string tmp;
-    while(cin >> N){
-        if(N == 0) break;
+    while (cin >> N) {
+        if (N == 0) break;
         nums.clear();
-        for(int i=1;i<=N;i++){
+        for (int i = 1; i <= N; i++) {
             cin >> tmp;
             nums.push_back(tmp);
         }
 
         isValid = false;
-        for(int start=9;start>=0;start--){
+        for (int start = 9; start >= 0; start--) {
             f(start, 0, 0);
-            if(isValid){
+            if (isValid) {
                 break;
             }
         }
 
-        if(isValid) cout << "MATCH" << endl;
-        else cout << "MISMATCH" << endl;
+        if (isValid)
+            cout << "MATCH" << endl;
+        else
+            cout << "MISMATCH" << endl;
     }
     return 0;
 }

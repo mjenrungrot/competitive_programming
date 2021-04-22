@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        11148.py
+#  Description:     UVa Online Judge - 11148
+# =============================================================================
+
 import re
 import math
 

@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        11830.py
+#  Description:     UVa Online Judge - 11830
+# =============================================================================
+
 while True:
     D, N = input().split()
     D = int(D)

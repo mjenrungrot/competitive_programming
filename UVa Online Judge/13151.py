@@ -1,3 +1,8 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        13151.py
+#  Description:     UVa Online Judge - 13151
+# =============================================================================
 while True:
     ivalue, t = input().split()
     t = int(t)

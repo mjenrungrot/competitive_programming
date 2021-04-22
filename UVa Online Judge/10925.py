@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10925.py
+#  Description:     UVa Online Judge - 10925
+# =============================================================================
+
 nt = 0
 while True:
     N, F = list(map(int, input().split()))

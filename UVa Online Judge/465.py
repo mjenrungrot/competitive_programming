@@ -1,3 +1,8 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        465.py
+#  Description:     UVa Online Judge - 465
+# =============================================================================
 while True:
     try: 
         line = input()

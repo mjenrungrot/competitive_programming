@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12792.py
+#  Description:     UVa Online Judge - 12792
+# =============================================================================
+
 import sys
 
 def func(line):

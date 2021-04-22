@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12658.py
+#  Description:     UVa Online Judge - 12658
+# =============================================================================
+
 N = int(input())
 A = [input().strip() for i in range(5)]
 

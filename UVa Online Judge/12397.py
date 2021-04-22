@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12397.py
+#  Description:     UVa Online Judge - 12397
+# =============================================================================
+
 values = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
 symbols = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"]
 sym_val_dict = dict(zip(symbols, values))

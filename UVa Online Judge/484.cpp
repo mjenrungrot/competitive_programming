@@ -1,22 +1,27 @@
+/*=============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        484.cpp
+#  Description:     UVa Online Judge - 484
+=============================================================================*/
 #include <cstdio>
 #include <map>
 #include <vector>
 using namespace std;
 
-int main(){
-	// freopen("in","r",stdin);
-	int xx;
-	vector <int> V;
-	map <int,int> M;
-	while(scanf("%d",&xx) == 1){
-		V.push_back(xx);
-		M[xx]++;
-	}
-	for(int i=0;i<(int)V.size();i++){
-		if(M.count(V[i])){
-			printf("%d %d\n",V[i],M[V[i]]);
-			M.erase(V[i]);
-		}
-	}
-	return 0;
+int main() {
+    // freopen("in","r",stdin);
+    int xx;
+    vector<int> V;
+    map<int, int> M;
+    while (scanf("%d", &xx) == 1) {
+        V.push_back(xx);
+        M[xx]++;
+    }
+    for (int i = 0; i < (int)V.size(); i++) {
+        if (M.count(V[i])) {
+            printf("%d %d\n", V[i], M[V[i]]);
+            M.erase(V[i]);
+        }
+    }
+    return 0;
 }

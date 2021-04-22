@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12822.py
+#  Description:     UVa Online Judge - 12822
+# =============================================================================
+
 def processTime(timeStr):
     hh, mm, ss = list(map(int, timeStr.split(':')))
     return hh * 3600 + mm * 60 + ss

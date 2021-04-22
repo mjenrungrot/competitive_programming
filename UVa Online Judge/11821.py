@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        11821.py
+#  Description:     UVa Online Judge - 11821
+# =============================================================================
+
 T = int(input())
 
 while T > 0:

@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        713.py
+#  Description:     UVa Online Judge - 713
+# =============================================================================
+
 T = int(input())
 while T > 0:
     T -= 1

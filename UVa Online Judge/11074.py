@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        11074.py
+#  Description:     UVa Online Judge - 11074
+# =============================================================================
+
 case_no = 0
 
 while True:

@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10774.py
+#  Description:     UVa Online Judge - 10774
+# =============================================================================
+
 MAXN = 30005
 dp = [0 for i in range(MAXN)]
 dp[1] = 0

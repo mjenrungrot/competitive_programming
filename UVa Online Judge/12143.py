@@ -1,3 +1,8 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12143.py
+#  Description:     UVa Online Judge - 12143
+# =============================================================================
 import math
 
 class Frac:

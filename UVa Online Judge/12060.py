@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12060.py
+#  Description:     UVa Online Judge - 12060
+# =============================================================================
+
 import sys
 import math
 

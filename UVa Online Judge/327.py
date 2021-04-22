@@ -1,3 +1,8 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        327.py
+#  Description:     UVa Online Judge - 327
+# =============================================================================
 def run(exp):
     print("Expression: {}".format(exp))
     exp = exp.replace(' ', '')

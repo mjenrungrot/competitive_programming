@@ -1,22 +1,27 @@
+/*=============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10374.cc
+#  Description:     UVa Online Judge - 10374
+=============================================================================*/
 #include <bits/stdc++.h>
 using namespace std;
 
 string line, name;
 int T, N, M;
-map <string, string> nameToParty;
-map <string, int> counter;
+map<string, string> nameToParty;
+map<string, int> counter;
 
-int main(){
+int main() {
     getline(cin, line);
     T = atoi(line.c_str());
     getline(cin, line);
-    while(T--){
+    while (T--) {
         nameToParty.clear();
         counter.clear();
 
         getline(cin, line);
         N = atoi(line.c_str());
-        for(int i=1;i<=N;i++){
+        for (int i = 1; i <= N; i++) {
             getline(cin, line);
             name = line;
             getline(cin, line);
@@ -29,23 +34,23 @@ int main(){
         int max_val = -1, val;
         bool tie = false;
         string best_person;
-        for(int i=1;i<=M;i++){
+        for (int i = 1; i <= M; i++) {
             getline(cin, line);
             val = ++counter[line];
-            if(val > max_val){
+            if (val > max_val) {
                 best_person = line;
                 max_val = val;
                 tie = false;
-            }else if(val == max_val){
+            } else if (val == max_val) {
                 tie = true;
             }
         }
-        if(not tie){
+        if (not tie) {
             printf("%s\n", nameToParty[best_person].c_str());
-        }else{
+        } else {
             printf("tie\n");
         }
-        if(T){
+        if (T) {
             printf("\n");
             getline(cin, line);
         }

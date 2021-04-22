@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10083.py
+#  Description:     UVa Online Judge - 10083
+# =============================================================================
+
 import math
 
 while True:

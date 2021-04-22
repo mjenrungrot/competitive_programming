@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        13047.py
+#  Description:     UVa Online Judge - 13047
+# =============================================================================
+
 import re
 
 def run():

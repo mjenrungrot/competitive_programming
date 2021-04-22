@@ -1,3 +1,8 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        158.py
+#  Description:     UVa Online Judge - 158
+# =============================================================================
 import datetime
 import re
 

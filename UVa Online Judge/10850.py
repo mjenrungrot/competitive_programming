@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10850.py
+#  Description:     UVa Online Judge - 10850
+# =============================================================================
+
 def update(curr_time, instant):
     if curr_time % 100 < instant:
         return curr_time - (curr_time % 100) + instant

@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        632.py
+#  Description:     UVa Online Judge - 632
+# =============================================================================
+
 def run():
     N = int(input())
     S0 = ""

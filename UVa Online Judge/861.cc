@@ -1,3 +1,8 @@
+/*=============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        861.cc
+#  Description:     UVa Online Judge - 861
+=============================================================================*/
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -5,27 +10,28 @@ int memo[10][80];
 int N, K, ans;
 int board[10][10];
 
-void dfs(int curr_idx, int curr_k){
-    if(curr_k == K){
+void dfs(int curr_idx, int curr_k) {
+    if (curr_k == K) {
         ans++;
-        return ;
+        return;
     }
-    if(curr_idx >= N*N) return ;
+    if (curr_idx >= N * N) return;
 
     int r = curr_idx / N;
     int c = curr_idx % N;
     board[r][c] = 1;
     bool check = true;
-    for(int rr=r-1,cl=c-1,cr=c+1;rr>=0 && check;rr--,cl--,cr++){
-        if(cl>=0 and board[rr][cl]) check = false;
-        if(cr<N  and board[rr][cr]) check = false;
+    for (int rr = r - 1, cl = c - 1, cr = c + 1; rr >= 0 && check;
+         rr--, cl--, cr++) {
+        if (cl >= 0 and board[rr][cl]) check = false;
+        if (cr < N and board[rr][cr]) check = false;
     }
-    if(check) dfs(curr_idx+1, curr_k+1); // place at (r,c)
+    if (check) dfs(curr_idx + 1, curr_k + 1);  // place at (r,c)
     board[r][c] = 0;
-    dfs(curr_idx+1, curr_k);   // not place at (r,c)
+    dfs(curr_idx + 1, curr_k);  // not place at (r,c)
 }
 
-void precompute(){
+void precompute() {
     memo[1][0] = 1;
     memo[1][1] = 1;
     memo[2][0] = 1;
@@ -240,27 +246,28 @@ void precompute(){
     memo[8][64] = 0;
 }
 
-int main(){
+int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
     memset(memo, -1, sizeof(memo));
     precompute();
 
-    while(cin >> N >> K){
-        if(!N and !K) break;
+    while (cin >> N >> K) {
+        if (!N and !K) break;
 
-        if(memo[N][K] != -1){
+        if (memo[N][K] != -1) {
             cout << memo[N][K] << endl;
             continue;
         }
 
         ans = 0;
         memset(board, 0, sizeof(board));
-        dfs(0,0);
+        dfs(0, 0);
         memo[N][K] = ans;
         cout << memo[N][K] << endl;
-        // cout << "memo[" << N << "][" << K << "] = " << memo[N][K] << ";" << endl;
+        // cout << "memo[" << N << "][" << K << "] = " << memo[N][K] << ";" <<
+        // endl;
     }
     return 0;
 }

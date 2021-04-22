@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        11614.py
+#  Description:     UVa Online Judge - 11614
+# =============================================================================
+
 import math
 
 if __name__ == '__main__':

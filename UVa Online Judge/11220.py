@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        11220.py
+#  Description:     UVa Online Judge - 11220
+# =============================================================================
+
 def run():
     while True:
         try:

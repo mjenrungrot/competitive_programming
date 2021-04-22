@@ -1,3 +1,8 @@
+/*=============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12750.cc
+#  Description:     UVa Online Judge - 12750
+=============================================================================*/
 #include <cstdio>
 
 int T;
@@ -5,10 +10,9 @@ int N;
 char tmp[5];
 char A[1000];
 
-
-int main(){
+int main() {
     scanf("%d", &T);
-    for(int _i=1;_i<=T;_i++){
+    for (int _i = 1; _i <= T; _i++) {
         scanf("%d", &N);
         scanf("%s", tmp);
         A[1] = tmp[0];
@@ -17,17 +21,18 @@ int main(){
         A[2] = tmp[0];
 
         int ans = -1;
-        for(int i=3;i<=N;i++){
+        for (int i = 3; i <= N; i++) {
             scanf("%s", tmp);
             A[i] = tmp[0];
-            if(ans == -1 and A[i-2] != 'W' and A[i-1] != 'W' and A[i] != 'W'){
+            if (ans == -1 and A[i - 2] != 'W' and A[i - 1] != 'W' and
+                A[i] != 'W') {
                 ans = i;
             }
         }
 
-        if(ans == -1){
+        if (ans == -1) {
             printf("Case %d: Yay! Mighty Rafa persists!\n", _i);
-        }else{
+        } else {
             printf("Case %d: %d\n", _i, ans);
         }
     }

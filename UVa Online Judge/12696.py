@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12696.py
+#  Description:     UVa Online Judge - 12696
+# =============================================================================
+
 T = int(input())
 total = 0
 for i in range(T):

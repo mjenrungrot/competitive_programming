@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12394.py
+#  Description:     UVa Online Judge - 12394
+# =============================================================================
+
 while True:
     K, N = list(map(int, input().split()))
     if K == 0 and N == 0: break

@@ -1,52 +1,56 @@
-#include <cstdio>
-#include <vector>
-#include <string>
+/*=============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        11961.cpp
+#  Description:     UVa Online Judge - 11961
+=============================================================================*/
 #include <algorithm>
+#include <cstdio>
+#include <string>
+#include <vector>
 using namespace std;
 
-int T,N,K;
-char str[105],tmp[105];
+int T, N, K;
+char str[105], tmp[105];
 string S;
-vector <string> V;
+vector<string> V;
 
-void f(int n,int m){
-	if(n == N and m == K){
-		tmp[n] = 0;
-		V.push_back(S = tmp);
-		return ;
-	}
-	if(n == N) return ;
+void f(int n, int m) {
+    if (n == N and m == K) {
+        tmp[n] = 0;
+        V.push_back(S = tmp);
+        return;
+    }
+    if (n == N) return;
 
-	// same
-	tmp[n] = str[n];
-	f(n+1,m);
+    // same
+    tmp[n] = str[n];
+    f(n + 1, m);
 
-	// not same
-	tmp[n] = 'A';
-	f(n+1,m+1);
-	tmp[n] = 'C';
-	f(n+1,m+1);
-	tmp[n] = 'G';
-	f(n+1,m+1);
-	tmp[n] = 'T';
-	f(n+1,m+1);
+    // not same
+    tmp[n] = 'A';
+    f(n + 1, m + 1);
+    tmp[n] = 'C';
+    f(n + 1, m + 1);
+    tmp[n] = 'G';
+    f(n + 1, m + 1);
+    tmp[n] = 'T';
+    f(n + 1, m + 1);
 }
 
-int main(){
-	// freopen("in","r",stdin);
-	scanf("%d",&T);
-	while(T--){
-		scanf("%d %d",&N,&K);
-		scanf("%s",str);
-		
-		V.clear();
-		f(0,0);
-		sort(V.begin(),V.end());
-		V.erase(unique(V.begin(),V.end()),V.end());
+int main() {
+    // freopen("in","r",stdin);
+    scanf("%d", &T);
+    while (T--) {
+        scanf("%d %d", &N, &K);
+        scanf("%s", str);
 
-		printf("%d\n",(int)V.size());
-		for(int i=0;i<(int)V.size();i++) printf("%s\n",V[i].c_str());
+        V.clear();
+        f(0, 0);
+        sort(V.begin(), V.end());
+        V.erase(unique(V.begin(), V.end()), V.end());
 
-	}
-	return 0;
+        printf("%d\n", (int)V.size());
+        for (int i = 0; i < (int)V.size(); i++) printf("%s\n", V[i].c_str());
+    }
+    return 0;
 }

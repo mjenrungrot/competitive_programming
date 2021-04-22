@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10771.py
+#  Description:     UVa Online Judge - 10771
+# =============================================================================
+
 while True:
     N, M, K = list(map(int, input().split()))
     if N == M == K == 0:

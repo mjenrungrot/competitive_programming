@@ -1,3 +1,8 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        442.py
+#  Description:     UVa Online Judge - 442
+# =============================================================================
 N = int(input())
 matrices = []
 for i in range(N):

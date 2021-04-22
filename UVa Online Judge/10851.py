@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10851.py
+#  Description:     UVa Online Judge - 10851
+# =============================================================================
+
 def run():
     lines = []
     for i in range(10):

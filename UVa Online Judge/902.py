@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        902.py
+#  Description:     UVa Online Judge - 902
+# =============================================================================
+
 def reader():
     while True:
         line = input().split()

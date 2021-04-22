@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12650.py
+#  Description:     UVa Online Judge - 12650
+# =============================================================================
+
 while True:
     try:
         N, R = list(map(int, input().split()))

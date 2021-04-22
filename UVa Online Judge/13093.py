@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        13093.py
+#  Description:     UVa Online Judge - 13093
+# =============================================================================
+
 while True:
     try:
         line1 = input().split()

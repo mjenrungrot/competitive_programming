@@ -1,3 +1,8 @@
+/*=============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10086.cc
+#  Description:     UVa Online Judge - 10086
+=============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimize("Ofast")
 #pragma GCC target("avx2")

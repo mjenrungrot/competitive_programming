@@ -1,3 +1,8 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        618.py
+#  Description:     UVa Online Judge - 618
+# =============================================================================
 import math
 from copy import deepcopy
 from itertools import permutations

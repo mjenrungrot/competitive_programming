@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        592.py
+#  Description:     UVa Online Judge - 592
+# =============================================================================
+
 def parse(line):
     speaker, content = line.strip().split(': ')
     content = content.replace('.', '')

@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        619.py
+#  Description:     UVa Online Judge - 619
+# =============================================================================
+
 def get_comma(num):
     output = ""
     num = str(num)[::-1]

@@ -1,6 +1,8 @@
-
-
-
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        110.py
+#  Description:     UVa Online Judge - 110
+# =============================================================================
 def run(N):
     vars = [chr(ord('a') + i) for i in range(N)]
     order = [chr(ord('a')) for i in range(N)]

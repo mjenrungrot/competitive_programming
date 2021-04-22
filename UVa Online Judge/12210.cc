@@ -1,24 +1,29 @@
-#include <iostream>
-#include <vector>
+/*=============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12210.cc
+#  Description:     UVa Online Judge - 12210
+=============================================================================*/
 #include <algorithm>
 #include <cmath>
+#include <iostream>
+#include <vector>
 using namespace std;
 
-int main(){
+int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
     int B, S, n_case = 0;
-    while(cin >> B >> S){
-        if(B == 0 and S == 0) break;
+    while (cin >> B >> S) {
+        if (B == 0 and S == 0) break;
 
-        vector <int> bachelors, spinsters, used;
-        for(int i=0;i<B;i++){
+        vector<int> bachelors, spinsters, used;
+        for (int i = 0; i < B; i++) {
             int tmp;
             cin >> tmp;
             bachelors.push_back(tmp);
         }
-        for(int i=0;i<S;i++){
+        for (int i = 0; i < S; i++) {
             int tmp;
             cin >> tmp;
             spinsters.push_back(tmp);
@@ -27,8 +32,11 @@ int main(){
 
         sort(bachelors.begin(), bachelors.end());
 
-        if(B <= S) cout << "Case " << ++n_case << ": 0" << endl;
-        else cout << "Case " << ++n_case << ": " << B-S << " " << bachelors[0] << endl;
+        if (B <= S)
+            cout << "Case " << ++n_case << ": 0" << endl;
+        else
+            cout << "Case " << ++n_case << ": " << B - S << " " << bachelors[0]
+                 << endl;
     }
     return 0;
 }

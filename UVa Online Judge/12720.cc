@@ -1,32 +1,37 @@
+/*=============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12720.cc
+#  Description:     UVa Online Judge - 12720
+=============================================================================*/
 #include <bits/stdc++.h>
 using namespace std;
 
 int T;
 string A;
 string S;
-const int MOD = 1e9+7;
+const int MOD = 1e9 + 7;
 
-int main(){
+int main() {
     scanf("%d", &T);
-    for(int _i=1;_i<=T;_i++){
+    for (int _i = 1; _i <= T; _i++) {
         cin >> A;
         int N = A.length();
 
         S = "";
         int start_i, start_j;
-        if(N % 2 == 1){
+        if (N % 2 == 1) {
             S += A[N / 2];
-            start_i = N/2 - 1;
-            start_j = N/2 + 1;
-        }else{
+            start_i = N / 2 - 1;
+            start_j = N / 2 + 1;
+        } else {
             start_i = N / 2 - 1;
             start_j = N / 2;
         }
-        for(int i=start_i, j=start_j; j<=N; i--, j++){
-            if(A[i] > A[j]){
+        for (int i = start_i, j = start_j; j <= N; i--, j++) {
+            if (A[i] > A[j]) {
                 S += A[i];
                 S += A[j];
-            }else{
+            } else {
                 S += A[j];
                 S += A[i];
             }
@@ -34,7 +39,7 @@ int main(){
 
         int ans = 0;
         int factor = 1;
-        for(int i=N-1;i>=0;i--){
+        for (int i = N - 1; i >= 0; i--) {
             ans = (ans + ((S[i] == '1' ? 1 : 0) * factor)) % MOD;
             factor = (factor * 2) % MOD;
         }

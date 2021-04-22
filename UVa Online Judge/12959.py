@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12959.py
+#  Description:     UVa Online Judge - 12959
+# =============================================================================
+
 while True:
     try:
         J, R = list(map(int, input().split()))

@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12700.py
+#  Description:     UVa Online Judge - 12700
+# =============================================================================
+
 def run():
     N = int(input())
     line = input()

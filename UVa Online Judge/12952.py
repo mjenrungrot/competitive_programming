@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12952.py
+#  Description:     UVa Online Judge - 12952
+# =============================================================================
+
 import sys
 
 while True:

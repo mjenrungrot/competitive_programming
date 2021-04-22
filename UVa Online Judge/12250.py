@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12250.py
+#  Description:     UVa Online Judge - 12250
+# =============================================================================
+
 import sys
 
 lines = sys.stdin.readlines()

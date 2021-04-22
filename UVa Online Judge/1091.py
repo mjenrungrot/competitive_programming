@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        1091.py
+#  Description:     UVa Online Judge - 1091
+# =============================================================================
+
 import sys
 
 def match(str_A, idx):

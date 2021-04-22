@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10198.py
+#  Description:     UVa Online Judge - 10198
+# =============================================================================
+
 dp = [0 for _ in range(1005)]
 dp[0] = 1
 for i in range(1, 1001):

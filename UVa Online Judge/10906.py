@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10906.py
+#  Description:     UVa Online Judge - 10906
+# =============================================================================
+
 def f(exp, vars, right=False, precedence=0):
     if '+' in exp:
         lhs, rhs = exp.split('+')

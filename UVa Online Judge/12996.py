@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        12996.py
+#  Description:     UVa Online Judge - 12996
+# =============================================================================
+
 T = int(input())
 for i in range(T):
     N, L = list(map(int, input().split()))

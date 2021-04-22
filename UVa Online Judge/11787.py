@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        11787.py
+#  Description:     UVa Online Judge - 11787
+# =============================================================================
+
 source = list("BUSPFTM")
 target = [1, 10, 100, 1000, 10000, 100000, 1000000]
 mapping = dict(zip(source, target))

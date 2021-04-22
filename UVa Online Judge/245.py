@@ -1,3 +1,8 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        245.py
+#  Description:     UVa Online Judge - 245
+# =============================================================================
 from collections import deque
 
 words = deque()

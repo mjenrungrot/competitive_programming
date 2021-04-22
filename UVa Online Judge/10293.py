@@ -1,3 +1,9 @@
+# =============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        10293.py
+#  Description:     UVa Online Judge - 10293
+# =============================================================================
+
 import re
 from collections import Counter
 
