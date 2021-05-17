@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        1247.cc
-#  Description:     UVa Online Judge - 1247
+#  FileName:        869.cc
+#  Description:     UVa Online Judge - 869
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -13,6 +13,8 @@ typedef pair<int, int> ii;
 typedef pair<long long, long long> ll;
 typedef pair<double, double> dd;
 typedef tuple<int, int, int> iii;
+typedef tuple<long long, long long, long long> lll;
+typedef tuple<double, double, double> ddd;
 typedef vector<string> vs;
 typedef vector<int> vi;
 typedef vector<vector<int>> vvi;
@@ -49,62 +51,61 @@ vs split(string line, regex re) {
 
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
-const int MAXN = 26;
+const int MAXN = 30;
 
 int N, M;
-int dist[MAXN][MAXN], length[MAXN][MAXN], path[MAXN][MAXN];
-
-void print_path(int u, int v) {
-    if (u != v) print_path(u, path[u][v]);
-    if (u != v) cout << " ";
-    cout << (char)('A' + v);
-}
+int dp1[MAXN][MAXN], dp2[MAXN][MAXN];
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    while (cin >> N >> M) {
-        for (int i = 0; i < MAXN; i++)
-            for (int j = 0; j < MAXN; j++) {
-                dist[i][j] = (i == j ? 0 : INF_INT);
-                length[i][j] = (i == j ? 0 : INF_INT);
-                path[i][j] = -1;
-            }
+    int T;
+    cin >> T;
+    while (T--) {
+        memset(dp1, 0, sizeof(dp1));
+        memset(dp2, 0, sizeof(dp2));
 
-        for (int i = 0; i < M; i++) {
-            char u, v;
-            int w;
-            cin >> u >> v >> w;
-            dist[u - 'A'][v - 'A'] = dist[v - 'A'][u - 'A'] = w;
-            length[u - 'A'][v - 'A'] = length[v - 'A'][u - 'A'] = 1;
-            path[u - 'A'][v - 'A'] = u - 'A';
-            path[v - 'A'][u - 'A'] = v - 'A';
-        }
+        for (int i = 0; i < MAXN; i++) dp1[i][i] = dp2[i][i] = true;
 
-        for (int k = 0; k < MAXN; k++)
-            for (int i = 0; i < MAXN; i++)
-                for (int j = 0; j < MAXN; j++) {
-                    if (dist[i][k] + dist[k][j] < dist[i][j]) {
-                        dist[i][j] = dist[i][k] + dist[k][j];
-                        length[i][j] = length[i][k] + length[k][j];
-                        path[i][j] = path[k][j];
-                    } else if (dist[i][k] + dist[k][j] == dist[i][j] and
-                               length[i][k] + length[k][j] < length[i][j]) {
-                        length[i][j] = length[i][k] + length[k][j];
-                        path[i][j] = path[k][j];
-                    }
-                }
-
-        int Q;
-        cin >> Q;
-        for (int i = 0; i < Q; i++) {
+        cin >> N;
+        for (int i = 0; i < N; i++) {
             char u, v;
             cin >> u >> v;
-            print_path(u - 'A', v - 'A');
-            cout << endl;
+            dp1[u - 'A'][v - 'A'] = dp1[v - 'A'][u - 'A'] = true;
         }
-    }
 
+        cin >> M;
+        for (int i = 0; i < M; i++) {
+            char u, v;
+            cin >> u >> v;
+            dp2[u - 'A'][v - 'A'] = dp2[v - 'A'][u - 'A'] = true;
+        }
+
+        for (int k = 0; k < MAXN; k++) {
+            for (int i = 0; i < MAXN; i++) {
+                for (int j = 0; j < MAXN; j++) {
+                    dp1[i][j] |= dp1[i][k] & dp1[k][j];
+                    dp2[i][j] |= dp2[i][k] & dp2[k][j];
+                }
+            }
+        }
+
+        bool check = true;
+        for (int i = 0; i < MAXN and check; i++)
+            for (int j = 0; j < MAXN and check; j++) {
+                if (dp1[i][j] == dp2[i][j])
+                    continue;
+                else
+                    check = false;
+            }
+
+        if (check)
+            cout << "YES" << endl;
+        else
+            cout << "NO" << endl;
+
+        if (T) cout << endl;
+    }
     return 0;
 }

@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        1247.cc
-#  Description:     UVa Online Judge - 1247
+#  FileName:        125.cc
+#  Description:     UVa Online Judge - 125
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -13,6 +13,8 @@ typedef pair<int, int> ii;
 typedef pair<long long, long long> ll;
 typedef pair<double, double> dd;
 typedef tuple<int, int, int> iii;
+typedef tuple<long long, long long, long long> lll;
+typedef tuple<double, double, double> ddd;
 typedef vector<string> vs;
 typedef vector<int> vi;
 typedef vector<vector<int>> vvi;
@@ -49,62 +51,57 @@ vs split(string line, regex re) {
 
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
-const int MAXN = 26;
+const int MAXN = 35;
 
 int N, M;
-int dist[MAXN][MAXN], length[MAXN][MAXN], path[MAXN][MAXN];
-
-void print_path(int u, int v) {
-    if (u != v) print_path(u, path[u][v]);
-    if (u != v) cout << " ";
-    cout << (char)('A' + v);
-}
+int infinite[MAXN][MAXN];
+long long dp[MAXN][MAXN];
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    while (cin >> N >> M) {
-        for (int i = 0; i < MAXN; i++)
-            for (int j = 0; j < MAXN; j++) {
-                dist[i][j] = (i == j ? 0 : INF_INT);
-                length[i][j] = (i == j ? 0 : INF_INT);
-                path[i][j] = -1;
-            }
+    int n_test = 0;
+    while (cin >> M) {
+        memset(dp, 0, sizeof(dp));
+        memset(infinite, 0, sizeof(infinite));
+        N = 0;
 
         for (int i = 0; i < M; i++) {
-            char u, v;
-            int w;
-            cin >> u >> v >> w;
-            dist[u - 'A'][v - 'A'] = dist[v - 'A'][u - 'A'] = w;
-            length[u - 'A'][v - 'A'] = length[v - 'A'][u - 'A'] = 1;
-            path[u - 'A'][v - 'A'] = u - 'A';
-            path[v - 'A'][u - 'A'] = v - 'A';
+            int u, v;
+            cin >> u >> v;
+            N = max(N, u + 1);
+            N = max(N, v + 1);
+            dp[u][v]++;
         }
 
-        for (int k = 0; k < MAXN; k++)
-            for (int i = 0; i < MAXN; i++)
-                for (int j = 0; j < MAXN; j++) {
-                    if (dist[i][k] + dist[k][j] < dist[i][j]) {
-                        dist[i][j] = dist[i][k] + dist[k][j];
-                        length[i][j] = length[i][k] + length[k][j];
-                        path[i][j] = path[k][j];
-                    } else if (dist[i][k] + dist[k][j] == dist[i][j] and
-                               length[i][k] + length[k][j] < length[i][j]) {
-                        length[i][j] = length[i][k] + length[k][j];
-                        path[i][j] = path[k][j];
+        for (int k = 0; k < N; k++) {
+            for (int i = 0; i < N; i++) {
+                for (int j = 0; j < N; j++) {
+                    dp[i][j] += dp[i][k] * dp[k][j];
+                }
+            }
+        }
+
+        for (int k = 0; k < N; k++) {
+            if (not dp[k][k]) continue;
+            for (int i = 0; i < N; i++) {
+                for (int j = 0; j < N; j++) {
+                    if (dp[i][k] and dp[k][j]) {
+                        infinite[i][j] = true;
                     }
                 }
+            }
+        }
 
-        int Q;
-        cin >> Q;
-        for (int i = 0; i < Q; i++) {
-            char u, v;
-            cin >> u >> v;
-            print_path(u - 'A', v - 'A');
+        cout << "matrix for city " << n_test++ << endl;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (j) cout << " ";
+                cout << (infinite[i][j] ? -1 : dp[i][j]);
+            }
             cout << endl;
         }
     }
-
     return 0;
 }

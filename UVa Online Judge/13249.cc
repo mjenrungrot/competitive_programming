@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        1247.cc
-#  Description:     UVa Online Judge - 1247
+#  FileName:        13249.cc
+#  Description:     UVa Online Judge - 13249
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -49,16 +49,9 @@ vs split(string line, regex re) {
 
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
-const int MAXN = 26;
+const int MAXN = 105;
 
-int N, M;
-int dist[MAXN][MAXN], length[MAXN][MAXN], path[MAXN][MAXN];
-
-void print_path(int u, int v) {
-    if (u != v) print_path(u, path[u][v]);
-    if (u != v) cout << " ";
-    cout << (char)('A' + v);
-}
+int N, M, d[MAXN][MAXN];
 
 int main() {
     ios::sync_with_stdio(false);
@@ -66,44 +59,32 @@ int main() {
 
     while (cin >> N >> M) {
         for (int i = 0; i < MAXN; i++)
-            for (int j = 0; j < MAXN; j++) {
-                dist[i][j] = (i == j ? 0 : INF_INT);
-                length[i][j] = (i == j ? 0 : INF_INT);
-                path[i][j] = -1;
-            }
+            for (int j = 0; j < MAXN; j++) d[i][j] = (i == j ? 0 : INF_INT);
 
-        for (int i = 0; i < M; i++) {
-            char u, v;
-            int w;
+        for (int i = 1; i <= M; i++) {
+            int u, v, w;
             cin >> u >> v >> w;
-            dist[u - 'A'][v - 'A'] = dist[v - 'A'][u - 'A'] = w;
-            length[u - 'A'][v - 'A'] = length[v - 'A'][u - 'A'] = 1;
-            path[u - 'A'][v - 'A'] = u - 'A';
-            path[v - 'A'][u - 'A'] = v - 'A';
+            d[u][v] = d[v][u] = min(d[u][v], w);
         }
 
-        for (int k = 0; k < MAXN; k++)
-            for (int i = 0; i < MAXN; i++)
-                for (int j = 0; j < MAXN; j++) {
-                    if (dist[i][k] + dist[k][j] < dist[i][j]) {
-                        dist[i][j] = dist[i][k] + dist[k][j];
-                        length[i][j] = length[i][k] + length[k][j];
-                        path[i][j] = path[k][j];
-                    } else if (dist[i][k] + dist[k][j] == dist[i][j] and
-                               length[i][k] + length[k][j] < length[i][j]) {
-                        length[i][j] = length[i][k] + length[k][j];
-                        path[i][j] = path[k][j];
-                    }
-                }
+        for (int k = 0; k < N; k++)
+            for (int i = 0; i < N; i++)
+                for (int j = 0; j < N; j++)
+                    d[i][j] = min(d[i][j], d[i][k] + d[k][j]);
 
-        int Q;
-        cin >> Q;
-        for (int i = 0; i < Q; i++) {
-            char u, v;
-            cin >> u >> v;
-            print_path(u - 'A', v - 'A');
-            cout << endl;
-        }
+        int sa, sb, sc;
+        cin >> sa >> sb >> sc;
+
+        int max_dist = -1;
+        for (int i = 0; i < N; i++)
+            for (int j = 0; j < N; j++) max_dist = max(max_dist, d[i][j]);
+
+        int ta = (max_dist + sa - 1) / sa;
+        int tb = (max_dist + sb - 1) / sb;
+        int tc = (max_dist + sc - 1) / sc;
+
+        int ans = max(ta, max(tb, tc));
+        cout << ans << endl;
     }
 
     return 0;

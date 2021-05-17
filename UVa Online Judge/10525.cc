@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        1247.cc
-#  Description:     UVa Online Judge - 1247
+#  FileName:        10525.cc
+#  Description:     UVa Online Judge - 10525
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -49,61 +49,62 @@ vs split(string line, regex re) {
 
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
-const int MAXN = 26;
+const int MAXN = 100;
 
-int N, M;
-int dist[MAXN][MAXN], length[MAXN][MAXN], path[MAXN][MAXN];
-
-void print_path(int u, int v) {
-    if (u != v) print_path(u, path[u][v]);
-    if (u != v) cout << " ";
-    cout << (char)('A' + v);
-}
+int N, M, d1[MAXN][MAXN], d2[MAXN][MAXN];
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    while (cin >> N >> M) {
+    int T;
+    cin >> T;
+    while (T--) {
+        cin >> N >> M;
+
         for (int i = 0; i < MAXN; i++)
             for (int j = 0; j < MAXN; j++) {
-                dist[i][j] = (i == j ? 0 : INF_INT);
-                length[i][j] = (i == j ? 0 : INF_INT);
-                path[i][j] = -1;
+                d1[i][j] = d2[i][j] = (i == j ? 0 : INF_INT);
             }
 
-        for (int i = 0; i < M; i++) {
-            char u, v;
-            int w;
-            cin >> u >> v >> w;
-            dist[u - 'A'][v - 'A'] = dist[v - 'A'][u - 'A'] = w;
-            length[u - 'A'][v - 'A'] = length[v - 'A'][u - 'A'] = 1;
-            path[u - 'A'][v - 'A'] = u - 'A';
-            path[v - 'A'][u - 'A'] = v - 'A';
+        for (int i = 1; i <= M; i++) {
+            int u, v, a, b;
+            cin >> u >> v >> a >> b;
+            if (a < d1[u][v] or (a == d1[u][v] and b < d2[u][v])) {
+                d1[u][v] = d1[v][u] = a;
+                d2[u][v] = d2[v][u] = b;
+            }
         }
 
-        for (int k = 0; k < MAXN; k++)
-            for (int i = 0; i < MAXN; i++)
-                for (int j = 0; j < MAXN; j++) {
-                    if (dist[i][k] + dist[k][j] < dist[i][j]) {
-                        dist[i][j] = dist[i][k] + dist[k][j];
-                        length[i][j] = length[i][k] + length[k][j];
-                        path[i][j] = path[k][j];
-                    } else if (dist[i][k] + dist[k][j] == dist[i][j] and
-                               length[i][k] + length[k][j] < length[i][j]) {
-                        length[i][j] = length[i][k] + length[k][j];
-                        path[i][j] = path[k][j];
+        for (int k = 1; k <= N; k++) {
+            for (int i = 1; i <= N; i++) {
+                for (int j = 1; j <= N; j++) {
+                    if (d1[i][k] + d1[k][j] < d1[i][j]) {
+                        d1[i][j] = d1[i][k] + d1[k][j];
+                        d2[i][j] = d2[i][k] + d2[k][j];
+                    } else if (d1[i][k] + d1[k][j] == d1[i][j] and
+                               d2[i][k] + d2[k][j] < d2[i][j]) {
+                        d1[i][j] = d1[i][k] + d1[k][j];
+                        d2[i][j] = d2[i][k] + d2[k][j];
                     }
                 }
+            }
+        }
 
         int Q;
         cin >> Q;
-        for (int i = 0; i < Q; i++) {
-            char u, v;
+        while (Q--) {
+            int u, v;
             cin >> u >> v;
-            print_path(u - 'A', v - 'A');
-            cout << endl;
+            if (d1[u][v] == INF_INT) {
+                cout << "No Path." << endl;
+            } else {
+                cout << "Distance and time to reach destination is " << d2[u][v]
+                     << " & " << d1[u][v] << "." << endl;
+            }
         }
+
+        if (T) cout << endl;
     }
 
     return 0;

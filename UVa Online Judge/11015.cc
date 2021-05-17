@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        1247.cc
-#  Description:     UVa Online Judge - 1247
+#  FileName:        11015.cc
+#  Description:     UVa Online Judge - 11015
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -49,61 +49,50 @@ vs split(string line, regex re) {
 
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
-const int MAXN = 26;
+const int MAXN = 30;
 
-int N, M;
-int dist[MAXN][MAXN], length[MAXN][MAXN], path[MAXN][MAXN];
-
-void print_path(int u, int v) {
-    if (u != v) print_path(u, path[u][v]);
-    if (u != v) cout << " ";
-    cout << (char)('A' + v);
-}
+int N, M, d[MAXN][MAXN];
+vs names;
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
+    int n_test = 0;
     while (cin >> N >> M) {
-        for (int i = 0; i < MAXN; i++)
-            for (int j = 0; j < MAXN; j++) {
-                dist[i][j] = (i == j ? 0 : INF_INT);
-                length[i][j] = (i == j ? 0 : INF_INT);
-                path[i][j] = -1;
-            }
+        if (N == 0 and M == 0) break;
+
+        names.resize(N + 1);
+        for (int i = 1; i <= N; i++) cin >> names[i];
+
+        for (int i = 1; i <= N; i++)
+            for (int j = 1; j <= N; j++) d[i][j] = (i == j ? 0 : INF_INT);
 
         for (int i = 0; i < M; i++) {
-            char u, v;
-            int w;
+            int u, v, w;
             cin >> u >> v >> w;
-            dist[u - 'A'][v - 'A'] = dist[v - 'A'][u - 'A'] = w;
-            length[u - 'A'][v - 'A'] = length[v - 'A'][u - 'A'] = 1;
-            path[u - 'A'][v - 'A'] = u - 'A';
-            path[v - 'A'][u - 'A'] = v - 'A';
+            d[u][v] = d[v][u] = min(d[u][v], w);
         }
 
-        for (int k = 0; k < MAXN; k++)
-            for (int i = 0; i < MAXN; i++)
-                for (int j = 0; j < MAXN; j++) {
-                    if (dist[i][k] + dist[k][j] < dist[i][j]) {
-                        dist[i][j] = dist[i][k] + dist[k][j];
-                        length[i][j] = length[i][k] + length[k][j];
-                        path[i][j] = path[k][j];
-                    } else if (dist[i][k] + dist[k][j] == dist[i][j] and
-                               length[i][k] + length[k][j] < length[i][j]) {
-                        length[i][j] = length[i][k] + length[k][j];
-                        path[i][j] = path[k][j];
-                    }
-                }
+        for (int k = 1; k <= N; k++)
+            for (int i = 1; i <= N; i++)
+                for (int j = 1; j <= N; j++)
+                    d[i][j] = min(d[i][j], d[i][k] + d[k][j]);
 
-        int Q;
-        cin >> Q;
-        for (int i = 0; i < Q; i++) {
-            char u, v;
-            cin >> u >> v;
-            print_path(u - 'A', v - 'A');
-            cout << endl;
+        int smallest_val = INF_INT + 1;
+        string ans;
+        for (int i = 1; i <= N; i++) {
+            int val = 0;
+            for (int j = 1; j <= N; j++) {
+                val += d[j][i];
+                val = min(val, INF_INT);
+            }
+            if (val < smallest_val) {
+                smallest_val = val;
+                ans = names[i];
+            }
         }
+        cout << "Case #" << ++n_test << " : " << ans << endl;
     }
 
     return 0;
