@@ -179,6 +179,7 @@ int main() {
                     if (r + dr < 0 or r + dr >= R) continue;
                     if (c + dc < 0 or c + dc >= C) continue;
                     if (visited[r + dr][c + dc]) continue;
+                    if (bomb[r + dr][c + dc]) continue;
                     Q.push({r + dr, c + dc, d + 1});
                 }
             }
