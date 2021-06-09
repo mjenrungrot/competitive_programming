@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        10457.cc
-#  Description:     UVa Online Judge - 10457
+#  FileName:        12160.cc
+#  Description:     UVa Online Judge - 12160
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -86,6 +86,7 @@ ostream& operator<<(ostream& os, pair<X, Y> const& p) {
 class union_find {
     vi parent, sizes;
 
+   public:
     union_find(int n) {
         parent.resize(n);
         sizes.resize(n);
@@ -124,92 +125,52 @@ vs split(string line, regex re) {
 
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
+const int MAXN = 10005;
 
-int N;
-vector<iii> edges;
-vi parent, ranking;
-
-int find_set(int u) {
-    if (u == parent[u]) return u;
-    return parent[u] = find_set(parent[u]);
-}
-
-void union_set(int u, int v) {
-    u = find_set(u);
-    v = find_set(v);
-    if (u == v) return;
-    if (ranking[u] < ranking[v])
-        parent[u] = v;
-    else
-        parent[v] = u;
-    if (ranking[u] == ranking[v]) ranking[u]++;
-}
-
-bool mst(int idx, int st, int ed, int& biggest) {
-    for (int i = 1; i <= N; i++) {
-        parent[i] = i;
-        ranking[i] = 1;
-    }
-
-    for (int i = idx; i < edges.size(); i++) {
-        auto u = get<0>(edges[i]);
-        auto v = get<1>(edges[i]);
-
-        if (find_set(u) == find_set(v)) continue;
-        union_set(u, v);
-
-        if (find_set(st) == find_set(ed)) {
-            biggest = get<2>(edges[i]);
-            return true;
-        }
-    }
-
-    return false;
-}
+int st, en, R;
+int visited[MAXN];
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
     int n_test = 0;
-    int M;
-    while (cin >> N >> M) {
-        if (N == 0) break;
-        edges.clear();
+    while (cin >> st >> en >> R) {
+        if (st == 0 and en == 0 and R == 0) break;
+        memset(visited, 0, sizeof(visited));
 
-        for (int i = 0; i < M; i++) {
-            int u, v, d;
-            cin >> u >> v >> d;
-            edges.push_back({u, v, d});
-        }
-        parent = vi(N + 1, 0);
-        ranking = vi(N + 1, 0);
+        vi nums(R);
+        for (int i = 0; i < R; i++) cin >> nums[i];
 
-        sort(edges.begin(), edges.end(),
-             [](iii& x, iii& y) { return get<2>(x) < get<2>(y); });
+        queue<ii> Q;
+        Q.push({st, 0});
+        int ans = INF_INT;
+        while (not Q.empty()) {
+            auto u = Q.front();
+            Q.pop();
 
-        int cost_s, cost_t;
-        cin >> cost_s >> cost_t;
-
-        int q;
-        cin >> q;
-        while (q--) {
-            int s, t;
-            cin >> s >> t;
-
-            int res = INF_INT;
-            int biggest = 0;
-            for (int i = 0; i < edges.size(); i++) {
-                if (mst(i, s, t, biggest)) {
-                    res = min(res, biggest - get<2>(edges[i]));
-                } else {
-                    break;
-                }
+            int val = u.first;
+            int d = u.second;
+            if (val == en) {
+                ans = d;
+                break;
             }
-            int ans = cost_s + cost_t + res;
 
-            cout << ans << endl;
+            if (visited[val]) continue;
+            visited[val] = true;
+
+            for (auto& num : nums) {
+                int new_num = (val + num) % 10000;
+                if (visited[new_num]) continue;
+                Q.push({new_num, d + 1});
+            }
         }
+
+        cout << "Case " << ++n_test << ": ";
+        if (ans == INF_INT)
+            cout << "Permanently Locked" << endl;
+        else
+            cout << ans << endl;
     }
 
     return 0;

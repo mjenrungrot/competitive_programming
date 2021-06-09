@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        10457.cc
-#  Description:     UVa Online Judge - 10457
+#  FileName:        429.cc
+#  Description:     UVa Online Judge - 429
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -86,6 +86,7 @@ ostream& operator<<(ostream& os, pair<X, Y> const& p) {
 class union_find {
     vi parent, sizes;
 
+   public:
     union_find(int n) {
         parent.resize(n);
         sizes.resize(n);
@@ -124,92 +125,92 @@ vs split(string line, regex re) {
 
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
+const int MAXN = 205;
 
-int N;
-vector<iii> edges;
-vi parent, ranking;
+vs vocab;
+map<string, int> to_idx;
+vi V[MAXN];
 
-int find_set(int u) {
-    if (u == parent[u]) return u;
-    return parent[u] = find_set(parent[u]);
+int conv(string x) {
+    if (to_idx.count(x)) return to_idx[x];
+    return to_idx[x] = to_idx.size();
 }
 
-void union_set(int u, int v) {
-    u = find_set(u);
-    v = find_set(v);
-    if (u == v) return;
-    if (ranking[u] < ranking[v])
-        parent[u] = v;
-    else
-        parent[v] = u;
-    if (ranking[u] == ranking[v]) ranking[u]++;
+int diff(string x, string y) {
+    assert(x.length() == y.length());
+    int ans = 0;
+    for (int i = 0; i < x.length(); i++) ans += (x[i] != y[i]);
+    return ans;
 }
 
-bool mst(int idx, int st, int ed, int& biggest) {
-    for (int i = 1; i <= N; i++) {
-        parent[i] = i;
-        ranking[i] = 1;
-    }
+int run(int st, int en) {
+    queue<int> Q;
+    vi dist(MAXN, INF_INT);
+    vi visited(MAXN);
 
-    for (int i = idx; i < edges.size(); i++) {
-        auto u = get<0>(edges[i]);
-        auto v = get<1>(edges[i]);
+    Q.push(st);
+    dist[st] = 0;
 
-        if (find_set(u) == find_set(v)) continue;
-        union_set(u, v);
+    while (not Q.empty()) {
+        auto u = Q.front();
+        Q.pop();
 
-        if (find_set(st) == find_set(ed)) {
-            biggest = get<2>(edges[i]);
-            return true;
+        if (visited[u]) continue;
+        visited[u] = true;
+
+        if (u == en) return dist[u];
+
+        for (auto v : V[u]) {
+            if (visited[v]) continue;
+            dist[v] = min(dist[v], dist[u] + 1);
+            Q.push(v);
         }
     }
 
-    return false;
+    return 0;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    int n_test = 0;
-    int M;
-    while (cin >> N >> M) {
-        if (N == 0) break;
-        edges.clear();
+    string line;
+    getline(cin, line);
+    int T = stoi(line);
+    getline(cin, line);  // empty line
 
-        for (int i = 0; i < M; i++) {
-            int u, v, d;
-            cin >> u >> v >> d;
-            edges.push_back({u, v, d});
+    while (T--) {
+        vocab.clear();
+        to_idx.clear();
+        for (int i = 0; i < MAXN; i++) V[i].clear();
+
+        while (getline(cin, line)) {
+            if (line == "*") break;
+            vocab.push_back(line);
+            conv(line);
         }
-        parent = vi(N + 1, 0);
-        ranking = vi(N + 1, 0);
 
-        sort(edges.begin(), edges.end(),
-             [](iii& x, iii& y) { return get<2>(x) < get<2>(y); });
-
-        int cost_s, cost_t;
-        cin >> cost_s >> cost_t;
-
-        int q;
-        cin >> q;
-        while (q--) {
-            int s, t;
-            cin >> s >> t;
-
-            int res = INF_INT;
-            int biggest = 0;
-            for (int i = 0; i < edges.size(); i++) {
-                if (mst(i, s, t, biggest)) {
-                    res = min(res, biggest - get<2>(edges[i]));
-                } else {
-                    break;
+        // build graph
+        for (int i = 0; i < vocab.size(); i++) {
+            for (int j = i + 1; j < vocab.size(); j++) {
+                if (vocab[i].length() == vocab[j].length() and
+                    diff(vocab[i], vocab[j]) == 1) {
+                    V[i].push_back(j);
+                    V[j].push_back(i);
                 }
             }
-            int ans = cost_s + cost_t + res;
-
-            cout << ans << endl;
         }
+
+        // queries
+        while (getline(cin, line)) {
+            if (line == "") break;
+
+            vs tokens = split(line, regex("\\s"));
+            cout << tokens[0] << " " << tokens[1] << " "
+                 << run(conv(tokens[0]), conv(tokens[1])) << endl;
+        }
+
+        if (T) cout << endl;
     }
 
     return 0;

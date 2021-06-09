@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        10457.cc
-#  Description:     UVa Online Judge - 10457
+#  FileName:        1265.cc
+#  Description:     UVa Online Judge - 1265
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -84,8 +84,9 @@ ostream& operator<<(ostream& os, pair<X, Y> const& p) {
 // End Debug Snippets
 
 class union_find {
-    vi parent, sizes;
+    vi parent, sizes, inside, outside;
 
+   public:
     union_find(int n) {
         parent.resize(n);
         sizes.resize(n);
@@ -101,7 +102,7 @@ class union_find {
         return parent[a] = find_set(parent[a]);
     }
 
-    void union_set(int a, int b) {
+    int union_set(int a, int b) {
         a = find_set(a);
         b = find_set(b);
         if (a != b) {
@@ -109,6 +110,7 @@ class union_find {
             parent[b] = a;
             sizes[a] += sizes[b];
         }
+        return sizes[a];
     }
 };
 
@@ -124,92 +126,64 @@ vs split(string line, regex re) {
 
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
-
-int N;
-vector<iii> edges;
-vi parent, ranking;
-
-int find_set(int u) {
-    if (u == parent[u]) return u;
-    return parent[u] = find_set(parent[u]);
-}
-
-void union_set(int u, int v) {
-    u = find_set(u);
-    v = find_set(v);
-    if (u == v) return;
-    if (ranking[u] < ranking[v])
-        parent[u] = v;
-    else
-        parent[v] = u;
-    if (ranking[u] == ranking[v]) ranking[u]++;
-}
-
-bool mst(int idx, int st, int ed, int& biggest) {
-    for (int i = 1; i <= N; i++) {
-        parent[i] = i;
-        ranking[i] = 1;
-    }
-
-    for (int i = idx; i < edges.size(); i++) {
-        auto u = get<0>(edges[i]);
-        auto v = get<1>(edges[i]);
-
-        if (find_set(u) == find_set(v)) continue;
-        union_set(u, v);
-
-        if (find_set(st) == find_set(ed)) {
-            biggest = get<2>(edges[i]);
-            return true;
-        }
-    }
-
-    return false;
-}
+const int MAXN = 5005;
+int N, M;
+int weights[MAXN][MAXN];
+vector<tuple<int, int, int>> edges;
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    int n_test = 0;
-    int M;
-    while (cin >> N >> M) {
-        if (N == 0) break;
-        edges.clear();
+    int T;
+    cin >> T;
+    while (T--) {
+        cin >> N >> M;
+        union_find S(N + 1);
 
+        edges.clear();
         for (int i = 0; i < M; i++) {
-            int u, v, d;
-            cin >> u >> v >> d;
-            edges.push_back({u, v, d});
+            int u, v, w;
+            cin >> u >> v >> w;
+            edges.push_back({u, v, w});
+            weights[u][v] = weights[v][u] = w;
         }
-        parent = vi(N + 1, 0);
-        ranking = vi(N + 1, 0);
 
         sort(edges.begin(), edges.end(),
-             [](iii& x, iii& y) { return get<2>(x) < get<2>(y); });
+             [](tuple<int, int, int>& x, tuple<int, int, int>& y) {
+                 return get<2>(x) > get<2>(y);
+             });
 
-        int cost_s, cost_t;
-        cin >> cost_s >> cost_t;
+        int ans = 0;
+        for (int i = 0; i < edges.size(); i++) {
+            int u = get<0>(edges[i]);
+            int v = get<1>(edges[i]);
+            auto w = get<2>(edges[i]);
+            if (S.find_set(u) == S.find_set(v)) continue;
 
-        int q;
-        cin >> q;
-        while (q--) {
-            int s, t;
-            cin >> s >> t;
+            int sizes = S.union_set(u, v);
 
-            int res = INF_INT;
-            int biggest = 0;
-            for (int i = 0; i < edges.size(); i++) {
-                if (mst(i, s, t, biggest)) {
-                    res = min(res, biggest - get<2>(edges[i]));
-                } else {
-                    break;
+            int ref = S.find_set(u);
+            int inside = INF_INT;
+            int outside = 0;
+
+            for (int j = 0; j < edges.size(); j++) {
+                auto pu = S.find_set(get<0>(edges[j]));
+                auto pv = S.find_set(get<1>(edges[j]));
+
+                if (pu == ref and pv == ref) {
+                    inside = min(inside, get<2>(edges[j]));
+                } else if (pu == ref or pv == ref) {
+                    outside = max(outside, get<2>(edges[j]));
                 }
             }
-            int ans = cost_s + cost_t + res;
 
-            cout << ans << endl;
+            if (inside > outside) {
+                ans += sizes;
+            }
         }
+
+        cout << ans << endl;
     }
 
     return 0;

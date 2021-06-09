@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        10457.cc
-#  Description:     UVa Online Judge - 10457
+#  FileName:        10653.cc
+#  Description:     UVa Online Judge - 10653
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -86,6 +86,7 @@ ostream& operator<<(ostream& os, pair<X, Y> const& p) {
 class union_find {
     vi parent, sizes;
 
+   public:
     union_find(int n) {
         parent.resize(n);
         sizes.resize(n);
@@ -124,91 +125,63 @@ vs split(string line, regex re) {
 
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
+const int MAXN = 1005;
 
-int N;
-vector<iii> edges;
-vi parent, ranking;
-
-int find_set(int u) {
-    if (u == parent[u]) return u;
-    return parent[u] = find_set(parent[u]);
-}
-
-void union_set(int u, int v) {
-    u = find_set(u);
-    v = find_set(v);
-    if (u == v) return;
-    if (ranking[u] < ranking[v])
-        parent[u] = v;
-    else
-        parent[v] = u;
-    if (ranking[u] == ranking[v]) ranking[u]++;
-}
-
-bool mst(int idx, int st, int ed, int& biggest) {
-    for (int i = 1; i <= N; i++) {
-        parent[i] = i;
-        ranking[i] = 1;
-    }
-
-    for (int i = idx; i < edges.size(); i++) {
-        auto u = get<0>(edges[i]);
-        auto v = get<1>(edges[i]);
-
-        if (find_set(u) == find_set(v)) continue;
-        union_set(u, v);
-
-        if (find_set(st) == find_set(ed)) {
-            biggest = get<2>(edges[i]);
-            return true;
-        }
-    }
-
-    return false;
-}
+int R, C, bomb[MAXN][MAXN], visited[MAXN][MAXN];
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    int n_test = 0;
-    int M;
-    while (cin >> N >> M) {
-        if (N == 0) break;
-        edges.clear();
+    while (cin >> R >> C) {
+        if (R == 0 and C == 0) break;
 
-        for (int i = 0; i < M; i++) {
-            int u, v, d;
-            cin >> u >> v >> d;
-            edges.push_back({u, v, d});
+        memset(bomb, 0, sizeof(bomb));
+        memset(visited, 0, sizeof(visited));
+
+        int n_rows;
+        cin >> n_rows;
+        while (n_rows--) {
+            int r, n;
+            cin >> r >> n;
+            while (n--) {
+                int c;
+                cin >> c;
+                bomb[r][c] = true;
+            }
         }
-        parent = vi(N + 1, 0);
-        ranking = vi(N + 1, 0);
+        int st_r, st_c;
+        cin >> st_r >> st_c;
 
-        sort(edges.begin(), edges.end(),
-             [](iii& x, iii& y) { return get<2>(x) < get<2>(y); });
+        int en_r, en_c;
+        cin >> en_r >> en_c;
 
-        int cost_s, cost_t;
-        cin >> cost_s >> cost_t;
+        queue<iii> Q;
+        Q.push({st_r, st_c, 0});
+        while (not Q.empty()) {
+            auto u = Q.front();
+            Q.pop();
 
-        int q;
-        cin >> q;
-        while (q--) {
-            int s, t;
-            cin >> s >> t;
+            int r = get<0>(u);
+            int c = get<1>(u);
+            int d = get<2>(u);
+            if (r == en_r and c == en_c) {
+                cout << d << endl;
+                break;
+            }
 
-            int res = INF_INT;
-            int biggest = 0;
-            for (int i = 0; i < edges.size(); i++) {
-                if (mst(i, s, t, biggest)) {
-                    res = min(res, biggest - get<2>(edges[i]));
-                } else {
-                    break;
+            if (visited[r][c]) continue;
+            visited[r][c] = true;
+
+            for (auto dr : {-1, 0, 1}) {
+                for (auto dc : {-1, 0, 1}) {
+                    if (abs(dr) + abs(dc) != 1) continue;
+                    if (r + dr < 0 or r + dr >= R) continue;
+                    if (c + dc < 0 or c + dc >= C) continue;
+                    if (visited[r + dr][c + dc]) continue;
+                    Q.push({r + dr, c + dc, d + 1});
                 }
             }
-            int ans = cost_s + cost_t + res;
-
-            cout << ans << endl;
         }
     }
 

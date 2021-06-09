@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        10457.cc
-#  Description:     UVa Online Judge - 10457
+#  FileName:        336.cc
+#  Description:     UVa Online Judge - 336
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -86,6 +86,7 @@ ostream& operator<<(ostream& os, pair<X, Y> const& p) {
 class union_find {
     vi parent, sizes;
 
+   public:
     union_find(int n) {
         parent.resize(n);
         sizes.resize(n);
@@ -124,47 +125,14 @@ vs split(string line, regex re) {
 
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
+const int MAXN = 33;
+int N, dp[MAXN][MAXN];
+map<int, int> to_idx;
 
-int N;
-vector<iii> edges;
-vi parent, ranking;
-
-int find_set(int u) {
-    if (u == parent[u]) return u;
-    return parent[u] = find_set(parent[u]);
-}
-
-void union_set(int u, int v) {
-    u = find_set(u);
-    v = find_set(v);
-    if (u == v) return;
-    if (ranking[u] < ranking[v])
-        parent[u] = v;
-    else
-        parent[v] = u;
-    if (ranking[u] == ranking[v]) ranking[u]++;
-}
-
-bool mst(int idx, int st, int ed, int& biggest) {
-    for (int i = 1; i <= N; i++) {
-        parent[i] = i;
-        ranking[i] = 1;
-    }
-
-    for (int i = idx; i < edges.size(); i++) {
-        auto u = get<0>(edges[i]);
-        auto v = get<1>(edges[i]);
-
-        if (find_set(u) == find_set(v)) continue;
-        union_set(u, v);
-
-        if (find_set(st) == find_set(ed)) {
-            biggest = get<2>(edges[i]);
-            return true;
-        }
-    }
-
-    return false;
+int conv(int x) {
+    if (to_idx.count(x)) return to_idx[x];
+    to_idx[x] = to_idx.size();
+    return to_idx[x];
 }
 
 int main() {
@@ -172,43 +140,45 @@ int main() {
     cin.tie(0);
 
     int n_test = 0;
-    int M;
-    while (cin >> N >> M) {
+    while (cin >> N) {
         if (N == 0) break;
-        edges.clear();
 
-        for (int i = 0; i < M; i++) {
-            int u, v, d;
-            cin >> u >> v >> d;
-            edges.push_back({u, v, d});
+        to_idx.clear();
+        for (int i = 0; i < MAXN; i++)
+            for (int j = 0; j < MAXN; j++) dp[i][j] = (i == j ? 0 : INF_INT);
+
+        for (int i = 0; i < N; i++) {
+            int x, y;
+            cin >> x >> y;
+            dp[conv(x)][conv(y)] = dp[conv(y)][conv(x)] =
+                min(dp[conv(x)][conv(y)], 1);
         }
-        parent = vi(N + 1, 0);
-        ranking = vi(N + 1, 0);
 
-        sort(edges.begin(), edges.end(),
-             [](iii& x, iii& y) { return get<2>(x) < get<2>(y); });
-
-        int cost_s, cost_t;
-        cin >> cost_s >> cost_t;
-
-        int q;
-        cin >> q;
-        while (q--) {
-            int s, t;
-            cin >> s >> t;
-
-            int res = INF_INT;
-            int biggest = 0;
-            for (int i = 0; i < edges.size(); i++) {
-                if (mst(i, s, t, biggest)) {
-                    res = min(res, biggest - get<2>(edges[i]));
-                } else {
-                    break;
+        for (int k = 0; k < MAXN; k++)
+            for (int i = 0; i < MAXN; i++)
+                for (int j = 0; j < MAXN; j++) {
+                    dp[i][j] = min(dp[i][j], dp[i][k] + dp[k][j]);
                 }
-            }
-            int ans = cost_s + cost_t + res;
 
-            cout << ans << endl;
+        int st, len;
+        while (cin >> st >> len) {
+            if (st == 0 and len == 0) break;
+            int n_nodes = to_idx.size();
+
+            int ans = 0;
+            if (to_idx.count(st)) {
+                for (int i = 0; i < n_nodes; i++) {
+                    if (dp[conv(st)][i] > len) {
+                        ans++;
+                    }
+                }
+            } else {
+                ans = n_nodes;
+            }
+
+            cout << "Case " << ++n_test << ": " << ans
+                 << " nodes not reachable from node " << st
+                 << " with TTL = " << len << "." << endl;
         }
     }
 
