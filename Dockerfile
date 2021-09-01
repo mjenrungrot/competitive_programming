@@ -13,6 +13,10 @@ ENV SHELL=/bin/bash
 RUN sudo apt-get update && sudo apt-get install unzip -y
 RUN curl https://rclone.org/install.sh | sudo bash
 
+# Create rclone config
+RUN rclone config
+RUN cat $(rclone config file | sed -n 2p) | base64 --wrap=0 # Linux
+
 # Copy rclone tasks to /tmp, to potentially be used
 COPY deploy-container/rclone-tasks.json /tmp/rclone-tasks.json
 
