@@ -34,6 +34,7 @@ RUN code-server --install-extension ms-vscode.cpptools
 # Copy files: 
 # COPY deploy-container/myTool /home/coder/myTool
 
+# Git config
 RUN git config --global user.email ""
 RUN git config --global user.name "Teerapat Jenrungrot"
 
