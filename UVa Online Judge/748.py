@@ -16,8 +16,6 @@ while True:
     for i in range(len(line[0]) - 1, -1, -1):
         if line[0][i] == ".":
             break
-        # if line[0][i] != '0': found = True
-        # elif not found: continue
         n_fractions += 1
 
     r = int(line[0].replace(".", ""))
