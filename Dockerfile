@@ -28,7 +28,7 @@ RUN code-server --install-extension esbenp.prettier-vscode
 RUN code-server --install-extension ms-python.python
 
 # Install apt packages:
-# RUN sudo apt-get install -y ubuntu-make
+RUN sudo apt-get install -y build-essential
 
 # Copy files: 
 # COPY deploy-container/myTool /home/coder/myTool
