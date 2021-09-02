@@ -8,7 +8,8 @@ case_no = 0
 
 while True:
     S, T, N = list(map(int, input().split()))
-    if S == T == N == 0: break
+    if S == T == N == 0:
+        break
 
     case_no += 1
     print("Case {}:".format(case_no))

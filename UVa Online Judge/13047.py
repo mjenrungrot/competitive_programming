@@ -6,6 +6,7 @@
 
 import re
 
+
 def run():
     line = input()
 
@@ -15,8 +16,9 @@ def run():
     t4 = max(list(map(lambda x: len(x[0]), re.findall(r"((\=)*\>)", line))), default=-1)
     print(max(t1, t2, t3, t4))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     T = int(input())
     for i in range(T):
-        print("Case {}: ".format(i+1), end="")
+        print("Case {}: ".format(i + 1), end="")
         run()

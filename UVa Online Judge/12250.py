@@ -10,13 +10,13 @@ lines = sys.stdin.readlines()
 
 for i, line in enumerate(lines):
     text = line.strip()
-    if text == '#':
+    if text == "#":
         break
 
     if text == "HELLO":
-        ans = 'ENGLISH'
+        ans = "ENGLISH"
     elif text == "HOLA":
-        ans = 'SPANISH'
+        ans = "SPANISH"
     elif text == "HALLO":
         ans = "GERMAN"
     elif text == "BONJOUR":
@@ -28,4 +28,4 @@ for i, line in enumerate(lines):
     else:
         ans = "UNKNOWN"
 
-    print("Case {}: {}".format(i+1, ans))
+    print("Case {}: {}".format(i + 1, ans))

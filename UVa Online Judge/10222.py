@@ -3,8 +3,12 @@
 #  FileName:        10222.py
 #  Description:     UVa Online Judge - 10222
 # =============================================================================
-source = " 234567890-=ertyuiop[]\dfghjkl;'cvbnm,./@#$%^&*()_+ERTYUIOP{}|DFGHJKL:\"CVBNM<>?"
-target = " `1234567890qwertyuiop[asdfghjklzxcvbnm,~!@#$%^&*()QWERTYUIOP{ASDFGHJKLZXCVBNM<"
+source = (
+    " 234567890-=ertyuiop[]\dfghjkl;'cvbnm,./@#$%^&*()_+ERTYUIOP{}|DFGHJKL:\"CVBNM<>?"
+)
+target = (
+    " `1234567890qwertyuiop[asdfghjklzxcvbnm,~!@#$%^&*()QWERTYUIOP{ASDFGHJKLZXCVBNM<"
+)
 
 mapping = {}
 for i in range(len(source)):
@@ -15,6 +19,6 @@ while True:
         line = input()
     except EOFError:
         break
-    
-    output = ''.join(list(map(lambda x: mapping[x], line)))
+
+    output = "".join(list(map(lambda x: mapping[x], line)))
     print(output)

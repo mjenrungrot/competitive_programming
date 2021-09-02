@@ -4,6 +4,7 @@
 #  Description:     UVa Online Judge - 632
 # =============================================================================
 
+
 def run():
     N = int(input())
     S0 = ""
@@ -35,13 +36,14 @@ def run():
 
     print(S1_idx)
     for i in range(0, len(last_column), 50):
-        ending_idx = min(len(last_column), i+50)
+        ending_idx = min(len(last_column), i + 50)
         print(last_column[i:ending_idx])
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     T = int(input())
     _ = input()
     for i in range(T):
-        if(i):
+        if i:
             print("")
         run()

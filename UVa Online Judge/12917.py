@@ -12,5 +12,7 @@ for line in lines:
     P, H, O = list(map(int, line.split()))
 
     spares = O - P
-    if H > spares: print("Hunters win!")
-    else: print("Props win!")
+    if H > spares:
+        print("Hunters win!")
+    else:
+        print("Props win!")

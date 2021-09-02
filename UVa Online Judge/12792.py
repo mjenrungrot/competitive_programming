@@ -6,6 +6,7 @@
 
 import sys
 
+
 def func(line):
     N = int(line)
 
@@ -19,8 +20,9 @@ def func(line):
             curr = (curr - N // 2) * 2 - 1
 
         if curr == 1:
-          break
+            break
     print(counter)
+
 
 lines = sys.stdin.readlines()
 for line in lines:

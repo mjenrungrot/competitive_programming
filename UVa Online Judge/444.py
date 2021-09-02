@@ -14,11 +14,11 @@ while True:
 
         idx = 0
         while idx < len(line):
-            if line[idx] == '1':
-                print(chr(int(line[idx:idx+3])), end="")
+            if line[idx] == "1":
+                print(chr(int(line[idx : idx + 3])), end="")
                 idx += 3
             else:
-                print(chr(int(line[idx:idx+2])), end="")
+                print(chr(int(line[idx : idx + 2])), end="")
                 idx += 2
         print("")
     else:

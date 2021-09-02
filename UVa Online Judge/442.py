@@ -15,7 +15,7 @@ while True:
         line = input()
     except EOFError:
         break
-    
+
     ans = 0
 
     try:
@@ -24,11 +24,11 @@ while True:
         stack = []
         length_stack = 0
         while curr < length:
-            if line[curr] == '(':
+            if line[curr] == "(":
                 stack.append((-1, -1))
                 length_stack += 1
                 curr += 1
-            elif line[curr] == ')':
+            elif line[curr] == ")":
                 if stack[-2] == (-1, -1):
                     top = stack[-1]
                     stack.pop()
@@ -48,7 +48,7 @@ while True:
                 stack.append(matrix)
                 length_stack += 1
                 curr += 1
-                
+
             while length_stack >= 2 and stack[-1] != (-1, -1) and stack[-2] != (-1, -1):
                 if stack[-2][1] != stack[-1][0]:
                     raise ValueError
@@ -58,9 +58,9 @@ while True:
                 ans += l * m * r
                 stack.pop()
                 stack.pop()
-                stack.append((l, r)) 
+                stack.append((l, r))
                 length_stack -= 1
-            
+
         print(ans)
     except ValueError:
         print("error")

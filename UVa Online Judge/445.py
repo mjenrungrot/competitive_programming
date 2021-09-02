@@ -11,17 +11,17 @@ while True:
 
     num = 0
     for ch in line:
-        if ord('0') <= ord(ch) <= ord('9'):
-            num += ord(ch) - ord('0')
-        elif ord('A') <= ord(ch) <= ord('Z'):
+        if ord("0") <= ord(ch) <= ord("9"):
+            num += ord(ch) - ord("0")
+        elif ord("A") <= ord(ch) <= ord("Z"):
             print("{}".format(ch) * num, end="")
             num = 0
-        elif ch == 'b':
+        elif ch == "b":
             print(" " * num, end="")
             num = 0
-        elif ch == '*':
+        elif ch == "*":
             print("*" * num, end="")
             num = 0
-        elif ch == '!':
+        elif ch == "!":
             print("")
     print("")

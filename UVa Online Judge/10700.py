@@ -13,9 +13,9 @@ for _ in range(T):
     S = input()
 
     # find max: do plus first, then do multiply
-    max_val = functools.reduce(operator.mul, list(map(eval, S.split('*'))))
+    max_val = functools.reduce(operator.mul, list(map(eval, S.split("*"))))
 
     # find min: do multiply first, then do plus
-    min_val = functools.reduce(operator.add, list(map(eval, S.split('+'))))
+    min_val = functools.reduce(operator.add, list(map(eval, S.split("+"))))
 
     print("The maximum and minimum are {} and {}.".format(max_val, min_val))

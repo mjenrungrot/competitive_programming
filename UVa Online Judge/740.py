@@ -13,7 +13,7 @@ while True:
     except EOFError:
         break
 
-    codes = list(map(lambda x: int(line[x:x+5], base=2), range(0, len(line), 5)))
+    codes = list(map(lambda x: int(line[x : x + 5], base=2), range(0, len(line), 5)))
     up_state = False
 
     for code in codes:
@@ -24,6 +24,8 @@ while True:
             up_state = False
             continue
 
-        if up_state: print(up_shift[code], end="")
-        else: print(down_shift[code], end="")
+        if up_state:
+            print(up_shift[code], end="")
+        else:
+            print(down_shift[code], end="")
     print("")

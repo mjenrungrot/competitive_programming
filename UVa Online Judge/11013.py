@@ -5,15 +5,23 @@
 # =============================================================================
 import sys
 
+
 def get_rank(card):
-    if card[0] == 'A': return 0
-    if card[0] == 'T': return 9
-    if card[0] == 'J': return 10
-    if card[0] == 'Q': return 11
-    if card[0] == 'K': return 12
-    return ord(card[0]) - ord('1')
+    if card[0] == "A":
+        return 0
+    if card[0] == "T":
+        return 9
+    if card[0] == "J":
+        return 10
+    if card[0] == "Q":
+        return 11
+    if card[0] == "K":
+        return 12
+    return ord(card[0]) - ord("1")
+
 
 memory = {}
+
 
 def evaluate(cards):
     ranks = list(map(get_rank, cards))
@@ -48,16 +56,24 @@ def evaluate(cards):
         curr = (curr + 1) % 13
     consec_bins.sort(reverse=True)
     best_score = 0
-    if consec_bins[0] == 5: best_score = 100
-    elif consec_bins[0] == 4: best_score = 10
-    elif len(consec_bins) >= 2 and consec_bins[0] == 3 and consec_bins[1] == 2: best_score = 5
-    elif consec_bins[0] == 3: best_score = 3
-    elif len(consec_bins) >= 2 and consec_bins[0] == 2 and consec_bins[1] == 2: best_score = 1
+    if consec_bins[0] == 5:
+        best_score = 100
+    elif consec_bins[0] == 4:
+        best_score = 10
+    elif len(consec_bins) >= 2 and consec_bins[0] == 3 and consec_bins[1] == 2:
+        best_score = 5
+    elif consec_bins[0] == 3:
+        best_score = 3
+    elif len(consec_bins) >= 2 and consec_bins[0] == 2 and consec_bins[1] == 2:
+        best_score = 1
     memory[sorted_ranks] = best_score
     return best_score
 
-if __name__ == '__main__':
-    all_cards = ["{}{}".format(rank, suit) for rank in "A23456789TJQK" for suit in "SHDC"]
+
+if __name__ == "__main__":
+    all_cards = [
+        "{}{}".format(rank, suit) for rank in "A23456789TJQK" for suit in "SHDC"
+    ]
     while True:
         line = sys.stdin.readline()
         if line.strip() == "#":

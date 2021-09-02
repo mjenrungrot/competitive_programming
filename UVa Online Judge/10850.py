@@ -4,11 +4,13 @@
 #  Description:     UVa Online Judge - 10850
 # =============================================================================
 
+
 def update(curr_time, instant):
     if curr_time % 100 < instant:
         return curr_time - (curr_time % 100) + instant
     else:
         return curr_time + (100 - curr_time % 100) + instant
+
 
 def run():
     M, K = list(map(int, input().split()))
@@ -53,7 +55,8 @@ def run():
 
     print(curr_time)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     T = int(input())
     for i in range(T):
         run()

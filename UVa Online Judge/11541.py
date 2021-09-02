@@ -4,6 +4,7 @@
 #  Description:     UVa Online Judge - 11541
 # =============================================================================
 
+
 def run():
     line = input()
     curr = 0
@@ -20,8 +21,9 @@ def run():
         print("{}".format(ch) * num, end="")
     print("")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     T = int(input())
     for i in range(T):
-        print("Case {}: ".format(i+1), end="")
+        print("Case {}: ".format(i + 1), end="")
         run()

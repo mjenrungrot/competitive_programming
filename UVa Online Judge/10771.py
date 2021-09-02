@@ -12,7 +12,7 @@ while True:
     # G,K => add K => (nG-1,nK)
     # G,G => add G => (nG-1,nK)
     # K,K => add G => (nG+1,nK-2)
-    ans = M%2
+    ans = M % 2
 
     if ans:
         print("Keka")

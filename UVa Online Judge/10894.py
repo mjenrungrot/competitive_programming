@@ -12,17 +12,18 @@ text = """*****..***..*...*.*****...*...*.*****.*****.***...*****.*...*
 rows = text.split()
 
 start = [0, 5, 6, 11, 12, 17, 18, 23, 26, 31, 32, 37, 38, 43, 44, 49, 50, 55, 56]
-length = [5, 1, 5, 1, 5,   1,  5,  3, 5,  1, 5, 1,     5,  1,  5,  1, 5,   1,  5]
+length = [5, 1, 5, 1, 5, 1, 5, 3, 5, 1, 5, 1, 5, 1, 5, 1, 5, 1, 5]
 cols = []
 for i in range(len(start)):
     for k in range(5):
-        cols.append(rows[k][start[i]:start[i]+length[i]])
-cols = ''.join(cols)
-cols = [cols[i:i+5] for i in range(0, len(cols), 5)]
+        cols.append(rows[k][start[i] : start[i] + length[i]])
+cols = "".join(cols)
+cols = [cols[i : i + 5] for i in range(0, len(cols), 5)]
 
 while True:
     N = int(input())
-    if N == 0: break
+    if N == 0:
+        break
 
     if N < 0:
         L = -N

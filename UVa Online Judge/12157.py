@@ -4,6 +4,7 @@
 #  Description:     UVa Online Judge - 12157
 # =============================================================================
 
+
 def run():
     N = int(input())
     A = list(map(int, input().split()))
@@ -16,8 +17,9 @@ def run():
     else:
         print(" Mile Juice {}".format(mile))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     T = int(input())
     for i in range(T):
-        print("Case {}:".format(i+1), end="")
+        print("Case {}:".format(i + 1), end="")
         run()

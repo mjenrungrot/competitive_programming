@@ -8,7 +8,7 @@ import sys
 import math
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     counter = 1
     while True:
         N, *A = list(map(int, input().split()))
@@ -24,7 +24,8 @@ if __name__ == '__main__':
         numerator = abs(numerator)
 
         if numerator % denominator == 0:
-            if negative: print("- ", end="")
+            if negative:
+                print("- ", end="")
             print(numerator // denominator)
             continue
 
@@ -50,7 +51,9 @@ if __name__ == '__main__':
             bottom_space += 2
 
         print("{}{}".format(" " * top_space, rem))
-        if negative: print("- ", end="")
-        if n: print("{}".format(n), end="")
+        if negative:
+            print("- ", end="")
+        if n:
+            print("{}".format(n), end="")
         print("-" * max(rem_digit, denominator_digit))
         print("{}{}".format(" " * bottom_space, denominator))

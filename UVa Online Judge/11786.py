@@ -12,11 +12,11 @@ for _ in range(T):
     pos = 0
     ans = 0
     for i in range(len(A)):
-        if A[i] == '/':
+        if A[i] == "/":
             if len(S) > 0:
-                ans += (pos - S[-1])
+                ans += pos - S[-1]
                 S.pop()
-        elif A[i] == '\\':
+        elif A[i] == "\\":
             S.append(pos)
         else:
             pass

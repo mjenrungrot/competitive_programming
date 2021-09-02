@@ -4,6 +4,7 @@
 #  Description:     UVa Online Judge - 344
 # =============================================================================
 
+
 def toRoman(num):
     output = ""
     while num > 0:
@@ -36,23 +37,24 @@ def toRoman(num):
             output += "i"
     return output
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     while True:
         N = int(input())
-        if N == 0: break
+        if N == 0:
+            break
 
         keys = list("ivxlc")
         values = [0 for i in range(len(keys))]
         counter = dict(zip(keys, values))
 
-        for i in range(1, N+1):
+        for i in range(1, N + 1):
             roman = toRoman(i)
             for ch in roman:
                 counter[ch] += 1
 
-        print("{}: {} i, {} v, {} x, {} l, {} c".format(N,
-                                                        counter['i'],
-                                                        counter['v'],
-                                                        counter['x'],
-                                                        counter['l'],
-                                                        counter['c']))
+        print(
+            "{}: {} i, {} v, {} x, {} l, {} c".format(
+                N, counter["i"], counter["v"], counter["x"], counter["l"], counter["c"]
+            )
+        )

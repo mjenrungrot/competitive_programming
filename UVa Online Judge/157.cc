@@ -83,7 +83,6 @@ ostream& operator<<(ostream& os, pair<X, Y> const& p) {
 
 // End Debug Snippets
 
-
 class union_find {
     vi parent, sizes;
 
@@ -114,7 +113,6 @@ class union_find {
     }
 };
 
-
 vs split(string line, regex re) {
     vs output;
     sregex_token_iterator it(line.begin(), line.end(), re, -1), it_end;
@@ -131,94 +129,94 @@ const int MAXN = 300;
 
 int N;
 vii V[MAXN];
-tuple<char,char> lookup[MAXN];
-map <tuple<char,char>, int> to_idx;
+tuple<char, char> lookup[MAXN];
+map<tuple<char, char>, int> to_idx;
 
-int conv(char a, char b){
-    if(to_idx.count({a,b})) return to_idx[{a,b}];
-    lookup[to_idx.size()] = {a,b};
-    return to_idx[{a,b}] = to_idx.size();
+int conv(char a, char b) {
+    if (to_idx.count({a, b})) return to_idx[{a, b}];
+    lookup[to_idx.size()] = {a, b};
+    return to_idx[{a, b}] = to_idx.size();
 }
-int conv_wrapper(tuple<char,char> x){ return conv(get<0>(x), get<1>(x)); }
-
+int conv_wrapper(tuple<char, char> x) { return conv(get<0>(x), get<1>(x)); }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
-    
+
     cin >> N;
-    for(int i=0;i<N;i++){
+    for (int i = 0; i < N; i++) {
         string line;
         cin >> line;
 
         char curr_line = line[0];
-        tuple<char,char> curr, next;
+        tuple<char, char> curr, next;
         curr = {curr_line, line[2]};
-        for(int j=3;j<line.length();j++){
-            if(line[j] != '='){
+        for (int j = 3; j < line.length(); j++) {
+            if (line[j] != '=') {
                 next = {curr_line, line[j]};
                 V[conv_wrapper(curr)].emplace_back(conv_wrapper(next), 1);
                 V[conv_wrapper(next)].emplace_back(conv_wrapper(curr), 1);
 
                 curr = next;
-            }else{
-                vector<tuple<char,char>> stations;
+            } else {
+                vector<tuple<char, char>> stations;
                 stations.push_back(curr);
-                while(j < line.length() and line[j] == '='){
-                    stations.push_back({line[j+1], line[j+2]});
+                while (j < line.length() and line[j] == '=') {
+                    stations.push_back({line[j + 1], line[j + 2]});
                     j += 3;
                 }
                 j--;
 
-                for(int k1=0;k1<stations.size();k1++) for(int k2=k1+1;k2<stations.size();k2++){
-                    V[conv_wrapper(stations[k1])].push_back({conv_wrapper(stations[k2]), 3});
-                    V[conv_wrapper(stations[k2])].push_back({conv_wrapper(stations[k1]), 3});
-                }
+                for (int k1 = 0; k1 < stations.size(); k1++)
+                    for (int k2 = k1 + 1; k2 < stations.size(); k2++) {
+                        V[conv_wrapper(stations[k1])].push_back(
+                            {conv_wrapper(stations[k2]), 3});
+                        V[conv_wrapper(stations[k2])].push_back(
+                            {conv_wrapper(stations[k1]), 3});
+                    }
             }
         }
     }
 
     string query;
-    while(cin >> query){
-        if(query == "#") break;
+    while (cin >> query) {
+        if (query == "#") break;
 
         tuple<char, char> start, target;
         start = {query[0], query[1]};
         target = {query[2], query[3]};
 
-        auto cmp = [](ii x, ii y){
-            return x.first > y.first;
-        };
-        priority_queue <ii, vii, decltype(cmp)> pq(cmp);
-        
+        auto cmp = [](ii x, ii y) { return x.first > y.first; };
+        priority_queue<ii, vii, decltype(cmp)> pq(cmp);
+
         vi dist(MAXN, INF_INT);
         vi parent(MAXN, -1);
-        
+
         dist[conv_wrapper(start)] = 0;
         pq.push({0, conv_wrapper(start)});
 
-        while(not pq.empty()){
+        while (not pq.empty()) {
             auto top_node = pq.top();
             auto u = get<1>(top_node);
             auto curr_d = get<0>(top_node);
             pq.pop();
 
-            if(curr_d > dist[u]) continue;
-            if(u == conv_wrapper(target)){
+            if (curr_d > dist[u]) continue;
+            if (u == conv_wrapper(target)) {
                 break;
             }
 
-            for(auto next_node: V[u]){
+            for (auto next_node : V[u]) {
                 auto v = get<0>(next_node);
                 auto d = get<1>(next_node);
 
-                if(parent[u] != -1 and \
-                    get<0>(lookup[u]) != get<0>(lookup[v]) and \
-                    get<0>(lookup[parent[u]]) != get<0>(lookup[u])){
+                if (parent[u] != -1 and
+                    get<0>(lookup[u]) != get<0>(lookup[v]) and
+                    get<0>(lookup[parent[u]]) != get<0>(lookup[u])) {
                     d = 0;
                 }
 
-                if(curr_d + d < dist[v]){
+                if (curr_d + d < dist[v]) {
                     dist[v] = curr_d + d;
                     parent[v] = u;
                     pq.push({dist[v], v});
@@ -227,9 +225,9 @@ int main() {
         }
 
         int curr = conv_wrapper(target);
-        vector<tuple<char,char>> stations;
+        vector<tuple<char, char>> stations;
 
-        while(curr != -1){
+        while (curr != -1) {
             stations.push_back(lookup[curr]);
             curr = parent[curr];
         }
@@ -238,12 +236,13 @@ int main() {
 
         char curr_line = get<0>(stations.back());
         cout << curr_line << get<1>(stations.back());
-        for(int i=stations.size()-2;i>=0;i--){
-            if(get<0>(stations[i]) == curr_line){
+        for (int i = stations.size() - 2; i >= 0; i--) {
+            if (get<0>(stations[i]) == curr_line) {
                 cout << get<1>(stations[i]);
-            }else{
+            } else {
                 // lookahead for multiple changes
-                if(i-1 >= 0 and get<0>(stations[i-1]) != get<0>(stations[i])){
+                if (i - 1 >= 0 and
+                    get<0>(stations[i - 1]) != get<0>(stations[i])) {
                     continue;
                 }
 

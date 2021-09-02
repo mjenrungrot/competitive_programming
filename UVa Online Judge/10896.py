@@ -4,14 +4,16 @@
 #  Description:     UVa Online Judge - 10896
 # =============================================================================
 
+
 def test(enc_word, dec_word, k):
-    source = [chr(i + ord('a')) for i in range(26)]
-    target = [chr((i + k) % 26 + ord('a')) for i in range(26)]
+    source = [chr(i + ord("a")) for i in range(26)]
+    target = [chr((i + k) % 26 + ord("a")) for i in range(26)]
     mapping = dict(zip(source, target))
 
-    enc_word_decrypted = ''.join(list(map(lambda x: mapping[x], enc_word)))
+    enc_word_decrypted = "".join(list(map(lambda x: mapping[x], enc_word)))
     # print(enc_word, dec_word, k, enc_word_decrypted)
-    if enc_word_decrypted == dec_word: return True
+    if enc_word_decrypted == dec_word:
+        return True
     return False
 
 
@@ -28,10 +30,11 @@ def run():
                 break
 
         if working:
-            ans += "{}".format(chr((26 - i) % 26 + ord('a')))
+            ans += "{}".format(chr((26 - i) % 26 + ord("a")))
     print(ans)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     T = int(input())
     for i in range(T):
         run()

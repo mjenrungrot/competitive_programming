@@ -10,6 +10,6 @@ for i in range(2, 85):
 
 while True:
     N = int(input())
-    if N == 0: 
+    if N == 0:
         break
     print(ans[N])

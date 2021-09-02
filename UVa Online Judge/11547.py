@@ -4,6 +4,7 @@
 #  Description:     UVa Online Judge - 11547
 # =============================================================================
 
+
 def run():
     n = int(input())
     n = n * 567
@@ -15,7 +16,8 @@ def run():
     n = abs(n)
     print((n % 100) // 10)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     T = int(input())
     for i in range(T):
         run()

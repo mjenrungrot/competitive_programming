@@ -15,14 +15,16 @@ while True:
         break
 
     terminate = False
-    all_words = list(map(lambda x: x[0], re.findall(r"([a-zA-Z]+(\-[a-zA-Z]+)*)", line)))
+    all_words = list(
+        map(lambda x: x[0], re.findall(r"([a-zA-Z]+(\-[a-zA-Z]+)*)", line))
+    )
     for word in all_words:
-        if word == 'E-N-D':
+        if word == "E-N-D":
             terminate = True
             break
         if len(word) > len(best_word):
             best_word = word
-    
+
     if terminate:
         break
 

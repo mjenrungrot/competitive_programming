@@ -8,7 +8,7 @@ import sys
 
 while True:
     line = sys.stdin.readline()
-    if line == '':
+    if line == "":
         break
     N = int(line)
 

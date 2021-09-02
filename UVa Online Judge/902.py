@@ -4,6 +4,7 @@
 #  Description:     UVa Online Judge - 902
 # =============================================================================
 
+
 def reader():
     while True:
         line = input().split()
@@ -18,14 +19,15 @@ while True:
         line = next(gen)
     except EOFError:
         break
-    
+
     N = int(N)
     length = len(line)
 
     memory = {}
     for i in range(length):
         j = i + N
-        if j > length: break
+        if j > length:
+            break
         if line[i:j] not in memory:
             memory[line[i:j]] = 0
 

@@ -12,12 +12,13 @@ while True:
     except EOFError:
         break
 
-    if nt: print("")
+    if nt:
+        print("")
     nt += 1
 
     X = 1
     K = T
-    for i in range(N-1):
+    for i in range(N - 1):
         X += K
         K *= T
     print("X = {}".format(X))

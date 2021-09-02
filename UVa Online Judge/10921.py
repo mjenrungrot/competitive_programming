@@ -14,4 +14,4 @@ while True:
     except EOFError:
         break
 
-    print(''.join(list(map(lambda x: mapping[x], line))))
+    print("".join(list(map(lambda x: mapping[x], line))))

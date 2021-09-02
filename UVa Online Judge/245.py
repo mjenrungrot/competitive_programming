@@ -12,7 +12,8 @@ while True:
         line = input()
     except EOFError:
         break
-    if line == "0": break
+    if line == "0":
+        break
 
     word = ""
     num = 0
@@ -26,7 +27,8 @@ while True:
         else:
             if len(word) > 0:
                 print(word, end="")
-                if word in words: words.remove(word)
+                if word in words:
+                    words.remove(word)
                 words.appendleft(word)
             elif num > 0:
                 tmp = words[num - 1]
@@ -40,7 +42,8 @@ while True:
 
     if len(word) > 0:
         print(word)
-        if word in words: words.remove(word)
+        if word in words:
+            words.remove(word)
         words.appendleft(word)
     elif num > 0:
         tmp = words[num - 1]

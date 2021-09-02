@@ -7,18 +7,20 @@
 nt = 0
 while True:
     N = int(input())
-    if N == 0: break
+    if N == 0:
+        break
 
-    if nt: print("")
+    if nt:
+        print("")
     nt += 1
-    
+
     n_ghost = 0
     print(N)
-    if (N < 2148):
+    if N < 2148:
         print("No ghost will come in this year")
         continue
 
-    if N % 2 == 0: 
+    if N % 2 == 0:
         n_ghost += 1
         print("Ghost of Tanveer Ahsan!!!")
     if N % 5 == 3:
@@ -42,11 +44,9 @@ while True:
     if N % 36 == 24:
         n_ghost += 1
         print("Ghost of Monirul Hasan!!!")
-    if N % 400 == 0 or (N%100 != 0 and N%4 == 0):
+    if N % 400 == 0 or (N % 100 != 0 and N % 4 == 0):
         n_ghost += 1
         print("Ghost of K. M. Iftekhar!!!")
 
     if n_ghost == 0:
         print("No ghost will come in this year")
-
-    

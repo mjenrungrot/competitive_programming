@@ -4,6 +4,7 @@
 #  Description:     UVa Online Judge - 11744
 # =============================================================================
 
+
 def run():
     a, b = input().split()
     a = int(a, base=2)
@@ -15,7 +16,7 @@ def run():
         d = a & b
 
         a = c
-        b = (d << 1)
+        b = d << 1
         if b == 0:
             print("{:031b} {:031b}".format(a, b))
             break
@@ -26,8 +27,9 @@ def run():
             print("{:031b} {:031b}".format(a, b))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     T = int(input())
     for i in range(T):
-        if i: print("")
+        if i:
+            print("")
         run()

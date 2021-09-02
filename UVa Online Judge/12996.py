@@ -21,5 +21,7 @@ for i in range(T):
     if sum_fruits > L:
         possible = False
 
-    if possible: print("Case {}: Yes".format(i+1))
-    else: print("Case {}: No".format(i+1))
+    if possible:
+        print("Case {}: Yes".format(i + 1))
+    else:
+        print("Case {}: No".format(i + 1))

@@ -11,4 +11,4 @@ while True:
     except EOFError:
         break
 
-    print(a*b) 
+    print(a * b)

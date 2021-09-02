@@ -4,6 +4,7 @@
 #  Description:     UVa Online Judge - 11220
 # =============================================================================
 
+
 def run():
     while True:
         try:
@@ -11,20 +12,24 @@ def run():
         except EOFError:
             break
 
-        if len(line) == 0: break
+        if len(line) == 0:
+            break
         output = ""
         curr = 0
         words = line.split()
         for i in range(len(words)):
-            if len(words[i]) <= curr: continue
+            if len(words[i]) <= curr:
+                continue
             output += "{}".format(words[i][curr])
             curr += 1
         print(output)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     T = int(input())
     _ = input()
     for i in range(T):
-        if(i): print("")
-        print("Case #{}:".format(i+1))
+        if i:
+            print("")
+        print("Case #{}:".format(i + 1))
         run()

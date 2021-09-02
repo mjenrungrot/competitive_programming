@@ -14,4 +14,4 @@ for i in range(N):
             ans = "No"
             break
 
-    print("Set #{}: {}".format(i+1, ans))
+    print("Set #{}: {}".format(i + 1, ans))

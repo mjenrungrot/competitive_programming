@@ -20,11 +20,12 @@ while True:
         passing = len(counter) >= 2
         if passing:
             for ch in counter:
-                if counter[ch] in set_counter: 
+                if counter[ch] in set_counter:
                     passing = False
                     break
                 set_counter.add(counter[ch])
-        if passing: ans += 1
+        if passing:
+            ans += 1
 
     T += 1
     print("Case {}: {}".format(T, ans))

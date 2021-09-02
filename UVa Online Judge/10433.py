@@ -11,7 +11,7 @@ while True:
         break
 
     N = int(str_N)
-    N2 = N*N
+    N2 = N * N
     str_N2 = str(N2)
     len_N = len(str_N)
 

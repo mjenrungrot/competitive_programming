@@ -4,6 +4,7 @@
 #  Description:     UVa Online Judge - 13275
 # =============================================================================
 
+
 def run():
     D, M, Y, QY = list(map(int, input().split()))
 
@@ -14,8 +15,9 @@ def run():
     else:
         print(QY - Y)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     T = int(input())
     for i in range(T):
-        print("Case {}: ".format(i+1), end="")
+        print("Case {}: ".format(i + 1), end="")
         run()

@@ -24,19 +24,22 @@ while True:
             if len(stack1) == 0 or stack1[-1] + x != 0:
                 fail = True
                 break
-            
+
             stack2.pop()
             stack1.pop()
 
             if len(stack1) > 0:
                 s = stack2.pop() - x
-                if s <= 0: 
+                if s <= 0:
                     fail = True
                     break
                 stack2.append(s)
 
         curr += 1
 
-    if len(stack1) > 0: fail = True
-    if fail: print(":-( Try again.")
-    else: print(":-) Matrioshka!")
+    if len(stack1) > 0:
+        fail = True
+    if fail:
+        print(":-( Try again.")
+    else:
+        print(":-) Matrioshka!")

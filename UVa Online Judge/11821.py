@@ -11,29 +11,30 @@ while T > 0:
     nums = []
     while True:
         x = input()
-        if x == "0": break
+        if x == "0":
+            break
         nums.append(x)
 
     n_fraction_max = 0
     for i in range(len(nums)):
-        if nums[i].find('.') == -1:
+        if nums[i].find(".") == -1:
             n_fraction = 0
         else:
-            n_fraction = len(nums[i]) - nums[i].find('.') - 1
+            n_fraction = len(nums[i]) - nums[i].find(".") - 1
         n_fraction_max = max(n_fraction_max, n_fraction)
 
     for i in range(len(nums)):
-        if nums[i].find('.') == -1:
+        if nums[i].find(".") == -1:
             n_fraction = 0
         else:
-            n_fraction = len(nums[i]) - nums[i].find('.') - 1
+            n_fraction = len(nums[i]) - nums[i].find(".") - 1
         nums[i] += "0" * (n_fraction_max - n_fraction)
-        nums[i] = int(nums[i].replace('.', ''))
+        nums[i] = int(nums[i].replace(".", ""))
 
     sum_val = 0
     for i in range(len(nums)):
         sum_val += nums[i]
-    
+
     negative = sum_val < 0
     sum_val = abs(sum_val)
     digits = sum_val // (10 ** n_fraction_max)
@@ -44,11 +45,11 @@ while T > 0:
     fractions = fractions[::-1]
     fractions += "0" * (n_fraction_max - len(fractions))
     fractions = fractions[::-1]
-    fractions = fractions.rstrip('0')
+    fractions = fractions.rstrip("0")
 
-    if negative: print("-", end="")
+    if negative:
+        print("-", end="")
     if len(fractions) == 0:
         print(digits)
     else:
         print("{}.{}".format(digits, fractions))
-    
