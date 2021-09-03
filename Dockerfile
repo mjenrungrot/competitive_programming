@@ -27,7 +27,7 @@ RUN sudo chown -R coder:coder /home/coder/.local
 RUN code-server --install-extension esbenp.prettier-vscode
 RUN code-server --install-extension ms-python.python
 
-RUN curl https://github.com/microsoft/vscode-cpptools/releases/download/1.6.0/cpptools-linux-aarch64.vsix --output cpptools-linux.vsix
+RUN curl https://github.com/microsoft/vscode-cpptools/releases/download/1.6.0/cpptools-linux-armhf.vsix --output cpptools-linux.vsix
 RUN code-server --install-extension cpptools-linux.vsix
 RUN rm cpptools-linux.vsix
 
