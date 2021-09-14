@@ -26,9 +26,9 @@ RUN sudo chown -R coder:coder /home/coder/.local
 # Note: we use a different marketplace than VS Code. See https://github.com/cdr/code-server/blob/main/docs/FAQ.md#differences-compared-to-vs-code
 RUN code-server --install-extension esbenp.prettier-vscode
 RUN code-server --install-extension ms-python.python
-# RUN curl -L https://github.com/microsoft/vscode-cpptools/releases/download/1.5.1/cpptools-linux.vsix --output cpptools-linux.vsix
-# RUN code-server --install-extension cpptools-linux.vsix
-# RUN rm cpptools-linux.vsix
+RUN curl -L https://github.com/microsoft/vscode-cpptools/releases/download/1.5.1/cpptools-linux.vsix --output cpptools-linux.vsix
+RUN code-server --install-extension cpptools-linux.vsix
+RUN rm cpptools-linux.vsix
 
 
 # Install apt packages:
