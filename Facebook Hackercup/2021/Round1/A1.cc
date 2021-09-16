@@ -83,7 +83,6 @@ ostream& operator<<(ostream& os, pair<X, Y> const& p) {
 
 // End Debug Snippets
 
-
 class union_find {
     vi parent, sizes;
 
@@ -114,7 +113,6 @@ class union_find {
     }
 };
 
-
 vs split(string line, regex re) {
     vs output;
     sregex_token_iterator it(line.begin(), line.end(), re, -1), it_end;
@@ -133,39 +131,42 @@ int N;
 string S;
 int dp[MAXN][2];
 
-void run(){
+void run() {
     cin >> N;
     cin >> S;
 
-    for(int i=0;i<MAXN;i++) dp[i][0] = dp[i][1] = INF_INT;
+    for (int i = 0; i < MAXN; i++) dp[i][0] = dp[i][1] = INF_INT;
 
-    if(S[0] == 'X') dp[0][0] = 0;
-    else if(S[0] == 'F') dp[0][0] = dp[0][1] = 0;
-    else if(S[0] =='O') dp[0][1] = 0;
+    if (S[0] == 'X')
+        dp[0][0] = 0;
+    else if (S[0] == 'F')
+        dp[0][0] = dp[0][1] = 0;
+    else if (S[0] == 'O')
+        dp[0][1] = 0;
 
-    for(int i=1;i<S.length();i++){
-        if(S[i] == 'X'){
-            dp[i][0] = min(dp[i-1][0], dp[i-1][1] + 1);
+    for (int i = 1; i < S.length(); i++) {
+        if (S[i] == 'X') {
+            dp[i][0] = min(dp[i - 1][0], dp[i - 1][1] + 1);
             dp[i][1] = INF_INT;
-        }else if(S[i] == 'F'){
-            dp[i][0] = min(dp[i-1][0], dp[i-1][1] + 1);
-            dp[i][1] = min(dp[i-1][1], dp[i-1][0] + 1);
-        }else if(S[i] == 'O'){
+        } else if (S[i] == 'F') {
+            dp[i][0] = min(dp[i - 1][0], dp[i - 1][1] + 1);
+            dp[i][1] = min(dp[i - 1][1], dp[i - 1][0] + 1);
+        } else if (S[i] == 'O') {
             dp[i][0] = INF_INT;
-            dp[i][1] = min(dp[i-1][1], dp[i-1][0] + 1);
+            dp[i][1] = min(dp[i - 1][1], dp[i - 1][0] + 1);
         }
         // cout << dp[i][0] << " " << dp[i][1] << endl;
     }
-    cout << min(dp[S.length()-1][0], dp[S.length()-1][1]) << endl;
+    cout << min(dp[S.length() - 1][0], dp[S.length() - 1][1]) << endl;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
-    
+
     int T;
     cin >> T;
-    for(int i=1;i<=T;i++){
+    for (int i = 1; i <= T; i++) {
         cout << "Case #" << i << ": ";
         run();
     }
