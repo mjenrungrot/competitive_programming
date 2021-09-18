@@ -83,7 +83,6 @@ ostream& operator<<(ostream& os, pair<X, Y> const& p) {
 
 // End Debug Snippets
 
-
 class union_find {
     vi parent, sizes;
 
@@ -114,7 +113,6 @@ class union_find {
     }
 };
 
-
 vs split(string line, regex re) {
     vs output;
     sregex_token_iterator it(line.begin(), line.end(), re, -1), it_end;
@@ -129,11 +127,11 @@ const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
 const int MAXN = 800005;
 
-const long long MOD = 1e9+7;
+const long long MOD = 1e9 + 7;
 int N;
 string S;
 
-void run(){
+void run() {
     cin >> N;
     cin >> S;
 
@@ -141,29 +139,30 @@ void run(){
 
     int loc = 0;
     char prev = S[0];
-    for(int i=1;i<S.length();i++){
-        if(loc == 0 and prev == 'F'){
-            if(S[i] == 'F') continue;
-            else{
+    for (int i = 1; i < S.length(); i++) {
+        if (loc == 0 and prev == 'F') {
+            if (S[i] == 'F')
+                continue;
+            else {
                 prev = S[i];
                 loc = i;
             }
-        }else{
-            if(S[i] == 'F'){
+        } else {
+            if (S[i] == 'F') {
                 continue;
-            }else if(S[i] == 'X'){
-                if(prev == 'X'){
+            } else if (S[i] == 'X') {
+                if (prev == 'X') {
                     loc = i;
-                }else{
-                    ans = (ans + (long long)(loc+1) * (S.length() - i)) % MOD;
+                } else {
+                    ans = (ans + (long long)(loc + 1) * (S.length() - i)) % MOD;
                     prev = S[i];
                     loc = i;
                 }
-            }else{
-                if(prev == 'O'){
+            } else {
+                if (prev == 'O') {
                     loc = i;
-                }else{
-                    ans = (ans + (long long)(loc+1) * (S.length() - i)) % MOD;
+                } else {
+                    ans = (ans + (long long)(loc + 1) * (S.length() - i)) % MOD;
                     prev = S[i];
                     loc = i;
                 }
@@ -177,10 +176,10 @@ void run(){
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
-    
+
     int T;
     cin >> T;
-    for(int i=1;i<=T;i++){
+    for (int i = 1; i <= T; i++) {
         cout << "Case #" << i << ": ";
         run();
     }

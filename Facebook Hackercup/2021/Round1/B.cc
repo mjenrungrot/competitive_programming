@@ -83,7 +83,6 @@ ostream& operator<<(ostream& os, pair<X, Y> const& p) {
 
 // End Debug Snippets
 
-
 class union_find {
     vi parent, sizes;
 
@@ -114,7 +113,6 @@ class union_find {
     }
 };
 
-
 vs split(string line, regex re) {
     vs output;
     sregex_token_iterator it(line.begin(), line.end(), re, -1), it_end;
@@ -128,25 +126,28 @@ vs split(string line, regex re) {
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
 
-void run(){
+void run() {
     int N, M, A, B;
     cin >> N >> M >> A >> B;
 
     int top_left = A - (N + M - 2);
     int top_right = B - (N + M - 2);
-    
-    if(top_left <= 0 or top_right <= 0){
+
+    if (top_left <= 0 or top_right <= 0) {
         cout << "Impossible" << endl;
-        return ;
+        return;
     }
 
     cout << "Possible" << endl;
-    for(int i=1;i<=N;i++){
-        for(int j=1;j<=M;j++){
-            if(j > 1) cout << " ";
-            if(i == 1 and j == 1) cout << top_left;
-            else if(i == 1 and j == M) cout << top_right;
-            else cout << 1;
+    for (int i = 1; i <= N; i++) {
+        for (int j = 1; j <= M; j++) {
+            if (j > 1) cout << " ";
+            if (i == 1 and j == 1)
+                cout << top_left;
+            else if (i == 1 and j == M)
+                cout << top_right;
+            else
+                cout << 1;
         }
         cout << endl;
     }
@@ -155,10 +156,10 @@ void run(){
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
-    
+
     int T;
     cin >> T;
-    for(int i=1;i<=T;i++){
+    for (int i = 1; i <= T; i++) {
         cout << "Case #" << i << ": ";
         run();
     }

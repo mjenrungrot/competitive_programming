@@ -83,9 +83,7 @@ ostream& operator<<(ostream& os, pair<X, Y> const& p) {
 
 // End Debug Snippets
 
-
 class union_find {
-
    public:
     vi parent, sizes;
     union_find(int n) {
@@ -114,7 +112,6 @@ class union_find {
     }
 };
 
-
 vs split(string line, regex re) {
     vs output;
     sregex_token_iterator it(line.begin(), line.end(), re, -1), it_end;
@@ -127,98 +124,108 @@ vs split(string line, regex re) {
 
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
-const int MOD = 1e9+7;
+const long long MOD = 1e9 + 7;
 const int MAXN = 800005;
 const int MAXK = 22;
 
+long long ans, base;
 int N;
 vii V[MAXN];
-int reachable1[MAXN][MAXK]; // reachable(i,j): nodes within subtree reachable from i-th node using weight >= j
-int reachable2[MAXN][MAXK]; // reachable(i,j): nodes outside subtree reachable from i-th node using weight >= j
+int reachable1[MAXN][MAXK];  // reachable(i,j): nodes within subtree reachable
+                             // from i-th node using weight >= j
+int reachable2[MAXN][MAXK];  // reachable(i,j): nodes outside subtree reachable
+                             // from i-th node using weight >= j
 
-void f1(int u, int p){
-    for(int j=0;j<MAXK;j++) reachable1[u][j] = 1;
+void f1(int u, int p) {
+    for (int j = 0; j < MAXK; j++) reachable1[u][j] = 1;
 
-    for(auto x: V[u]){
-        if(x.first == p) continue;
+    for (auto x : V[u]) {
+        if (x.first == p) continue;
         f1(x.first, u);
-        for(int j=1;j<=x.second;j++) reachable1[u][j] += reachable1[x.first][j];
+        for (int j = 1; j <= x.second; j++)
+            reachable1[u][j] += reachable1[x.first][j];
     }
-
 }
 
-void f2(int u, int p){
-    for(auto x: V[u]){
-        if(x.first == p) continue;
-        for(int j=1;j<=x.second;j++) reachable2[x.first][j] += reachable2[u][j] + reachable1[u][j] - reachable1[x.first][j];
+void f2(int u, int p) {
+    for (auto x : V[u]) {
+        if (x.first == p) continue;
+        for (int j = 1; j <= x.second; j++)
+            reachable2[x.first][j] +=
+                reachable2[u][j] + reachable1[u][j] - reachable1[x.first][j];
         f2(x.first, u);
     }
 }
 
-void f3(int u, int p, long long base, long long &ans){
-    for(auto x: V[u]){
-        if(x.first == p) continue;
+void f3(int u, int p) {
+    for (auto x : V[u]) {
+        if (x.first == p) continue;
 
         long long tmp = 0LL;
-        for(int j=1;j<MAXK-1;j++){
-            long long P1 = (long long)reachable1[x.first][j] * reachable2[x.first][j];
-            long long P2 = (long long)reachable1[x.first][j+1] * reachable2[x.first][j+1];
+        for (int j = 1; j < MAXK - 1; j++) {
+            long long P1 =
+                (long long)reachable1[x.first][j] * reachable2[x.first][j];
+            long long P2 = (long long)reachable1[x.first][j + 1] *
+                           reachable2[x.first][j + 1];
             tmp += (long long)j * (P1 - P2);
-            
         }
-        ans = (ans * (base - tmp)) % MOD;
-        f3(x.first, u, base, ans);
+        ans = (ans * ((base - tmp) % MOD)) % MOD;
+        f3(x.first, u);
     }
 }
 
-void run(){
+void run() {
     memset(reachable1, 0, sizeof(reachable1));
     memset(reachable2, 0, sizeof(reachable2));
-    for(int i=0;i<MAXN;i++) V[i].clear();
-    
+    for (int i = 0; i < MAXN; i++) V[i].clear();
+
     cin >> N;
     vector<iii> edges;
-    for(int i=0;i<N-1;i++){
+    for (int i = 0; i < N - 1; i++) {
         int u, v, c;
         cin >> u >> v >> c;
         V[u].emplace_back(v, c);
         V[v].emplace_back(u, c);
         edges.push_back({u, v, c});
     }
-    auto cmp = [](iii &x, iii &y){ return get<2>(x) > get<2>(y); };
+    auto cmp = [](iii& x, iii& y) { return get<2>(x) > get<2>(y); };
     sort(edges.begin(), edges.end(), cmp);
 
-    union_find S(N+1);
-    long long base = 0;
-    for(int i=0;i<edges.size();i++){
+    union_find S(N + 1);
+    base = 0;
+    for (int i = 0; i < edges.size(); i++) {
         int u = get<0>(edges[i]);
         int v = get<1>(edges[i]);
         int c = get<2>(edges[i]);
 
-        if(S.find_set(u) == S.find_set(v)){
+        if (S.find_set(u) == S.find_set(v)) {
             continue;
-        }else{
-            base += c * (S.sizes[S.find_set(u)] * S.sizes[S.find_set(v)]);
+        } else {
+            base += (long long)c * ((long long)S.sizes[S.find_set(u)] *
+                                    S.sizes[S.find_set(v)]);
+            assert((long long)c * ((long long)S.sizes[S.find_set(u)] *
+                                   S.sizes[S.find_set(v)]) >=
+                   0);
+            assert(base >= 0);
             S.union_set(u, v);
         }
     }
-    // cout << base << endl;
 
     f1(1, -1);
     f2(1, -1);
 
-    long long ans = 1LL;
-    f3(1, -1, base, ans);
+    ans = 1LL;
+    f3(1, -1);
     cout << ans << endl;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
-    
+
     int T;
     cin >> T;
-    for(int i=1;i<=T;i++){
+    for (int i = 1; i <= T; i++) {
         cout << "Case #" << i << ": ";
         run();
     }
