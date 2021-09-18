@@ -74,6 +74,8 @@ else
 
     fi
 
+    # Fix permission
+    chmod +x /home/coder/deploy-container/entrypoint.sh
 fi
 
 # Add dotfiles, if set
