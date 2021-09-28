@@ -1,3 +1,6 @@
+# Ignore entrypoint file due to permission from rpull
+deploy-container/entrypoint.sh
+
 # ignore all files without extension
 *
 !/**/
