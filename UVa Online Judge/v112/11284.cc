@@ -83,7 +83,6 @@ ostream& operator<<(ostream& os, pair<X, Y> const& p) {
 
 // End Debug Snippets
 
-
 class union_find {
     vi parent, sizes;
 
@@ -114,7 +113,6 @@ class union_find {
     }
 };
 
-
 vs split(string line, regex re) {
     vs output;
     sregex_token_iterator it(line.begin(), line.end(), re, -1), it_end;
@@ -129,7 +127,7 @@ const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
 const int MAXN = 52;
 const int MAXP = 14;
-const int MAXMASK = (1<<14);
+const int MAXMASK = (1 << 14);
 
 int N, M, P;
 int dist[MAXN][MAXN];
@@ -137,19 +135,20 @@ int loc[MAXN];
 int saving[MAXN];
 
 int valid[MAXMASK][MAXP];
-int dp[MAXMASK][MAXP], ans; // best-saving
+int dp[MAXMASK][MAXP], ans;  // best-saving
 
-int f(int mask, int u){
-    if(mask == 0) return -dist[loc[u]][loc[0]];
+int f(int mask, int u) {
+    if (mask == 0) return -dist[loc[u]][loc[0]];
 
-    if(valid[mask][u]) return dp[mask][u];
+    if (valid[mask][u]) return dp[mask][u];
 
     int curr_ans = -dist[loc[u]][loc[0]];
     int curr_mask = mask;
-    while(curr_mask > 0){
+    while (curr_mask > 0) {
         int curr_idx = curr_mask & -curr_mask;
         int curr_idx_pos = __builtin_ctz(curr_idx);
-        int val_go_buy = f(mask - curr_idx, curr_idx_pos) + saving[curr_idx_pos] - dist[loc[u]][loc[curr_idx_pos]];
+        int val_go_buy = f(mask - curr_idx, curr_idx_pos) +
+                         saving[curr_idx_pos] - dist[loc[u]][loc[curr_idx_pos]];
         curr_ans = max(curr_ans, val_go_buy);
         curr_mask -= curr_idx;
     }
@@ -158,12 +157,13 @@ int f(int mask, int u){
     return dp[mask][u] = curr_ans;
 }
 
-void run(){
-    for(int i=0;i<MAXN;i++) for(int j=0;j<MAXN;j++) dist[i][j] = (i == j ? 0 : INF_INT);
+void run() {
+    for (int i = 0; i < MAXN; i++)
+        for (int j = 0; j < MAXN; j++) dist[i][j] = (i == j ? 0 : INF_INT);
 
     cin >> N >> M;
-    for(int i=1;i<=M;i++){
-        int u,v;
+    for (int i = 1; i <= M; i++) {
+        int u, v;
         double w;
         cin >> u >> v >> w;
         int val = (int)round(w * 100.0);
@@ -172,23 +172,26 @@ void run(){
         dist[v][u] = min(dist[v][u], val);
     }
 
-    for(int k=0;k<=N;k++) for(int i=0;i<=N;i++) for(int j=0;j<=N;j++){
-        dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
-    }
+    for (int k = 0; k <= N; k++)
+        for (int i = 0; i <= N; i++)
+            for (int j = 0; j <= N; j++) {
+                dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+            }
 
     cin >> P;
-    for(int i=1;i<=P;i++){
+    for (int i = 1; i <= P; i++) {
         double tmp;
         cin >> loc[i] >> tmp;
         saving[i] = (int)round(tmp * 100.0);
     }
 
     memset(valid, 0, sizeof(valid));
-    int ans = f((1<<(P+1))-1, 0);
+    int ans = f((1 << (P + 1)) - 1, 0);
 
-    if(ans > 0){
-        cout << "Daniel can save $" << ans/100 << "." << setw(2) << setfill('0') << ans % 100 << endl;
-    }else{
+    if (ans > 0) {
+        cout << "Daniel can save $" << ans / 100 << "." << setw(2)
+             << setfill('0') << ans % 100 << endl;
+    } else {
         cout << "Don't leave the house" << endl;
     }
 }
@@ -196,10 +199,10 @@ void run(){
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
-    
+
     int T;
     cin >> T;
-    while(T--){
+    while (T--) {
         run();
     }
     return 0;

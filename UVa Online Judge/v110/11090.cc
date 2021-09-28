@@ -83,7 +83,6 @@ ostream& operator<<(ostream& os, pair<X, Y> const& p) {
 
 // End Debug Snippets
 
-
 class union_find {
     vi parent, sizes;
 
@@ -114,7 +113,6 @@ class union_find {
     }
 };
 
-
 vs split(string line, regex re) {
     vs output;
     sregex_token_iterator it(line.begin(), line.end(), re, -1), it_end;
@@ -131,63 +129,66 @@ const int MAXN = 53;
 
 int N, K;
 long long d[MAXN][MAXN];
-vector<tuple<int,int,long long>> edges;
+vector<tuple<int, int, long long>> edges;
 
-void run(){
-    for(int i=0;i<MAXN;i++) for(int j=0;j<MAXN;j++) d[i][j] = INF_LL;
+void run() {
+    for (int i = 0; i < MAXN; i++)
+        for (int j = 0; j < MAXN; j++) d[i][j] = INF_LL;
     d[0][0] = 0;
     edges.clear();
-    
+
     cin >> N >> K;
-    for(int i=1;i<=K;i++){
+    for (int i = 1; i <= K; i++) {
         int u, v;
         long long c;
         cin >> u >> v >> c;
         edges.emplace_back(u, v, c);
     }
 
-    for(int i=1;i<=N;i++){
+    for (int i = 1; i <= N; i++) {
         edges.emplace_back(0, i, 0);
     }
     N++;
 
-    for(int k=1;k<=N;k++){
-        for(auto &x: edges){
+    for (int k = 1; k <= N; k++) {
+        for (auto& x : edges) {
             auto u = get<0>(x);
             auto v = get<1>(x);
             auto c = get<2>(x);
-            d[k][v] = min(d[k][v], d[k-1][u] + c);
+            d[k][v] = min(d[k][v], d[k - 1][u] + c);
         }
     }
 
     double ans = 1e15;
     bool legit = false;
-    for(int i=0;i<N;i++){
+    for (int i = 0; i < N; i++) {
         double tmp = 0LL;
         bool found = false;
-        for(int k=0;k<N;k++){
-            if(d[N][i] == INF_LL) continue;
-            if(d[k][i] == INF_LL) continue;
+        for (int k = 0; k < N; k++) {
+            if (d[N][i] == INF_LL) continue;
+            if (d[k][i] == INF_LL) continue;
             tmp = max(tmp, (double)(d[N][i] - d[k][i]) / (N - k));
             found = true;
         }
-        if(found){
+        if (found) {
             legit = true;
             ans = min(ans, tmp);
         }
     }
 
-    if(legit) cout << fixed << setprecision(2) << ans << endl;
-    else cout << "No cycle found." << endl;
+    if (legit)
+        cout << fixed << setprecision(2) << ans << endl;
+    else
+        cout << "No cycle found." << endl;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
-    
+
     int T;
     cin >> T;
-    for(int i=1;i<=T;i++){
+    for (int i = 1; i <= T; i++) {
         cout << "Case #" << i << ": ";
         run();
     }

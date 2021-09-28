@@ -83,7 +83,6 @@ ostream& operator<<(ostream& os, pair<X, Y> const& p) {
 
 // End Debug Snippets
 
-
 class union_find {
     vi parent, sizes;
 
@@ -114,7 +113,6 @@ class union_find {
     }
 };
 
-
 vs split(string line, regex re) {
     vs output;
     sregex_token_iterator it(line.begin(), line.end(), re, -1), it_end;
@@ -132,11 +130,12 @@ int N, K, best_ans;
 vi V[MAXN];
 vi done, colors, best_colors;
 
-void bt(int idx){
-    if(idx == N+1){
+void bt(int idx) {
+    if (idx == N + 1) {
         int ans = 0;
-        for(int i=1;i<=N;i++) if(colors[i]) ans++;
-        if(ans >= best_ans){
+        for (int i = 1; i <= N; i++)
+            if (colors[i]) ans++;
+        if (ans >= best_ans) {
             best_ans = ans;
             best_colors = colors;
         }
@@ -144,45 +143,45 @@ void bt(int idx){
     }
 
     bool possible = true;
-    for(auto x: V[idx]){
-        if(done[x] and colors[x]){
+    for (auto x : V[idx]) {
+        if (done[x] and colors[x]) {
             possible = false;
             break;
         }
     }
 
     done[idx] = true;
-    if(possible){
+    if (possible) {
         colors[idx] = 1;
-        bt(idx+1);
+        bt(idx + 1);
     }
 
     colors[idx] = 0;
-    bt(idx+1);
+    bt(idx + 1);
     done[idx] = false;
 }
 
-void run(){
-    for(int i=0;i<MAXN;i++) V[i].clear();
+void run() {
+    for (int i = 0; i < MAXN; i++) V[i].clear();
 
     cin >> N >> K;
-    for(int i=0;i<K;i++){
+    for (int i = 0; i < K; i++) {
         int u, v;
         cin >> u >> v;
         V[u].push_back(v);
         V[v].push_back(u);
     }
 
-    done = vi(N+1, 0);
-    colors = vi(N+1, 0);
+    done = vi(N + 1, 0);
+    colors = vi(N + 1, 0);
     best_ans = 0;
     bt(1);
 
     cout << best_ans << endl;
     bool space = false;
-    for(int i=1;i<=N;i++){
-        if(best_colors[i]){
-            if(space) cout << " ";
+    for (int i = 1; i <= N; i++) {
+        if (best_colors[i]) {
+            if (space) cout << " ";
             space = true;
             cout << i;
         }
@@ -193,10 +192,10 @@ void run(){
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
-    
+
     int T;
     cin >> T;
-    while(T--){
+    while (T--) {
         run();
     }
 
