@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        10306.cc
-#  Description:     UVa Online Judge - 10306
+#  FileName:        11284.cc
+#  Description:     UVa Online Judge - 11284
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -83,6 +83,7 @@ ostream& operator<<(ostream& os, pair<X, Y> const& p) {
 
 // End Debug Snippets
 
+
 class union_find {
     vi parent, sizes;
 
@@ -113,6 +114,7 @@ class union_find {
     }
 };
 
+
 vs split(string line, regex re) {
     vs output;
     sregex_token_iterator it(line.begin(), line.end(), re, -1), it_end;
@@ -125,53 +127,80 @@ vs split(string line, regex re) {
 
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
-const int MAXS = 305;
+const int MAXN = 52;
+const int MAXP = 14;
+const int MAXMASK = (1<<14);
 
-int n, S;
-int dp[MAXS][MAXS];
+int N, M, P;
+int dist[MAXN][MAXN];
+int loc[MAXN];
+int saving[MAXN];
 
-void run() {
-    cin >> n >> S;
+int valid[MAXMASK][MAXP];
+int dp[MAXMASK][MAXP], ans; // best-saving
 
-    for (int i = 0; i < MAXS; i++)
-        for (int j = 0; j < MAXS; j++) dp[i][j] = INF_INT;
-    dp[0][0] = 0;
+int f(int mask, int u){
+    if(mask == 0) return -dist[loc[u]][loc[0]];
 
-    vii coins(n);
-    for (int i = 0; i < n; i++) {
-        int x, y;
-        cin >> x >> y;
-        coins[i] = ii(x, y);
+    if(valid[mask][u]) return dp[mask][u];
 
-        for (int j = 0; j < MAXS - x; j++)
-            for (int k = 0; k < MAXS - y; k++) {
-                dp[j + x][k + y] = min(dp[j + x][k + y], dp[j][k] + 1);
-            }
+    int curr_ans = -dist[loc[u]][loc[0]];
+    int curr_mask = mask;
+    while(curr_mask > 0){
+        int curr_idx = curr_mask & -curr_mask;
+        int curr_idx_pos = __builtin_ctz(curr_idx);
+        int val_go_buy = f(mask - curr_idx, curr_idx_pos) + saving[curr_idx_pos] - dist[loc[u]][loc[curr_idx_pos]];
+        curr_ans = max(curr_ans, val_go_buy);
+        curr_mask -= curr_idx;
     }
 
-    int ans = INF_INT;
-    for (int i = 0; i < MAXS; i++)
-        for (int j = 0; j < MAXS; j++) {
-            if (i * i + j * j == S * S) {
-                ans = min(ans, dp[i][j]);
-            }
-        }
+    valid[mask][u] = true;
+    return dp[mask][u] = curr_ans;
+}
 
-    if (ans == INF_INT)
-        cout << "not possible" << endl;
-    else
-        cout << ans << endl;
+void run(){
+    for(int i=0;i<MAXN;i++) for(int j=0;j<MAXN;j++) dist[i][j] = (i == j ? 0 : INF_INT);
+
+    cin >> N >> M;
+    for(int i=1;i<=M;i++){
+        int u,v;
+        double w;
+        cin >> u >> v >> w;
+        int val = (int)round(w * 100.0);
+
+        dist[u][v] = min(dist[u][v], val);
+        dist[v][u] = min(dist[v][u], val);
+    }
+
+    for(int k=0;k<=N;k++) for(int i=0;i<=N;i++) for(int j=0;j<=N;j++){
+        dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+    }
+
+    cin >> P;
+    for(int i=1;i<=P;i++){
+        double tmp;
+        cin >> loc[i] >> tmp;
+        saving[i] = (int)round(tmp * 100.0);
+    }
+
+    memset(valid, 0, sizeof(valid));
+    int ans = f((1<<(P+1))-1, 0);
+
+    if(ans > 0){
+        cout << "Daniel can save $" << ans/100 << "." << setw(2) << setfill('0') << ans % 100 << endl;
+    }else{
+        cout << "Don't leave the house" << endl;
+    }
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
-
+    
     int T;
     cin >> T;
-    while (T--) {
+    while(T--){
         run();
     }
-
     return 0;
 }

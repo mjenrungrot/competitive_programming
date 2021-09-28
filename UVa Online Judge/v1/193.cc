@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        10306.cc
-#  Description:     UVa Online Judge - 10306
+#  FileName:        193.cc
+#  Description:     UVa Online Judge - 193
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -83,6 +83,7 @@ ostream& operator<<(ostream& os, pair<X, Y> const& p) {
 
 // End Debug Snippets
 
+
 class union_find {
     vi parent, sizes;
 
@@ -113,6 +114,7 @@ class union_find {
     }
 };
 
+
 vs split(string line, regex re) {
     vs output;
     sregex_token_iterator it(line.begin(), line.end(), re, -1), it_end;
@@ -123,53 +125,78 @@ vs split(string line, regex re) {
     return output;
 }
 
+const int MAXN = 105;
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
-const int MAXS = 305;
+int N, K, best_ans;
+vi V[MAXN];
+vi done, colors, best_colors;
 
-int n, S;
-int dp[MAXS][MAXS];
-
-void run() {
-    cin >> n >> S;
-
-    for (int i = 0; i < MAXS; i++)
-        for (int j = 0; j < MAXS; j++) dp[i][j] = INF_INT;
-    dp[0][0] = 0;
-
-    vii coins(n);
-    for (int i = 0; i < n; i++) {
-        int x, y;
-        cin >> x >> y;
-        coins[i] = ii(x, y);
-
-        for (int j = 0; j < MAXS - x; j++)
-            for (int k = 0; k < MAXS - y; k++) {
-                dp[j + x][k + y] = min(dp[j + x][k + y], dp[j][k] + 1);
-            }
+void bt(int idx){
+    if(idx == N+1){
+        int ans = 0;
+        for(int i=1;i<=N;i++) if(colors[i]) ans++;
+        if(ans >= best_ans){
+            best_ans = ans;
+            best_colors = colors;
+        }
+        return;
     }
 
-    int ans = INF_INT;
-    for (int i = 0; i < MAXS; i++)
-        for (int j = 0; j < MAXS; j++) {
-            if (i * i + j * j == S * S) {
-                ans = min(ans, dp[i][j]);
-            }
+    bool possible = true;
+    for(auto x: V[idx]){
+        if(done[x] and colors[x]){
+            possible = false;
+            break;
         }
+    }
 
-    if (ans == INF_INT)
-        cout << "not possible" << endl;
-    else
-        cout << ans << endl;
+    done[idx] = true;
+    if(possible){
+        colors[idx] = 1;
+        bt(idx+1);
+    }
+
+    colors[idx] = 0;
+    bt(idx+1);
+    done[idx] = false;
+}
+
+void run(){
+    for(int i=0;i<MAXN;i++) V[i].clear();
+
+    cin >> N >> K;
+    for(int i=0;i<K;i++){
+        int u, v;
+        cin >> u >> v;
+        V[u].push_back(v);
+        V[v].push_back(u);
+    }
+
+    done = vi(N+1, 0);
+    colors = vi(N+1, 0);
+    best_ans = 0;
+    bt(1);
+
+    cout << best_ans << endl;
+    bool space = false;
+    for(int i=1;i<=N;i++){
+        if(best_colors[i]){
+            if(space) cout << " ";
+            space = true;
+            cout << i;
+        }
+    }
+    cout << endl;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
-
+    
     int T;
     cin >> T;
-    while (T--) {
+    while(T--){
         run();
     }
 

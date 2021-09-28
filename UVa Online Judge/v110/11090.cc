@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        10306.cc
-#  Description:     UVa Online Judge - 10306
+#  FileName:        11090.cc
+#  Description:     UVa Online Judge - 11090
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -83,6 +83,7 @@ ostream& operator<<(ostream& os, pair<X, Y> const& p) {
 
 // End Debug Snippets
 
+
 class union_find {
     vi parent, sizes;
 
@@ -113,6 +114,7 @@ class union_find {
     }
 };
 
+
 vs split(string line, regex re) {
     vs output;
     sregex_token_iterator it(line.begin(), line.end(), re, -1), it_end;
@@ -125,51 +127,68 @@ vs split(string line, regex re) {
 
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
-const int MAXS = 305;
+const int MAXN = 53;
 
-int n, S;
-int dp[MAXS][MAXS];
+int N, K;
+long long d[MAXN][MAXN];
+vector<tuple<int,int,long long>> edges;
 
-void run() {
-    cin >> n >> S;
-
-    for (int i = 0; i < MAXS; i++)
-        for (int j = 0; j < MAXS; j++) dp[i][j] = INF_INT;
-    dp[0][0] = 0;
-
-    vii coins(n);
-    for (int i = 0; i < n; i++) {
-        int x, y;
-        cin >> x >> y;
-        coins[i] = ii(x, y);
-
-        for (int j = 0; j < MAXS - x; j++)
-            for (int k = 0; k < MAXS - y; k++) {
-                dp[j + x][k + y] = min(dp[j + x][k + y], dp[j][k] + 1);
-            }
+void run(){
+    for(int i=0;i<MAXN;i++) for(int j=0;j<MAXN;j++) d[i][j] = INF_LL;
+    d[0][0] = 0;
+    edges.clear();
+    
+    cin >> N >> K;
+    for(int i=1;i<=K;i++){
+        int u, v;
+        long long c;
+        cin >> u >> v >> c;
+        edges.emplace_back(u, v, c);
     }
 
-    int ans = INF_INT;
-    for (int i = 0; i < MAXS; i++)
-        for (int j = 0; j < MAXS; j++) {
-            if (i * i + j * j == S * S) {
-                ans = min(ans, dp[i][j]);
-            }
-        }
+    for(int i=1;i<=N;i++){
+        edges.emplace_back(0, i, 0);
+    }
+    N++;
 
-    if (ans == INF_INT)
-        cout << "not possible" << endl;
-    else
-        cout << ans << endl;
+    for(int k=1;k<=N;k++){
+        for(auto &x: edges){
+            auto u = get<0>(x);
+            auto v = get<1>(x);
+            auto c = get<2>(x);
+            d[k][v] = min(d[k][v], d[k-1][u] + c);
+        }
+    }
+
+    double ans = 1e15;
+    bool legit = false;
+    for(int i=0;i<N;i++){
+        double tmp = 0LL;
+        bool found = false;
+        for(int k=0;k<N;k++){
+            if(d[N][i] == INF_LL) continue;
+            if(d[k][i] == INF_LL) continue;
+            tmp = max(tmp, (double)(d[N][i] - d[k][i]) / (N - k));
+            found = true;
+        }
+        if(found){
+            legit = true;
+            ans = min(ans, tmp);
+        }
+    }
+
+    if(legit) cout << fixed << setprecision(2) << ans << endl;
+    else cout << "No cycle found." << endl;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
-
+    
     int T;
     cin >> T;
-    while (T--) {
+    for(int i=1;i<=T;i++){
+        cout << "Case #" << i << ": ";
         run();
     }
 
