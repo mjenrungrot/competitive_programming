@@ -14,12 +14,20 @@ RUN sudo apt-get update && sudo apt-get install unzip -y
 RUN curl https://rclone.org/install.sh | sudo bash
 
 # install from nodesource using apt-get
+<<<<<<< HEAD
 # https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server
 RUN curl -sL https://deb.nodesource.com/setup | sudo bash - && \
 RUN sudo apt-get install -yq nodejs build-essential
 
 # fix npm - not the latest version installed by apt-get
 RUN npm install -g npm
+=======
+RUN curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
+RUN sudo apt-get install -yq nodejs build-essential
+
+# fix npm - not the latest version installed by apt-get
+RUN sudo npm install -g npm
+>>>>>>> 0eb39597fd3af7998a545f93e8e7a15679d5ba1a
 
 # Copy rclone tasks to /tmp, to potentially be used
 COPY deploy-container/rclone-tasks.json /tmp/rclone-tasks.json
@@ -29,6 +37,8 @@ RUN sudo chown -R coder:coder /home/coder/.local
 
 # You can add custom software and dependencies for your environment below
 # -----------
+# Install vsce for building vsix
+RUN sudo npm install -g vsce
 
 # Install a VS Code extension:
 # Note: we use a different marketplace than VS Code. See https://github.com/cdr/code-server/blob/main/docs/FAQ.md#differences-compared-to-vs-code
@@ -37,6 +47,14 @@ RUN code-server --install-extension ms-python.python
 RUN curl -L https://github.com/microsoft/vscode-cpptools/releases/download/1.7.0-insiders/cpptools-linux.vsix --output cpptools-linux.vsix
 RUN code-server --install-extension cpptools-linux.vsix
 RUN rm cpptools-linux.vsix
+
+RUN git clone https://github.com/wenfangdu/vscode-snippet-generator
+WORKDIR vscode-snippet-generator
+RUN vsce package --out vscode-snippet-generator.vsix
+RUN code-server --install-extension vscode-snippet-generator.vsix
+WORKDIR ..
+RUN rm -rf vscode-snippet-generator
+
 
 
 # Install apt packages:
