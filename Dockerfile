@@ -13,6 +13,14 @@ ENV SHELL=/bin/bash
 RUN sudo apt-get update && sudo apt-get install unzip -y
 RUN curl https://rclone.org/install.sh | sudo bash
 
+# install from nodesource using apt-get
+# https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server
+RUN curl -sL https://deb.nodesource.com/setup | sudo bash - && \
+RUN sudo apt-get install -yq nodejs build-essential
+
+# fix npm - not the latest version installed by apt-get
+RUN npm install -g npm
+
 # Copy rclone tasks to /tmp, to potentially be used
 COPY deploy-container/rclone-tasks.json /tmp/rclone-tasks.json
 
@@ -40,6 +48,10 @@ RUN sudo apt-get install -y build-essential
 # Git config
 RUN git config --global user.email ""
 RUN git config --global user.name "Teerapat Jenrungrot"
+
+# Set ulimit
+
+RUN ulimit -s unlimited
 
 # -----------
 
