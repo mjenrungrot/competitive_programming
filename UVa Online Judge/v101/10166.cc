@@ -83,7 +83,6 @@ ostream& operator<<(ostream& os, pair<X, Y> const& p) {
 
 // End Debug Snippets
 
-
 class union_find {
     vi parent, sizes;
 
@@ -114,7 +113,6 @@ class union_find {
     }
 };
 
-
 vs split(string line, regex re) {
     vs output;
     sregex_token_iterator it(line.begin(), line.end(), re, -1), it_end;
@@ -133,37 +131,46 @@ int N, n_trains;
 string names[MAXN];
 map<string, int> name_to_idx;
 vii trains[MAXN];
-vii G[MAXN];
-ii best_time[MAXN];
+vector<iii> G[MAXN], G_inv[MAXN];
+int best_time[MAXN], best_time_inv[MAXN];
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    while(cin >> N){
-        if(N == 0) break;
+    while (cin >> N) {
+        if (N == 0) break;
 
         name_to_idx.clear();
-        for(int i=0;i<N;i++){
+        for (int i = 0; i < MAXN; i++) {
+            trains[i].clear();
+            G[i].clear();
+            G_inv[i].clear();
+        }
+
+        for (int i = 0; i < N; i++) {
             cin >> names[i];
             name_to_idx[names[i]] = i;
         }
 
         cin >> n_trains;
-        for(int i=0;i<n_trains;i++){
-            trains[i].clear();
-
+        for (int i = 0; i < n_trains; i++) {
             int n_stops;
             cin >> n_stops;
-            for(int j=0;j<n_stops;j++){
+            for (int j = 0; j < n_stops; j++) {
                 int tt;
                 string name;
                 cin >> tt >> name;
                 trains[i].emplace_back(tt, name_to_idx[name]);
             }
 
-            for(int j=0;j<n_stops-1;j++){
-                G[trains[i][j].second].emplace_back(trains[i][j+1].second, trains[i][j+1].first);
+            for (int j = 0; j < n_stops - 1; j++) {
+                G[trains[i][j].second].emplace_back(trains[i][j + 1].second,
+                                                    trains[i][j].first,
+                                                    trains[i][j + 1].first);
+                G_inv[trains[i][j+1].second].emplace_back(trains[i][j].second, 
+                                                          trains[i][j].first, 
+                                                          trains[i][j+1].first);
             }
         }
 
@@ -177,47 +184,77 @@ int main() {
         cin >> tmp;
         int target = name_to_idx[tmp];
 
-        for(int i=0;i<MAXN;i++) best_time[i] = ii(INF_INT, INF_INT);
-        best_time[start] = ii(start_time, start_time);
+        // initialization best_time[i] = (end, start)
+        for (int i = 0; i < MAXN; i++){
+            best_time[i] = INF_INT;
+            best_time_inv[i] = 0;
+        }
+        best_time[start] = start_time;
 
-        auto cmp = [](iii x, iii y){ 
-            if(get<0>(x) != get<0>(y)) return get<0>(x) > get<0>(y); // late arrival leaves later
-            return get<1>(x) < get<1>(y); // early departure leaves later
-        };
-        priority_queue<iii, vector<iii>, decltype(cmp)> pq(cmp); // (arrival, depart, node)
+        // find earliest end
+        auto cmp1 = [](ii x, ii y) {return x.first > y.first;};
+        priority_queue<ii, vii, decltype(cmp1)> pq1(cmp1); 
 
-        for(int i=0;i<n_trains;i++){
-            for(auto j=0;j<trains[i].size();j++){
-                if(start_time <= trains[i][j].first and trains[i][j].second == start){
-                    pq.push({trains[i][j].first, trains[i][j].first, start});
+        pq1.push({start_time, start});
+        while (not pq1.empty()) {
+            auto curr_time = get<0>(pq1.top());
+            auto u = get<1>(pq1.top());
+            pq1.pop();
+
+            if (u != start and curr_time > best_time[u]) continue;
+            if (u == target) break;
+
+            for (auto& x : G[u]) {
+                auto v = get<0>(x);
+                auto start_time = get<1>(x);
+                auto arrival_time = get<2>(x);
+
+                // train already left
+                if (curr_time > start_time) continue;
+
+                if (arrival_time < best_time[v]) {
+                    best_time[v] = arrival_time;
+                    pq1.push({arrival_time, v});
                 }
             }
         }
 
-        while(not pq.empty()){
-            auto curr_time = get<0>(pq.top());
-            auto depart_time = get<1>(pq.top());
-            auto u = get<2>(pq.top());
-            pq.pop();
+        if(best_time[target] == INF_INT){
+            cout << "No connection" << endl;
+            continue;
+        }
 
-            // cout << curr_time << " " << depart_time << " " << names[u] << endl;
+        // find latest start
+        auto cmp2 = [](ii x, ii y) {return x.first < y.first;};
+        priority_queue<ii, vii, decltype(cmp2)> pq2(cmp2); 
+        pq2.push({best_time[target], target});
 
-            if(u != start and curr_time > best_time[u].first) continue;
-            if(u == target) break;
+        while(not pq2.empty()){
+            auto curr_time = get<0>(pq2.top());
+            auto u = get<1>(pq2.top());
+            pq2.pop();
 
-            for(auto &x: G[u]){
-                auto v = x.first;
-                auto arrival_time = x.second;
-                if(arrival_time < best_time[v].first or (arrival_time == best_time[v].first and depart_time > best_time[v].second)){
-                    best_time[v] = ii(arrival_time, depart_time);
-                    pq.push({arrival_time, depart_time, v});
+            if (curr_time < best_time_inv[u]) continue;
+            if (u == start) break;
+
+            for (auto& x : G_inv[u]) {
+                auto v = get<0>(x);
+                auto start_time = get<1>(x);
+                auto arrival_time = get<2>(x);
+
+                // impossible case
+                if (curr_time < arrival_time) continue;
+
+                if (start_time > best_time_inv[v]) {
+                    best_time_inv[v] = start_time;
+                    pq2.push({start_time, v});
                 }
             }
         }
 
-        if(best_time[target].first == INF_INT) cout << "No connection" << endl;
-        else cout << setw(4) << setfill('0') << best_time[target].second << " " << setw(4) << setfill('0') << best_time[target].first << endl;
+        cout << setw(4) << setfill('0') << best_time_inv[start] << " "
+             << setw(4) << setfill('0') << best_time[target] << endl;
     }
-    
+
     return 0;
 }

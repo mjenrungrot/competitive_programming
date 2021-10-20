@@ -50,6 +50,28 @@
           "kind": "build",
           "isDefault": true
         }
+      },
+      {
+        "label": "Watch runnning",
+        "type": "shell",
+        "linux": {
+          "command": "watch",
+          "args": [
+            "-n",
+            "1",
+            "\"",
+            "g++",
+            "--std=c++11",
+            "${file}",
+            "-o",
+            "${fileDirname}/a.out",
+            "&&",
+            "${fileDirname}/a.out",
+            "<",
+            "${fileDirname}/input.txt",
+            "\""
+          ]
+        }
       }
     ]
 }
