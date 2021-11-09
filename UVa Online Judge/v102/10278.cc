@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        10166.cc
-#  Description:     UVa Online Judge - 10166
+#  FileName:        10278.cc
+#  Description:     UVa Online Judge - 10278
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -125,135 +125,120 @@ vs split(string line, regex re) {
 
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
-const int MAXN = 105;
+const int MAXN = 505;
 
-int N, n_trains;
-string names[MAXN];
-map<string, int> name_to_idx;
-vii trains[MAXN];
-vector<iii> G[MAXN], G_inv[MAXN];
-int best_time[MAXN], best_time_inv[MAXN];
+int n_fire_stations, n_intersections;
+int dist[MAXN], tmp_dist[MAXN];
+vi fire_stations;
+vii G[MAXN];
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    while (cin >> N) {
-        if (N == 0) break;
+    string line;
+    getline(cin, line);
+    int T = stoi(line);
+    getline(cin, line);
 
-        name_to_idx.clear();
+    while (T--) {
+        fire_stations.clear();
         for (int i = 0; i < MAXN; i++) {
-            trains[i].clear();
             G[i].clear();
-            G_inv[i].clear();
+            tmp_dist[i] = dist[i] = INF_INT;
         }
 
-        for (int i = 0; i < N; i++) {
-            cin >> names[i];
-            name_to_idx[names[i]] = i;
+        getline(cin, line);
+        vs tokens = split(line, regex("\\s"));
+        assert(int(tokens.size()) == 2);
+
+        n_fire_stations = stoi(tokens[0]);
+        n_intersections = stoi(tokens[1]);
+
+        for (int i = 1; i <= n_fire_stations; i++) {
+            getline(cin, line);
+            fire_stations.push_back(stoi(line));
         }
 
-        cin >> n_trains;
-        for (int i = 0; i < n_trains; i++) {
-            int n_stops;
-            cin >> n_stops;
-            for (int j = 0; j < n_stops; j++) {
-                int tt;
-                string name;
-                cin >> tt >> name;
-                trains[i].emplace_back(tt, name_to_idx[name]);
-            }
+        while (true) {
+            if (cin.eof()) break;
+            getline(cin, line);
+            if (line == "") break;
 
-            for (int j = 0; j < n_stops - 1; j++) {
-                G[trains[i][j].second].emplace_back(trains[i][j + 1].second,
-                                                    trains[i][j].first,
-                                                    trains[i][j + 1].first);
-                G_inv[trains[i][j + 1].second].emplace_back(
-                    trains[i][j].second, trains[i][j].first,
-                    trains[i][j + 1].first);
-            }
+            vs tokens = split(line, regex("\\s"));
+            assert(int(tokens.size()) == 3);
+            int u = stoi(tokens[0]);
+            int v = stoi(tokens[1]);
+            int d = stoi(tokens[2]);
+
+            G[u].emplace_back(v, d);
+            G[v].emplace_back(u, d);
         }
 
-        int start_time;
-        cin >> start_time;
+        auto cmp = [](ii& x, ii& y) { return x.first > y.first; };
+        priority_queue<ii, vii, decltype(cmp)> pq(cmp);  // (dist, node)
 
-        string tmp;
-        cin >> tmp;
-        int start = name_to_idx[tmp];
-
-        cin >> tmp;
-        int target = name_to_idx[tmp];
-
-        // initialization best_time[i] = (end, start)
-        for (int i = 0; i < MAXN; i++) {
-            best_time[i] = INF_INT;
-            best_time_inv[i] = 0;
+        for (auto& x : fire_stations) {
+            dist[x] = 0;
+            pq.push({dist[x], x});
         }
-        best_time[start] = start_time;
 
-        // find earliest end
-        auto cmp1 = [](ii x, ii y) { return x.first > y.first; };
-        priority_queue<ii, vii, decltype(cmp1)> pq1(cmp1);
+        while (not pq.empty()) {
+            auto curr_dist = pq.top().first;
+            auto u = pq.top().second;
+            pq.pop();
 
-        pq1.push({start_time, start});
-        while (not pq1.empty()) {
-            auto curr_time = get<0>(pq1.top());
-            auto u = get<1>(pq1.top());
-            pq1.pop();
-
-            if (u != start and curr_time > best_time[u]) continue;
-            if (u == target) break;
+            if (dist[u] < curr_dist) continue;
 
             for (auto& x : G[u]) {
-                auto v = get<0>(x);
-                auto start_time = get<1>(x);
-                auto arrival_time = get<2>(x);
+                auto v = x.first;
+                auto d = x.second;
 
-                // train already left
-                if (curr_time > start_time) continue;
-
-                if (arrival_time < best_time[v]) {
-                    best_time[v] = arrival_time;
-                    pq1.push({arrival_time, v});
+                if (dist[u] + d < dist[v]) {
+                    dist[v] = dist[u] + d;
+                    pq.push({dist[v], v});
                 }
             }
         }
 
-        if (best_time[target] == INF_INT) {
-            cout << "No connection" << endl;
-            continue;
-        }
+        int best_dist = INF_INT;
+        int best_idx = -1;
+        for (int i = 1; i <= n_intersections; i++) {
+            for (int j = 1; j <= n_intersections; j++) tmp_dist[j] = dist[j];
 
-        // find latest start
-        auto cmp2 = [](ii x, ii y) { return x.first < y.first; };
-        priority_queue<ii, vii, decltype(cmp2)> pq2(cmp2);
-        pq2.push({best_time[target], target});
+            tmp_dist[i] = 0;
+            pq.push({tmp_dist[i], i});
+            while (not pq.empty()) {
+                auto curr_dist = pq.top().first;
+                auto u = pq.top().second;
+                pq.pop();
 
-        while (not pq2.empty()) {
-            auto curr_time = get<0>(pq2.top());
-            auto u = get<1>(pq2.top());
-            pq2.pop();
+                if (tmp_dist[u] < curr_dist) continue;
 
-            if (curr_time < best_time_inv[u]) continue;
-            if (u == start) break;
+                for (auto& x : G[u]) {
+                    auto v = x.first;
+                    auto d = x.second;
 
-            for (auto& x : G_inv[u]) {
-                auto v = get<0>(x);
-                auto start_time = get<1>(x);
-                auto arrival_time = get<2>(x);
-
-                // impossible case
-                if (curr_time < arrival_time) continue;
-
-                if (start_time > best_time_inv[v]) {
-                    best_time_inv[v] = start_time;
-                    pq2.push({start_time, v});
+                    if (tmp_dist[u] + d < tmp_dist[v]) {
+                        tmp_dist[v] = tmp_dist[u] + d;
+                        pq.push({tmp_dist[v], v});
+                    }
                 }
+            }
+
+            int max_dist = -1;
+            for (int j = 1; j <= n_intersections; j++)
+                max_dist = max(max_dist, tmp_dist[j]);
+
+            if (max_dist < best_dist) {
+                best_dist = max_dist;
+                best_idx = i;
             }
         }
 
-        cout << setw(4) << setfill('0') << best_time_inv[start] << " "
-             << setw(4) << setfill('0') << best_time[target] << endl;
+        cout << best_idx << endl;
+
+        if (T) cout << endl;
     }
 
     return 0;
