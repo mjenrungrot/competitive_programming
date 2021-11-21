@@ -80,7 +80,12 @@
     "thread": "cpp",
     "typeindex": "cpp",
     "typeinfo": "cpp",
-    "hash_map": "cpp"
+    "hash_map": "cpp",
+    "__bit_reference": "cpp",
+    "__hash_table": "cpp",
+    "__split_buffer": "cpp",
+    "__tree": "cpp",
+    "filesystem": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled",
   "python.pythonPath": "/Users/teerapatjenrungrot/anaconda3/envs/py38/bin/python",

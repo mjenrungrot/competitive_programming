@@ -58,7 +58,7 @@
           "command": "watch",
           "args": [
             "-n",
-            "1",
+            "2",
             "\"",
             "g++",
             "--std=c++11",
@@ -69,6 +69,28 @@
             "${fileDirname}/a.out",
             "<",
             "${fileDirname}/input.txt",
+            ">",
+            "${fileDirname}/output.txt",
+            "\""
+          ]
+        },
+        "osx": {
+          "command": "watch",
+          "args": [
+            "-n",
+            "2",
+            "\"",
+            "g++",
+            "--std=c++11",
+            "${file}",
+            "-o",
+            "${fileDirname}/a.out",
+            "&&",
+            "${fileDirname}/a.out",
+            "<",
+            "${fileDirname}/input.txt",
+            ">",
+            "${fileDirname}/output.txt",
             "\""
           ]
         }
