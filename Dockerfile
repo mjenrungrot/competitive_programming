@@ -57,6 +57,7 @@ RUN sudo apt-get install -y build-essential
 # Git config
 RUN git config --global user.email ""
 RUN git config --global user.name "Teerapat Jenrungrot"
+RUN git clone https://github.com/mjenrungrot/competitive_programming /home/coder/project
 
 # Set ulimit
 
