@@ -85,7 +85,8 @@
     "__hash_table": "cpp",
     "__split_buffer": "cpp",
     "__tree": "cpp",
-    "filesystem": "cpp"
+    "filesystem": "cpp",
+    "coroutine": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled",
   "python.pythonPath": "/Users/teerapatjenrungrot/anaconda3/envs/py38/bin/python",
