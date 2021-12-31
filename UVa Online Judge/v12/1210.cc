@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        1644.cc
-#  Description:     UVa Online Judge - 1644
+#  FileName:        1210.cc
+#  Description:     UVa Online Judge - 1210
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -127,23 +127,28 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    const int N = 1299710;
-    vi primes = sieve(N);
+    const int N = 10005;
+    auto primes = sieve(N);
+    vi qs(primes.size() + 1);
+
+    for (int i = 1; i < qs.size(); i++) qs[i] = qs[i - 1] + primes[i - 1];
 
     int K;
     while (cin >> K) {
         if (K == 0) break;
-        auto lb = lower_bound(primes.begin(), primes.end(), K);
-
-        if (*lb == K) {
-            cout << 0 << endl;
-            continue;
+        int ans = 0;
+        for (int st = 0; st < qs.size(); st++) {
+            for (int en = st + 1; en < qs.size(); en++) {
+                int sum_val = qs[en] - qs[st];
+                if (sum_val > K)
+                    break;
+                else if (sum_val == K) {
+                    ans++;
+                    break;
+                }
+            }
         }
-        assert(lb != primes.begin());
-
-        auto ans = *lb - *(lb - 1);
         cout << ans << endl;
     }
-
     return 0;
 }

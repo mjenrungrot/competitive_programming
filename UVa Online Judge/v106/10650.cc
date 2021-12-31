@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        1644.cc
-#  Description:     UVa Online Judge - 1644
+#  FileName:        10650.cc
+#  Description:     UVa Online Judge - 10650
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -127,22 +127,49 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    const int N = 1299710;
+    const int N = 32005;
     vi primes = sieve(N);
 
-    int K;
-    while (cin >> K) {
-        if (K == 0) break;
-        auto lb = lower_bound(primes.begin(), primes.end(), K);
+    vvi ans;
+    for (int left = 0; left < primes.size(); left++) {
+        if (left + 2 >= primes.size()) break;
+        int curr = primes[left];
+        int next1 = primes[left + 1];
+        int next2 = primes[left + 2];
 
-        if (*lb == K) {
-            cout << 0 << endl;
-            continue;
+        if (next1 - curr != next2 - next1) continue;
+        vi curr_ans({curr, next1, next2});
+
+        int best_j = left + 2;
+        for (int j = left + 3; j < primes.size(); j++) {
+            if (primes[j] - primes[j - 1] == next1 - curr) {
+                curr_ans.push_back(primes[j]);
+                best_j = j;
+            } else {
+                break;
+            }
         }
-        assert(lb != primes.begin());
+        left = best_j - 1;
+        ans.push_back(curr_ans);
+    }
 
-        auto ans = *lb - *(lb - 1);
-        cout << ans << endl;
+    int L, R;
+    while (cin >> L >> R) {
+        if (L == 0 and R == 0) break;
+        if (L > R) swap(L, R);
+
+        auto lb = lower_bound(ans.begin(), ans.end(), vi({L})) - ans.begin();
+        for (int curr = lb; curr < ans.size(); curr++) {
+            if (ans[curr].back() > R) break;
+
+            bool space = false;
+            for (auto& x : ans[curr]) {
+                if (space) cout << " ";
+                space = true;
+                cout << x;
+            }
+            cout << endl;
+        }
     }
 
     return 0;

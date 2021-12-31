@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        1644.cc
-#  Description:     UVa Online Judge - 1644
+#  FileName:        583.cc
+#  Description:     UVa Online Judge - 583
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -103,9 +103,6 @@ vs split(string line, regex re) {
     return output;
 }
 
-const int INF_INT = 1e9 + 7;
-const long long INF_LL = 1e18;
-
 // O(n) sieve up to n
 vector<int> sieve(int n) {
     vector<int> lp(n, 0);
@@ -123,26 +120,52 @@ vector<int> sieve(int n) {
     return primes;
 }
 
+const int INF_INT = 1e9 + 7;
+const long long INF_LL = 1e18;
+int N;
+vi primes;
+
+void solve() {
+    if (N == 1 or N == 0 or N == -1) {
+        cout << N << " = " << N << endl;
+        return;
+    }
+
+    cout << N << " = ";
+    if (N < 0) cout << "-1 x ";
+
+    N = abs(N);
+
+    vi factors;
+    for (int i = 0; i < primes.size(); i++) {
+        if (static_cast<uint64_t>(primes[i]) * primes[i] > N) break;
+        while (N % primes[i] == 0) {
+            factors.push_back(primes[i]);
+            N /= primes[i];
+        }
+    }
+    if (N > 1) {
+        factors.push_back(N);
+        N = 1;
+    }
+
+    bool x = false;
+    for (auto& factor : factors) {
+        if (x) cout << " x ";
+        x = true;
+        cout << factor;
+    }
+    cout << endl;
+}
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    const int N = 1299710;
-    vi primes = sieve(N);
-
-    int K;
-    while (cin >> K) {
-        if (K == 0) break;
-        auto lb = lower_bound(primes.begin(), primes.end(), K);
-
-        if (*lb == K) {
-            cout << 0 << endl;
-            continue;
-        }
-        assert(lb != primes.begin());
-
-        auto ans = *lb - *(lb - 1);
-        cout << ans << endl;
+    primes = sieve(1 << 16);
+    while (cin >> N) {
+        if (N == 0) break;
+        solve();
     }
 
     return 0;

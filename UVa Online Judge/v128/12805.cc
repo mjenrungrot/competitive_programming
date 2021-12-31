@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        1644.cc
-#  Description:     UVa Online Judge - 1644
+#  FileName:        12805.cc
+#  Description:     UVa Online Judge - 12805
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -103,9 +103,6 @@ vs split(string line, regex re) {
     return output;
 }
 
-const int INF_INT = 1e9 + 7;
-const long long INF_LL = 1e18;
-
 // O(n) sieve up to n
 vector<int> sieve(int n) {
     vector<int> lp(n, 0);
@@ -123,27 +120,43 @@ vector<int> sieve(int n) {
     return primes;
 }
 
+const int INF_INT = 1e9 + 7;
+const long long INF_LL = 1e18;
+vi primes;
+
+void solve() {
+    int N;
+    cin >> N;
+
+    bool neg = false;
+
+    for (int i = 0; i < primes.size(); i++) {
+        if (static_cast<uint64_t>(primes[i]) * primes[i] > N) break;
+        while (N % primes[i] == 0) {
+            if (primes[i] % 4 == 1) neg = (not neg);
+            N /= primes[i];
+        }
+    }
+    if (N > 1) {
+        if (N % 4 == 1) neg = (not neg);
+        N = 1;
+    }
+
+    if (neg)
+        cout << "-" << endl;
+    else
+        cout << "+" << endl;
+}
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    const int N = 1299710;
-    vi primes = sieve(N);
+    primes = sieve(320);  // sqrt(100000)
 
-    int K;
-    while (cin >> K) {
-        if (K == 0) break;
-        auto lb = lower_bound(primes.begin(), primes.end(), K);
-
-        if (*lb == K) {
-            cout << 0 << endl;
-            continue;
-        }
-        assert(lb != primes.begin());
-
-        auto ans = *lb - *(lb - 1);
-        cout << ans << endl;
-    }
+    int T;
+    cin >> T;
+    while (T--) solve();
 
     return 0;
 }

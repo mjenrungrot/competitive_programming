@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        1644.cc
-#  Description:     UVa Online Judge - 1644
+#  FileName:        12703.cc
+#  Description:     UVa Online Judge - 12703
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -105,44 +105,90 @@ vs split(string line, regex re) {
 
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
+const int MAXN = 45;
 
-// O(n) sieve up to n
-vector<int> sieve(int n) {
-    vector<int> lp(n, 0);
-    vector<int> primes;
-    for (int i = 2; i <= n; ++i) {
-        if (lp[i] == 0) {
-            lp[i] = i;
-            primes.push_back(i);
+long long fib[MAXN];
+int N, A, B;
+
+vector<pair<int, long long>> factorize(int x) {
+    vector<pair<int, long long>> ans;
+    for (int i = 2; i * i <= x; i++) {
+        long long count = 0;
+        while (x % i == 0) {
+            x /= i;
+            count++;
         }
-        for (int j = 0; j < (int)primes.size() and primes[j] <= lp[i] and
-                        i * primes[j] <= n;
-             ++j)
-            lp[i * primes[j]] = primes[j];
+        if (count) ans.emplace_back(i, count);
     }
-    return primes;
+    if (x > 1) ans.emplace_back(x, 1);
+    return ans;
+}
+
+void solve() {
+    /*
+    F_2 = a b
+    F_3 = a b^2
+    F_4 = a^2 b^3
+    ...
+    F_k = a^{fib(k-2)} b^{fib(k-1)}
+    */
+
+    cin >> N >> A >> B;
+    long long n_a = fib[N - 2];
+    long long n_b = fib[N - 1];
+
+    vector<pair<int, long long>> factor_a = factorize(A);
+    vector<pair<int, long long>> factor_b = factorize(B);
+
+    for (int i = 0; i < factor_a.size(); i++)
+        factor_a[i] = {factor_a[i].first, factor_a[i].second * n_a};
+
+    for (int i = 0; i < factor_b.size(); i++)
+        factor_b[i] = {factor_b[i].first, factor_b[i].second * n_b};
+
+    vector<pair<int, long long>> ans;
+
+    int id_a = 0, id_b = 0;
+    while (id_a < factor_a.size() and id_b < factor_b.size()) {
+        if (factor_a[id_a].first < factor_b[id_b].first) {
+            ans.push_back(factor_a[id_a]);
+            id_a++;
+        } else if (factor_a[id_a].first > factor_b[id_b].first) {
+            ans.push_back(factor_b[id_b]);
+            id_b++;
+        } else {
+            ans.emplace_back(factor_a[id_a].first,
+                             factor_a[id_a].second + factor_b[id_b].second);
+            id_a++;
+            id_b++;
+        }
+    }
+    while (id_a < factor_a.size()) {
+        ans.push_back(factor_a[id_a]);
+        id_a++;
+    }
+    while (id_b < factor_b.size()) {
+        ans.push_back(factor_b[id_b]);
+        id_b++;
+    }
+
+    for (int i = 0; i < ans.size(); i++) {
+        cout << ans[i].first << " " << ans[i].second << endl;
+    }
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    const int N = 1299710;
-    vi primes = sieve(N);
+    fib[0] = fib[1] = 1;
+    for (int i = 2; i < MAXN; i++) fib[i] = fib[i - 1] + fib[i - 2];
 
-    int K;
-    while (cin >> K) {
-        if (K == 0) break;
-        auto lb = lower_bound(primes.begin(), primes.end(), K);
-
-        if (*lb == K) {
-            cout << 0 << endl;
-            continue;
-        }
-        assert(lb != primes.begin());
-
-        auto ans = *lb - *(lb - 1);
-        cout << ans << endl;
+    int T;
+    cin >> T;
+    while (T--) {
+        solve();
+        cout << endl;
     }
 
     return 0;

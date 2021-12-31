@@ -1,37 +1,34 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-using u64 = uint64_t;
-using u128 = __uint128_t;
-
-u64 binpower(u64 base, u64 e, u64 mod) {
-    u64 result = 1;
+uint64_t binpower(uint64_t base, uint64_t e, uint64_t mod) {
+    uint64_t result = 1;
     base %= mod;
     while (e) {
-        if (e & 1) result = (u128)result * base % mod;
-        base = (u128)base * base % mod;
+        if (e & 1) result = (__uint128_t)result * base % mod;
+        base = (__uint128_t)base * base % mod;
         e >>= 1;
     }
     return result;
 }
 
-bool check_composite(u64 n, u64 a, u64 d, int s) {
-    u64 x = binpower(a, d, n);
+bool check_composite(uint64_t n, uint64_t a, uint64_t d, int s) {
+    uint64_t x = binpower(a, d, n);
     if (x == 1 || x == n - 1) return false;
     for (int r = 1; r < s; r++) {
-        x = (u128)x * x % n;
+        x = (__uint128_t)x * x % n;
         if (x == n - 1) return false;
     }
     return true;
 };
 
 bool MillerRabin(
-    u64 n,
+    uint64_t n,
     int iter = 5) {  // returns true if n is probably prime, else returns false.
     if (n < 4) return n == 2 || n == 3;
 
     int s = 0;
-    u64 d = n - 1;
+    uint64_t d = n - 1;
     while ((d & 1) == 0) {
         d >>= 1;
         s++;
@@ -45,11 +42,11 @@ bool MillerRabin(
 }
 
 bool MillerRabin_deterministic(
-    u64 n) {  // returns true if n is prime, else returns false.
+    uint64_t n) {  // returns true if n is prime, else returns false.
     if (n < 2) return false;
 
     int r = 0;
-    u64 d = n - 1;
+    uint64_t d = n - 1;
     while ((d & 1) == 0) {
         d >>= 1;
         r++;

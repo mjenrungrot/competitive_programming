@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        1644.cc
-#  Description:     UVa Online Judge - 1644
+#  FileName:        11752.cc
+#  Description:     UVa Online Judge - 11752
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -107,8 +107,8 @@ const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
 
 // O(n) sieve up to n
-vector<int> sieve(int n) {
-    vector<int> lp(n, 0);
+vector<int> sieve(int n, vi& lp) {
+    lp = vector<int>(n, 0);
     vector<int> primes;
     for (int i = 2; i <= n; ++i) {
         if (lp[i] == 0) {
@@ -127,23 +127,23 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    const int N = 1299710;
-    vi primes = sieve(N);
+    const int N = (1 << 16);
+    vi lp;
+    auto primes = sieve(N, lp);
+    vector<uint64_t> ans = {1};
 
-    int K;
-    while (cin >> K) {
-        if (K == 0) break;
-        auto lb = lower_bound(primes.begin(), primes.end(), K);
-
-        if (*lb == K) {
-            cout << 0 << endl;
-            continue;
+    for (uint64_t base = 2; base < N; base++) {
+        __uint128_t curr = base;
+        for (int exp = 2; exp < lp.size(); exp++) {
+            curr *= base;
+            if (curr > numeric_limits<uint64_t>::max()) break;
+            if (lp[exp] != exp) ans.push_back(static_cast<uint64_t>(curr));
         }
-        assert(lb != primes.begin());
-
-        auto ans = *lb - *(lb - 1);
-        cout << ans << endl;
     }
 
+    sort(ans.begin(), ans.end());
+    ans.erase(unique(ans.begin(), ans.end()), ans.end());
+
+    for (auto& x : ans) cout << x << endl;
     return 0;
 }

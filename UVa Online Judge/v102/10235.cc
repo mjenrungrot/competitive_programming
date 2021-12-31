@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        1644.cc
-#  Description:     UVa Online Judge - 1644
+#  FileName:        10235.cc
+#  Description:     UVa Online Judge - 10235
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -106,43 +106,83 @@ vs split(string line, regex re) {
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
 
-// O(n) sieve up to n
-vector<int> sieve(int n) {
-    vector<int> lp(n, 0);
-    vector<int> primes;
-    for (int i = 2; i <= n; ++i) {
-        if (lp[i] == 0) {
-            lp[i] = i;
-            primes.push_back(i);
-        }
-        for (int j = 0; j < (int)primes.size() and primes[j] <= lp[i] and
-                        i * primes[j] <= n;
-             ++j)
-            lp[i * primes[j]] = primes[j];
+uint64_t binpower(uint64_t base, uint64_t e, uint64_t mod) {
+    uint64_t result = 1;
+    base %= mod;
+    while (e) {
+        if (e & 1) result = (__uint128_t)result * base % mod;
+        base = (__uint128_t)base * base % mod;
+        e >>= 1;
     }
-    return primes;
+    return result;
+}
+
+bool check_composite(uint64_t n, uint64_t a, uint64_t d, int s) {
+    uint64_t x = binpower(a, d, n);
+    if (x == 1 || x == n - 1) return false;
+    for (int r = 1; r < s; r++) {
+        x = (__uint128_t)x * x % n;
+        if (x == n - 1) return false;
+    }
+    return true;
+};
+
+bool MillerRabin(
+    uint64_t n,
+    int iter = 5) {  // returns true if n is probably prime, else returns false.
+    if (n < 4) return n == 2 || n == 3;
+
+    int s = 0;
+    uint64_t d = n - 1;
+    while ((d & 1) == 0) {
+        d >>= 1;
+        s++;
+    }
+
+    for (int i = 0; i < iter; i++) {
+        int a = 2 + rand() % (n - 3);
+        if (check_composite(n, a, d, s)) return false;
+    }
+    return true;
+}
+
+bool MillerRabin_deterministic(
+    uint64_t n) {  // returns true if n is prime, else returns false.
+    if (n < 2) return false;
+
+    int r = 0;
+    uint64_t d = n - 1;
+    while ((d & 1) == 0) {
+        d >>= 1;
+        r++;
+    }
+
+    for (int a : {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37}) {
+        if (n == a) return true;
+        if (check_composite(n, a, d, r)) return false;
+    }
+    return true;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    const int N = 1299710;
-    vi primes = sieve(N);
-
-    int K;
-    while (cin >> K) {
-        if (K == 0) break;
-        auto lb = lower_bound(primes.begin(), primes.end(), K);
-
-        if (*lb == K) {
-            cout << 0 << endl;
+    string num;
+    while (cin >> num) {
+        int N = stoi(num);
+        if (not MillerRabin_deterministic(N)) {
+            cout << N << " is not prime." << endl;
             continue;
         }
-        assert(lb != primes.begin());
+        reverse(num.begin(), num.end());
 
-        auto ans = *lb - *(lb - 1);
-        cout << ans << endl;
+        int revN = stoi(num);
+        if (revN != N and MillerRabin_deterministic(revN)) {
+            cout << N << " is emirp." << endl;
+        } else {
+            cout << N << " is prime." << endl;
+        }
     }
 
     return 0;

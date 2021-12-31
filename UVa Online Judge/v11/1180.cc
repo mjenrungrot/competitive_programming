@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        1644.cc
-#  Description:     UVa Online Judge - 1644
+#  FileName:        1180.cc
+#  Description:     UVa Online Judge - 1180
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -105,6 +105,8 @@ vs split(string line, regex re) {
 
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
+int p;
+vi primes;
 
 // O(n) sieve up to n
 vector<int> sieve(int n) {
@@ -123,26 +125,57 @@ vector<int> sieve(int n) {
     return primes;
 }
 
+void solve() {
+    if (p >= 18) {
+        cout << "No" << endl;
+        return;
+    }
+
+    uint64_t num = (1LL << (p - 1)) * ((1LL << p) - 1LL);
+    uint64_t original = num;
+
+    vi factor;
+    uint64_t sum = 1;
+    for (int i = 0; i < primes.size(); i++) {
+        if (static_cast<uint64_t>(primes[i]) * primes[i] > num) break;
+        uint64_t sum_factor = 1LL, curr_factor = 1LL;
+        while (num % primes[i] == 0) {
+            factor.push_back(primes[i]);
+            curr_factor *= primes[i];
+            sum_factor += curr_factor;
+            num /= primes[i];
+        }
+        sum *= sum_factor;
+    }
+    if (num > 1) {
+        factor.push_back(num);
+        sum *= (1LL + num);
+        num = 1;
+    }
+
+    sum -= original;
+
+    if (sum == original) {
+        cout << "Yes" << endl;
+    } else {
+        cout << "No" << endl;
+    }
+}
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    const int N = 1299710;
-    vi primes = sieve(N);
+    primes = sieve(1 << 17);
 
-    int K;
-    while (cin >> K) {
-        if (K == 0) break;
-        auto lb = lower_bound(primes.begin(), primes.end(), K);
+    int N;
+    cin >> N;
+    cin.get();
 
-        if (*lb == K) {
-            cout << 0 << endl;
-            continue;
-        }
-        assert(lb != primes.begin());
-
-        auto ans = *lb - *(lb - 1);
-        cout << ans << endl;
+    for (int i = 1; i <= N; i++) {
+        cin >> p;
+        solve();
+        if (i < N) cin.get();
     }
 
     return 0;
