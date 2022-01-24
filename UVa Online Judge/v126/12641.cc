@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        11022.cc
-#  Description:     UVa Online Judge - 11022
+#  FileName:        12641.cc
+#  Description:     UVa Online Judge - 12641
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -105,57 +105,59 @@ vs split(string line, regex re) {
 
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
-const int MAXN = 100;
-string S;
-int dp[MAXN][MAXN];
-
-int f(int L, int R) {
-    if (L == R) return 1;
-
-    if (dp[L][R] != -1) return dp[L][R];
-
-    // case1 : split
-    int best = INF_INT;
-    for (int split = L; split < R; split++) {
-        best = min(best, f(L, split) + f(split + 1, R));
-    }
-
-    // case2 : repeat
-    int len = R - L + 1;
-    for (int k = 1; k * 2 <= len; k++) {
-        if (len % k != 0) continue;
-
-        bool check = true;
-        // template A[L,L+k-1]
-        for (int j1 = L, j2 = L + k; j2 <= R;
-             j1 = (j1 + 1 <= L + k - 1 ? j1 + 1 : L), j2++) {
-            if (S[j1] != S[j2]) {
-                check = false;
-                break;
-            }
-        }
-        if (check) best = min(best, f(L, L + k - 1));
-    }
-
-    // case3 : no repeat
-    best = min(best, R - L + 1);
-
-    return dp[L][R] = best;
-}
+map<string, string> dictionary;
 
 void solve() {
-    memset(dp, -1, sizeof(dp));
-    cout << f(0, S.length() - 1) << endl;
+    dictionary.clear();
+
+    istringstream iss;
+    string line, word;
+
+    getline(cin, line);
+    iss.str(line);
+
+    while (iss >> word) {
+        vector<char> chars(word.begin(), word.end());
+        if (chars.size() > 2) sort(chars.begin() + 1, chars.end() - 1);
+        string new_word(chars.begin(), chars.end());
+
+        if (dictionary.count(new_word) and word < dictionary[new_word]) {
+            dictionary[new_word] = word;
+        } else if (not dictionary.count(new_word)) {
+            dictionary[new_word] = word;
+        }
+    }
+
+    iss.clear();
+    getline(cin, line);
+    iss.str(line);
+
+    bool space = false;
+    while (iss >> word) {
+        vector<char> chars(word.begin(), word.end());
+        if (chars.size() > 2) sort(chars.begin() + 1, chars.end() - 1);
+        string new_word(chars.begin(), chars.end());
+
+        if (space) cout << " ";
+        space = true;
+
+        if (dictionary.count(new_word)) {
+            cout << dictionary[new_word];
+        } else {
+            cout << word;
+        }
+    }
+    cout << endl;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    while (cin >> S) {
-        if (S == "*") break;
-        solve();
-    }
+    int T;
+    cin >> T;
+    cin.get();
+    while (T--) solve();
 
     return 0;
 }

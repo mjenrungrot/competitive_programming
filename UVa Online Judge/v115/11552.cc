@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        11022.cc
-#  Description:     UVa Online Judge - 11022
+#  FileName:        11552.cc
+#  Description:     UVa Online Judge - 11552
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -105,57 +105,88 @@ vs split(string line, regex re) {
 
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
-const int MAXN = 100;
+const int MAXK = 1005;
+const int MAXCH = 26;
+int N;
 string S;
-int dp[MAXN][MAXN];
-
-int f(int L, int R) {
-    if (L == R) return 1;
-
-    if (dp[L][R] != -1) return dp[L][R];
-
-    // case1 : split
-    int best = INF_INT;
-    for (int split = L; split < R; split++) {
-        best = min(best, f(L, split) + f(split + 1, R));
-    }
-
-    // case2 : repeat
-    int len = R - L + 1;
-    for (int k = 1; k * 2 <= len; k++) {
-        if (len % k != 0) continue;
-
-        bool check = true;
-        // template A[L,L+k-1]
-        for (int j1 = L, j2 = L + k; j2 <= R;
-             j1 = (j1 + 1 <= L + k - 1 ? j1 + 1 : L), j2++) {
-            if (S[j1] != S[j2]) {
-                check = false;
-                break;
-            }
-        }
-        if (check) best = min(best, f(L, L + k - 1));
-    }
-
-    // case3 : no repeat
-    best = min(best, R - L + 1);
-
-    return dp[L][R] = best;
-}
+int cost[MAXK][MAXCH][MAXCH], min_cost[MAXK][MAXCH], dp[MAXK][MAXCH];
 
 void solve() {
-    memset(dp, -1, sizeof(dp));
-    cout << f(0, S.length() - 1) << endl;
+    cin >> N >> S;
+    assert(S.length() % N == 0);
+
+    int k = S.length() / N;
+
+    vector<map<int, int>> chunks_counter(k);
+    for (int nk = 0; nk < k; nk++) {
+        for (int i = nk * N; i < (nk + 1) * N; i++) {
+            if (not chunks_counter[nk].count(S[i] - 'a'))
+                chunks_counter[nk][S[i] - 'a'] = 0;
+            chunks_counter[nk][S[i] - 'a']++;
+        }
+    }
+
+    for (int nk = 0; nk < k; nk++) {
+        for (int prevj = 0; prevj < MAXCH; prevj++)
+            for (int j = 0; j < MAXCH; j++)
+                min_cost[nk][j] = cost[nk][prevj][j] = INF_INT;
+
+        for (auto x1 : chunks_counter[nk]) {
+            for (auto x2 : chunks_counter[nk]) {
+                if (chunks_counter[nk].size() == 1) {
+                    cost[nk][x1.first][x2.first] = 1;
+                } else {
+                    if (x1.first == x2.first and
+                        chunks_counter[nk][x1.first] > 1) {
+                        cost[nk][x1.first][x2.first] =
+                            chunks_counter[nk].size() + 1;
+                    } else if (x1.first == x2.first) {
+                        cost[nk][x1.first][x2.first] = INF_INT;
+                    } else {
+                        cost[nk][x1.first][x2.first] =
+                            chunks_counter[nk].size();
+                    }
+                }
+                min_cost[nk][x2.first] =
+                    min(min_cost[nk][x2.first], cost[nk][x1.first][x2.first]);
+            }
+        }
+    }
+
+    // init
+    for (int i = 0; i < k; i++)
+        for (int j = 0; j < MAXCH; j++) dp[i][j] = INF_INT;
+
+    // base case
+    for (int j = 0; j < MAXCH; j++) {
+        for (int prevj = 0; prevj < MAXCH; prevj++)
+            dp[0][j] = min(dp[0][j], cost[0][prevj][j]);
+    }
+
+    // inductive case
+    for (int nk = 1; nk < k; nk++) {
+        for (int prevj = 0; prevj < MAXCH; prevj++) {
+            for (int j = 0; j < MAXCH; j++) {
+                dp[nk][j] =
+                    min(dp[nk][j], dp[nk - 1][prevj] + cost[nk][prevj][j] - 1);
+
+                dp[nk][j] = min(dp[nk][j], dp[nk - 1][prevj] + min_cost[nk][j]);
+            }
+        }
+    }
+
+    int ans = INF_INT;
+    for (int ch = 0; ch < MAXCH; ch++) ans = min(ans, dp[k - 1][ch]);
+    cout << ans << endl;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    while (cin >> S) {
-        if (S == "*") break;
-        solve();
-    }
+    int T;
+    cin >> T;
+    while (T--) solve();
 
     return 0;
 }

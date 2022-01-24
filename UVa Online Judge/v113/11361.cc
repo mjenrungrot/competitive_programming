@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        11022.cc
-#  Description:     UVa Online Judge - 11022
+#  FileName:        11361.cc
+#  Description:     UVa Online Judge - 11361
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -105,57 +105,52 @@ vs split(string line, regex re) {
 
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
-const int MAXN = 100;
-string S;
-int dp[MAXN][MAXN];
+const int MAXDIGIT = 11;
+const int MAXK = 105;
+int dp[MAXDIGIT][MAXK][MAXK]
+      [2];  // (i-th digit, val % K, sum digit % K, ?lesser)
 
-int f(int L, int R) {
-    if (L == R) return 1;
+int f(int N, int K) {  // [0-N] that mod K == 0 and sum diigts mod K == 0
+    if (K >= MAXK) return 0;
 
-    if (dp[L][R] != -1) return dp[L][R];
+    string N_str = to_string(N);
 
-    // case1 : split
-    int best = INF_INT;
-    for (int split = L; split < R; split++) {
-        best = min(best, f(L, split) + f(split + 1, R));
-    }
+    memset(dp, 0, sizeof(dp));
+    dp[0][0][0][0] = 1;
 
-    // case2 : repeat
-    int len = R - L + 1;
-    for (int k = 1; k * 2 <= len; k++) {
-        if (len % k != 0) continue;
+    for (int i = 1; i <= N_str.length(); i++) {
+        for (int j = 0; j < K; j++) {
+            for (int k = 0; k < K; k++) {
+                for (int new_digit = 0; new_digit < 10; new_digit++) {
+                    int newj = (j * 10 + new_digit) % K;
+                    int newk = (k + new_digit) % K;
+                    if (new_digit == N_str[i - 1] - '0')
+                        dp[i][newj][newk][0] += dp[i - 1][j][k][0];
 
-        bool check = true;
-        // template A[L,L+k-1]
-        for (int j1 = L, j2 = L + k; j2 <= R;
-             j1 = (j1 + 1 <= L + k - 1 ? j1 + 1 : L), j2++) {
-            if (S[j1] != S[j2]) {
-                check = false;
-                break;
+                    if (new_digit < N_str[i - 1] - '0')
+                        dp[i][newj][newk][1] += dp[i - 1][j][k][0];
+                    dp[i][newj][newk][1] += dp[i - 1][j][k][1];
+                }
             }
         }
-        if (check) best = min(best, f(L, L + k - 1));
     }
 
-    // case3 : no repeat
-    best = min(best, R - L + 1);
-
-    return dp[L][R] = best;
+    return dp[N_str.length()][0][0][0] + dp[N_str.length()][0][0][1];
 }
 
 void solve() {
-    memset(dp, -1, sizeof(dp));
-    cout << f(0, S.length() - 1) << endl;
+    int A, B, K;
+    cin >> A >> B >> K;
+    cout << f(B, K) - f(A - 1, K) << endl;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    while (cin >> S) {
-        if (S == "*") break;
-        solve();
-    }
+    int T;
+    cin >> T;
+    while (T--) solve();
 
     return 0;
 }

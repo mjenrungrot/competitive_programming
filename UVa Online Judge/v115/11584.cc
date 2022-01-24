@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        11022.cc
-#  Description:     UVa Online Judge - 11022
+#  FileName:        11584.cc
+#  Description:     UVa Online Judge - 11584
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -105,57 +105,62 @@ vs split(string line, regex re) {
 
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
-const int MAXN = 100;
+const int MAXN = 1005;
+int is_palin[MAXN][MAXN], dp[MAXN];
 string S;
-int dp[MAXN][MAXN];
 
-int f(int L, int R) {
-    if (L == R) return 1;
+int check(int L, int R) {
+    assert(L <= R);
 
-    if (dp[L][R] != -1) return dp[L][R];
-
-    // case1 : split
-    int best = INF_INT;
-    for (int split = L; split < R; split++) {
-        best = min(best, f(L, split) + f(split + 1, R));
+    if (R - L <= 1) {
+        if (S[L] == S[R])
+            return is_palin[L][R] = true;
+        else
+            return is_palin[L][R] = false;
     }
 
-    // case2 : repeat
-    int len = R - L + 1;
-    for (int k = 1; k * 2 <= len; k++) {
-        if (len % k != 0) continue;
+    if (is_palin[L][R] != -1) return is_palin[L][R];
 
-        bool check = true;
-        // template A[L,L+k-1]
-        for (int j1 = L, j2 = L + k; j2 <= R;
-             j1 = (j1 + 1 <= L + k - 1 ? j1 + 1 : L), j2++) {
-            if (S[j1] != S[j2]) {
-                check = false;
-                break;
-            }
-        }
-        if (check) best = min(best, f(L, L + k - 1));
-    }
-
-    // case3 : no repeat
-    best = min(best, R - L + 1);
-
-    return dp[L][R] = best;
+    if (S[L] == S[R])
+        return is_palin[L][R] = check(L + 1, R - 1);
+    else
+        return is_palin[L][R] = false;
 }
 
 void solve() {
-    memset(dp, -1, sizeof(dp));
-    cout << f(0, S.length() - 1) << endl;
+    cin >> S;
+    memset(is_palin, -1, sizeof(is_palin));
+
+    // init
+    for (int i = 0; i < S.length(); i++) {
+        if (check(0, i))
+            dp[i] = 1;
+        else
+            dp[i] = INF_INT;
+    }
+
+    for (int i = 1; i < S.length(); i++) {
+        for (int prev = 0; prev < i; prev++) {
+            if (dp[prev] < INF_INT and check(prev + 1, i)) {
+                dp[i] = min(dp[i], dp[prev] + 1);
+            }
+        }
+    }
+
+    for (int i = 0; i < S.length(); i++) {
+        debug(i, dp[i]);
+    }
+
+    cout << dp[S.length() - 1] << endl;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    while (cin >> S) {
-        if (S == "*") break;
-        solve();
-    }
+    int T;
+    cin >> T;
+    while (T--) solve();
 
     return 0;
 }

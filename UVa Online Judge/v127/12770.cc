@@ -1,7 +1,7 @@
 /*=============================================================================
 #  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
-#  FileName:        11022.cc
-#  Description:     UVa Online Judge - 11022
+#  FileName:        12770.cc
+#  Description:     UVa Online Judge - 12770
 =============================================================================*/
 #include <bits/stdc++.h>
 #pragma GCC optimizer("Ofast")
@@ -105,47 +105,25 @@ vs split(string line, regex re) {
 
 const int INF_INT = 1e9 + 7;
 const long long INF_LL = 1e18;
-const int MAXN = 100;
+const int MAXCH = 300;
+int cc[MAXCH];
 string S;
-int dp[MAXN][MAXN];
-
-int f(int L, int R) {
-    if (L == R) return 1;
-
-    if (dp[L][R] != -1) return dp[L][R];
-
-    // case1 : split
-    int best = INF_INT;
-    for (int split = L; split < R; split++) {
-        best = min(best, f(L, split) + f(split + 1, R));
-    }
-
-    // case2 : repeat
-    int len = R - L + 1;
-    for (int k = 1; k * 2 <= len; k++) {
-        if (len % k != 0) continue;
-
-        bool check = true;
-        // template A[L,L+k-1]
-        for (int j1 = L, j2 = L + k; j2 <= R;
-             j1 = (j1 + 1 <= L + k - 1 ? j1 + 1 : L), j2++) {
-            if (S[j1] != S[j2]) {
-                check = false;
-                break;
-            }
-        }
-        if (check) best = min(best, f(L, L + k - 1));
-    }
-
-    // case3 : no repeat
-    best = min(best, R - L + 1);
-
-    return dp[L][R] = best;
-}
 
 void solve() {
-    memset(dp, -1, sizeof(dp));
-    cout << f(0, S.length() - 1) << endl;
+    memset(cc, 0, sizeof(cc));
+
+    for (int i = 0; i < S.length(); i++) {
+        char ch = S[i];
+        assert('a' <= ch and ch <= 'z');
+        cc[ch]++;
+    }
+
+    vector<char> ans;
+    for (char i = 'a'; i <= 'z'; i++)
+        if (cc[i] % 2) ans.push_back(i);
+
+    for (int i = 0; i < static_cast<int>(ans.size()) - 1; i++) cout << ans[i];
+    cout << endl;
 }
 
 int main() {
@@ -153,7 +131,7 @@ int main() {
     cin.tie(0);
 
     while (cin >> S) {
-        if (S == "*") break;
+        if (S == "#") break;
         solve();
     }
 
