@@ -147,10 +147,6 @@ void solve() {
         }
     }
 
-    for (int i = 0; i < S.length(); i++) {
-        debug(i, dp[i]);
-    }
-
     cout << dp[S.length() - 1] << endl;
 }
 
