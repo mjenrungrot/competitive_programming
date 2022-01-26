@@ -115,7 +115,7 @@ void solve() {
     int N = line.length();
 
     // 0-th iteration
-    vi SA(N), RA(N), cnt(N_ALPHA, 0);
+    vi SA(N), RA(N), cnt(max(N, N_ALPHA), 0);
     for (int i = 0; i < N; ++i) cnt[line[i]]++;
     for (int i = 1; i < N_ALPHA; ++i) cnt[i] += cnt[i - 1];
     for (int i = 0; i < N; ++i) SA[--cnt[line[i]]] = i;
@@ -133,7 +133,7 @@ void solve() {
             SA_n[i] = SA[i] - (1 << h);
             if (SA_n[i] < 0) SA_n[i] += N;
         }
-        fill(cnt.begin(), cnt.end() + classes, 0);
+        fill(cnt.begin(), cnt.begin() + classes, 0);
         for (int i = 0; i < N; ++i) cnt[RA[SA_n[i]]]++;
         for (int i = 1; i < classes; ++i) cnt[i] += cnt[i - 1];
         for (int i = N - 1; i >= 0; i--) SA[--cnt[RA[SA_n[i]]]] = SA_n[i];
@@ -184,6 +184,7 @@ int main() {
     cin.tie(0);
 
     while (getline(cin, line)) {
+        if (line == "") break;
         solve();
         cout << endl;
     }
