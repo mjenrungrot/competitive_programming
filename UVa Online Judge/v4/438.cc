@@ -1,5 +1,108 @@
+/*=============================================================================
+#  Author:          Teerapat Jenrungrot - https://github.com/mjenrungrot/
+#  FileName:        438.cc
+#  Description:     UVa Online Judge - 438
+=============================================================================*/
 #include <bits/stdc++.h>
+#pragma GCC optimizer("Ofast")
+#pragma GCC target("avx2")
 using namespace std;
+
+typedef pair<int, int> ii;
+typedef pair<long long, long long> ll;
+typedef pair<double, double> dd;
+typedef tuple<int, int, int> iii;
+typedef tuple<long long, long long, long long> lll;
+typedef tuple<double, double, double> ddd;
+typedef vector<string> vs;
+typedef vector<int> vi;
+typedef vector<vector<int>> vvi;
+typedef vector<long long> vl;
+typedef vector<vector<long long>> vvl;
+typedef vector<double> vd;
+typedef vector<vector<double>> vvd;
+typedef vector<ii> vii;
+typedef vector<ll> vll;
+typedef vector<dd> vdd;
+
+// Debug Snippets
+
+void __print(int x) { cerr << x; }
+void __print(long x) { cerr << x; }
+void __print(long long x) { cerr << x; }
+void __print(unsigned x) { cerr << x; }
+void __print(unsigned long x) { cerr << x; }
+void __print(unsigned long long x) { cerr << x; }
+void __print(float x) { cerr << x; }
+void __print(double x) { cerr << x; }
+void __print(long double x) { cerr << x; }
+void __print(char x) { cerr << '\'' << x << '\''; }
+void __print(const char* x) { cerr << '\"' << x << '\"'; }
+void __print(const string& x) { cerr << '\"' << x << '\"'; }
+void __print(bool x) { cerr << (x ? "true" : "false"); }
+
+template <typename T, typename V>
+void __print(const pair<T, V>& x) {
+    cerr << '{';
+    __print(x.first);
+    cerr << ',';
+    __print(x.second);
+    cerr << '}';
+}
+template <typename T>
+void __print(const T& x) {
+    int f = 0;
+    cerr << '{';
+    for (auto& i : x) cerr << (f++ ? "," : ""), __print(i);
+    cerr << "}";
+}
+void _print() { cerr << "]\n"; }
+template <typename T, typename... V>
+void _print(T t, V... v) {
+    __print(t);
+    if (sizeof...(v)) cerr << ", ";
+    _print(v...);
+}
+
+#define debug(x...)               \
+    cerr << "[" << #x << "] = ["; \
+    _print(x)
+
+template <class Ch, class Tr, class Container>
+basic_ostream<Ch, Tr>& operator<<(basic_ostream<Ch, Tr>& os,
+                                  Container const& x) {
+    os << "{ ";
+    for (auto& y : x) os << y << " ";
+    return os << "}";
+}
+
+template <class X, class Y>
+ostream& operator<<(ostream& os, pair<X, Y> const& p) {
+    return os << "[ " << p.first << ", " << p.second << "]";
+}
+
+// End Debug Snippets
+
+vs split(string line) {
+    vs output;
+    istringstream iss(line);
+    string tmp;
+    while (iss >> tmp) {
+        output.push_back(tmp);
+    }
+    return output;
+}
+
+vs split(string line, regex re) {
+    vs output;
+    sregex_token_iterator it(line.begin(), line.end(), re, -1), it_end;
+    while (it != it_end) {
+        output.push_back(it->str());
+        it++;
+    }
+    return output;
+}
+
 typedef double ftype;
 
 double DEG_to_RAD(double d) { return d * M_PI / 180.0; }
@@ -181,92 +284,38 @@ double dist_to_line_segment(const point2d& p, const point2d& a,
     }
     return dist_to_line(p, a, b, closest);
 }
-inline double area_triangle(const double a, const double b, const double c) {
-    double s = (a + b + c) / 2.0;
-    return sqrt(s * (s - a) * (s - b) * (s - c));
-}
-inline double area_triangle(const point2d& a, const point2d& b,
-                            const point2d& c) {
-    return area_triangle(abs(b - a), abs(c - b), abs(c - a));
-}
-inline double r_in_circle(const double a, const double b, const double c) {
-    return area_triangle(a, b, c) / (0.5 * (a + b + c));
-}
-inline double r_in_circle(const point2d& a, const point2d& b,
-                          const point2d& c) {
-    return r_in_circle(abs(b - a), abs(c - b), abs(c - a));
-}
-inline double r_circum_circle(const double a, const double b, const double c) {
-    return a * b * c / (4.0 * area_triangle(a, b, c));
-}
-inline double r_circum_circle(const point2d& a, const point2d& b,
-                              const point2d& c) {
-    return r_circum_circle(abs(b - a), abs(c - b), abs(c - a));
-}
-inline double cosine_law(double a, double b, double c, double theta_rad) {
-    return sqrt(a * a + b * b - 2.0 * a * b * cos(theta_rad));
-}
+
+const int INF_INT = 1e9 + 7;
+const long long INF_LL = 1e18;
+double xx1, yy1, xx2, yy2, xx3, yy3;
 
 int main() {
-    vector<point2d> P;
-    P.emplace_back(2, 2);
-    P.push_back({4, 3});
-    P.push_back({2, 4});
-    P.push_back({6, 6});
+    ios::sync_with_stdio(false);
+    cin.tie(0);
 
-    line2d L1 = points_to_line(P[0], P[1]);
-    cout << L1.a << "x + " << L1.b << "y + " << L1.c << " = 0" << endl;
-    assert(fabs(L1.a + 0.5) < 1e-6 and fabs(L1.b - 1) < 1e-6 and
-           fabs(L1.c + 1) < 1e-6);
+    while (cin >> xx1 >> yy1) {
+        cin >> xx2 >> yy2;
+        cin >> xx3 >> yy3;
+        point2d P1;
+        P1.x = xx1;
+        P1.y = yy1;
+        point2d P2;
+        P2.x = xx2;
+        P2.y = yy2;
+        point2d P3;
+        P3.x = xx3;
+        P3.y = yy3;
 
-    line2d L2 = points_to_line(P[0], P[2]);
-    cout << L2.a << "x + " << L2.b << "y + " << L2.c << " = 0" << endl;
-    assert(fabs(L2.a - 1) < 1e-6 and fabs(L2.b) < 1e-6 and
-           fabs(L2.c + 2) < 1e-6);
+        double ab = abs(P2 - P1);
+        double bc = abs(P3 - P2);
+        double ac = abs(P3 - P1);
+        double s = 0.5 * (ab + bc + ac);
 
-    // is parallel
-    line2d L3 = points_to_line(P[2], P[3]);
-    cout << "L1 & L2 are parallel? " << are_parallel(L1, L2) << endl;  // no
-    cout << "L1 & L3 are parallel? " << are_parallel(L1, L3)
-         << endl;  // yes, l1 (P[0]-P[1]) and l3 (P[2]-P[3]) are parallel
-    assert(not are_parallel(L1, L2));
-    assert(are_parallel(L1, L3));
-
-    // intersection point
-    point2d p12;
-    bool res =
-        are_intersect(L1, L2, p12);  // yes, l1 (P[0]-P[1]) and l2 (P[0]-P[2])
-                                     // are intersect at (2.0, 2.0)
-    cout << "L1 & L2 are intersect? " << res << ", at (" << p12.x << ","
-         << p12.y << ")" << endl;
-    assert(res and fabs(p12.x - 2.0) < 1e-6 and fabs(p12.y - 2.0) < 1e-6);
-
-    // Dist to line
-    point2d ans;
-    double d = dist_to_line(P[0], P[2], P[3], ans);
-    cout << "Closest point from P[0] to line (P[2]-P[3]): (" << ans.x << ","
-         << ans.y << ") [d = " << d << "]" << endl;
-    assert(fabs(d - 1.78885) < 1e-3);
-    assert(fabs(ans.x - 1.2) < 1e-6 and fabs(ans.y - 3.6) < 1e-6);
-
-    ans = closest_point(L3, P[0]);
-    cout << "Closest point from P[0] to line (P[2]-P[3]): (" << ans.x << ","
-         << ans.y << ") [d = " << d << "]" << endl;
-    assert(fabs(d - 1.78885) < 1e-3);
-    assert(fabs(ans.x - 1.2) < 1e-6 and fabs(ans.y - 3.6) < 1e-6);
-
-    // Dist to line segment
-    d = dist_to_line_segment(P[0], P[2], P[3], ans);
-    cout << "Closest point from P[0] to line SEGMENT (P[2]-P[3]): (" << ans.x
-         << "," << ans.y << ") [d = " << d << "]" << endl;
-    assert(fabs(d - 2.0) < 1e-6);
-    assert(fabs(ans.x - 2.0) < 1e-6 and fabs(ans.y - 4.0) < 1e-6);
-
-    d = dist_to_line_segment(P[1], P[2], P[3], ans);
-    cout << "Closest point from P[1] to line SEGMENT (P[2]-P[3]): (" << ans.x
-         << "," << ans.y << ") [d = " << d << "]" << endl;
-    assert(fabs(d - 1.78885) < 1e-3);
-    assert(fabs(ans.x - 3.2) < 1e-6 and fabs(ans.y - 4.6) < 1e-6);
+        double A = sqrt(s * (s - ab) * (s - bc) * (s - ac));
+        double r = ab * bc * ac / (4.0 * A);
+        double ans = 2.0 * M_PI * r;
+        cout << fixed << setprecision(2) << ans << endl;
+    }
 
     return 0;
 }
