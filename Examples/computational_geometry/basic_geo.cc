@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
+namespace basic_geo {
+
 typedef double ftype;
 
 double DEG_to_RAD(double d) { return d * M_PI / 180.0; }
@@ -41,6 +43,7 @@ struct point2d {
     }
 };
 point2d operator*(ftype a, point2d b) { return b * a; }
+void __print(point2d x) { cerr << "(" << x.x << "," << x.y << ")"; }
 
 struct point3d {
     ftype x, y, z;
@@ -76,6 +79,9 @@ struct point3d {
     point3d operator/(ftype t) const { return point3d(*this) /= t; }
 };
 point3d operator*(ftype a, point3d b) { return b * a; }
+void __print(point3d x) {
+    cerr << "(" << x.x << "," << x.y << "," << x.z << ")";
+}
 
 ftype dot(point2d a, point2d b) { return a.x * b.x + a.y * b.y; }
 ftype dot(point3d a, point3d b) { return a.x * b.x + a.y * b.y + a.z * b.z; }
@@ -207,62 +213,65 @@ inline double cosine_law(double a, double b, double c, double theta_rad) {
     return sqrt(a * a + b * b - 2.0 * a * b * cos(theta_rad));
 }
 
+};  // namespace basic_geo
+
 int main() {
-    vector<point2d> P;
+    vector<basic_geo::point2d> P;
     P.emplace_back(2, 2);
     P.push_back({4, 3});
     P.push_back({2, 4});
     P.push_back({6, 6});
 
-    line2d L1 = points_to_line(P[0], P[1]);
+    basic_geo::line2d L1 = basic_geo::points_to_line(P[0], P[1]);
     cout << L1.a << "x + " << L1.b << "y + " << L1.c << " = 0" << endl;
     assert(fabs(L1.a + 0.5) < 1e-6 and fabs(L1.b - 1) < 1e-6 and
            fabs(L1.c + 1) < 1e-6);
 
-    line2d L2 = points_to_line(P[0], P[2]);
+    basic_geo::line2d L2 = basic_geo::points_to_line(P[0], P[2]);
     cout << L2.a << "x + " << L2.b << "y + " << L2.c << " = 0" << endl;
     assert(fabs(L2.a - 1) < 1e-6 and fabs(L2.b) < 1e-6 and
            fabs(L2.c + 2) < 1e-6);
 
     // is parallel
-    line2d L3 = points_to_line(P[2], P[3]);
-    cout << "L1 & L2 are parallel? " << are_parallel(L1, L2) << endl;  // no
-    cout << "L1 & L3 are parallel? " << are_parallel(L1, L3)
+    basic_geo::line2d L3 = basic_geo::points_to_line(P[2], P[3]);
+    cout << "L1 & L2 are parallel? " << basic_geo::are_parallel(L1, L2)
+         << endl;  // no
+    cout << "L1 & L3 are parallel? " << basic_geo::are_parallel(L1, L3)
          << endl;  // yes, l1 (P[0]-P[1]) and l3 (P[2]-P[3]) are parallel
-    assert(not are_parallel(L1, L2));
-    assert(are_parallel(L1, L3));
+    assert(not basic_geo::are_parallel(L1, L2));
+    assert(basic_geo::are_parallel(L1, L3));
 
     // intersection point
-    point2d p12;
-    bool res =
-        are_intersect(L1, L2, p12);  // yes, l1 (P[0]-P[1]) and l2 (P[0]-P[2])
-                                     // are intersect at (2.0, 2.0)
+    basic_geo::point2d p12;
+    bool res = basic_geo::are_intersect(
+        L1, L2, p12);  // yes, l1 (P[0]-P[1]) and l2 (P[0]-P[2])
+                       // are intersect at (2.0, 2.0)
     cout << "L1 & L2 are intersect? " << res << ", at (" << p12.x << ","
          << p12.y << ")" << endl;
     assert(res and fabs(p12.x - 2.0) < 1e-6 and fabs(p12.y - 2.0) < 1e-6);
 
     // Dist to line
-    point2d ans;
+    basic_geo::point2d ans;
     double d = dist_to_line(P[0], P[2], P[3], ans);
     cout << "Closest point from P[0] to line (P[2]-P[3]): (" << ans.x << ","
          << ans.y << ") [d = " << d << "]" << endl;
     assert(fabs(d - 1.78885) < 1e-3);
     assert(fabs(ans.x - 1.2) < 1e-6 and fabs(ans.y - 3.6) < 1e-6);
 
-    ans = closest_point(L3, P[0]);
+    ans = basic_geo::closest_point(L3, P[0]);
     cout << "Closest point from P[0] to line (P[2]-P[3]): (" << ans.x << ","
          << ans.y << ") [d = " << d << "]" << endl;
     assert(fabs(d - 1.78885) < 1e-3);
     assert(fabs(ans.x - 1.2) < 1e-6 and fabs(ans.y - 3.6) < 1e-6);
 
     // Dist to line segment
-    d = dist_to_line_segment(P[0], P[2], P[3], ans);
+    d = basic_geo::dist_to_line_segment(P[0], P[2], P[3], ans);
     cout << "Closest point from P[0] to line SEGMENT (P[2]-P[3]): (" << ans.x
          << "," << ans.y << ") [d = " << d << "]" << endl;
     assert(fabs(d - 2.0) < 1e-6);
     assert(fabs(ans.x - 2.0) < 1e-6 and fabs(ans.y - 4.0) < 1e-6);
 
-    d = dist_to_line_segment(P[1], P[2], P[3], ans);
+    d = basic_geo::dist_to_line_segment(P[1], P[2], P[3], ans);
     cout << "Closest point from P[1] to line SEGMENT (P[2]-P[3]): (" << ans.x
          << "," << ans.y << ") [d = " << d << "]" << endl;
     assert(fabs(d - 1.78885) < 1e-3);
