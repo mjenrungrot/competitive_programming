@@ -34,13 +34,27 @@ $l_Q$ $r_Q$
 """
 
 
-import sys
+def get_input():
+    N, Q = map(int, input().split())
+    a = list(map(int, input().split()))
+    queries = [tuple(map(int, input().split())) for _ in range(Q)]
+    return N, Q, a, queries
+
+
+def prefix_sum(a):
+    n = len(a)
+    prefix_sum = [0] * (n + 1)
+    for i in range(n):
+        prefix_sum[i + 1] = prefix_sum[i] + a[i]
+    return prefix_sum
 
 
 def solve():
-    data = sys.stdin.buffer.read().split()
-    # TODO: implement solution for 'static_range_sum'
-    pass
+    N, Q, a, queries = get_input()
+
+    prefix_sum_arr = prefix_sum(a)
+    for left, right in queries:
+        print(prefix_sum_arr[right] - prefix_sum_arr[left])
 
 
 if __name__ == "__main__":
