@@ -2,7 +2,7 @@
 # URL: https://judge.yosupo.jp/problem/many_aplusb
 # Category: Sample
 
-"""
+r"""
 Title: Many A + B
 
 Link: https://judge.yosupo.jp/problem/many_aplusb

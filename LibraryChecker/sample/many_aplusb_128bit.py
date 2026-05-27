@@ -2,7 +2,7 @@
 # URL: https://judge.yosupo.jp/problem/many_aplusb_128bit
 # Category: Sample
 
-"""
+r"""
 Title: Many A + B (128 bit)
 
 Link: https://judge.yosupo.jp/problem/many_aplusb_128bit

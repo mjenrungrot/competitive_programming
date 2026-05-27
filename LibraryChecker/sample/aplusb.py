@@ -2,7 +2,7 @@
 # URL: https://judge.yosupo.jp/problem/aplusb
 # Category: Sample
 
-"""
+r"""
 Title: A + B
 
 Link: https://judge.yosupo.jp/problem/aplusb

@@ -2,7 +2,7 @@
 # URL: https://judge.yosupo.jp/problem/staticrmq
 # Category: Data Structure
 
-"""
+r"""
 Title: Static RMQ
 
 Link: https://judge.yosupo.jp/problem/staticrmq
