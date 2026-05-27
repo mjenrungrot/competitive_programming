@@ -13,6 +13,7 @@ deploy-container/entrypoint.sh
 .vscode
 
 *.txt
+!requirements*.txt
 *.code
 *.in
 *.out
